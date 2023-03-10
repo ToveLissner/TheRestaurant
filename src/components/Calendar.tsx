@@ -56,7 +56,7 @@ export const Calendar = (props: ICalendarProps) => {
             <H3>Calendar</H3>
             <CalendarHeader>
                 <LeftButton>left</LeftButton>
-                <CalendarMonth>Augusti</CalendarMonth>
+                <CalendarMonth>Mars</CalendarMonth>
                 <RightButton>right</RightButton>
             </CalendarHeader>
             <CalendarGrid>

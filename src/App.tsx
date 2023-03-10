@@ -7,7 +7,7 @@ import { Calendar } from './components/Calendar';
 
 
 function App() {
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState(new Date("2022-02-01"));
   return (
     <div>
       <main>
