@@ -1,8 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { getRestaurant } from './services/restaurantService';
+import { getRestaurant, handleClick } from './services/restaurantService';
 import { Outlet } from 'react-router-dom';
+import { Header } from './components/Header';
 
 // createRestaurant();
 
@@ -12,6 +13,7 @@ function App() {
       <main>
         <Outlet></Outlet>
       </main>
+      <button onClick={handleClick}>Test</button>
     </div>
   );
 }
