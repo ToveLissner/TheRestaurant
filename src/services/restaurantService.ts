@@ -1,6 +1,6 @@
 import axios from "axios";
 import { IBooking } from "../models/IBooking";
-import { ICustomer } from "../models/ICustomer";
+import { ICustomer } from "../models/ICostumer";
 import { IRestaurant } from "../models/IRestaurant";
 
 // resturantId 6409b9ec4e7f91245cbd6d91

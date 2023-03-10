@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
 export const H3 = styled.h3`
-    background-color: green;
+    margin: 20px auto;
+    width: fit-content;
 `;

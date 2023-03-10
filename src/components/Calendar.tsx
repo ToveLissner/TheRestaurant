@@ -6,8 +6,11 @@ import { CalendarMonth } from "./styled/CalendarMonth";
 import { H3 } from "./styled/H3";
 import { LeftButton } from "./styled/LeftButton";
 import { RightButton } from "./styled/RightButton";
-import { Cell } from "./styled/Cell";
-import { differenceInDays, endOfMonth, startOfMonth } from "date-fns";
+import { Cell, DateCell } from "./styled/Cell";
+import { add, differenceInDays, endOfMonth, format, setDate, startOfMonth, sub } from "date-fns";
+import { CalendarSelected } from "./styled/CalendarSelected";
+import { CalendarGridSuffix } from "./styled/CalendarGridSuffix";
+import { CalendarWeekdays } from "./styled/CalendarWeekdays";
 
 interface ICalendarProps {
     value: Date;
@@ -22,7 +25,18 @@ export const Calendar = (props: ICalendarProps) => {
     const prefixDays = startDate.getDay();
     const suffixDays = 6 - endDate.getDay();
 
-    console.log(suffixDays);
+    const changeToPrevMonth = () => {
+        props.onChange(sub(props.value, {months: 1}));
+    }
+
+    const changeToNextMonth = () => {
+        props.onChange(add(props.value, {months: 1}));
+    }
+
+    const handleClickDate = (index: number) => {
+        const date = setDate(props.value, index);
+        props.onChange(date);
+    }
 
     let daysOfWeekHtml = daysOfWeek.map( (day) => {
 
@@ -33,8 +47,10 @@ export const Calendar = (props: ICalendarProps) => {
     let arrayOfDays = Array.from( {length: numberofDays});
     let daysOfMonthHTML = arrayOfDays.map( (day, index) => {
         const dateCounts = index + 1;
+        const isCurrentDate = dateCounts === props.value.getDate();
+
         return (
-            <Cell key={dateCounts}>{dateCounts}</Cell>
+            <DateCell onClick={() => handleClickDate(dateCounts)} key={dateCounts}>{dateCounts}</DateCell>
         )});
 
     let arrayOfPrefixDays = Array.from( {length: prefixDays -1});
@@ -55,9 +71,9 @@ export const Calendar = (props: ICalendarProps) => {
         <CalendarDiv>
             <H3>Calendar</H3>
             <CalendarHeader>
-                <LeftButton>left</LeftButton>
-                <CalendarMonth>Mars</CalendarMonth>
-                <RightButton>right</RightButton>
+                <LeftButton onClick={changeToPrevMonth}>left</LeftButton>
+                <CalendarMonth>{format(props.value, "LLLL yyyy")}</CalendarMonth>
+                <RightButton onClick={changeToNextMonth}>right</RightButton>
             </CalendarHeader>
             <CalendarGrid>
                 {/* {daysOfWeek.map( (day) => (
@@ -69,7 +85,9 @@ export const Calendar = (props: ICalendarProps) => {
                 {suffixDaysOfMonth}
                 {/* {Array.from({length: numberofDays}).map( () => ())} */}
             </CalendarGrid>
-
+            <CalendarSelected>
+                <H3>Valt datum: {format(props.value, "dd LLLL yyyy")}</H3>
+            </CalendarSelected>
         </CalendarDiv>
     );
 }

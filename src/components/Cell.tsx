@@ -1,6 +1,11 @@
-export const Cell = () => {
+interface ICellProps {
+    isActive?: boolean;
+}
 
-    return(
+export const Cell = (props: ICellProps) => {
+    isActive = false;
+
+    return (
         <></>
     );
 }
