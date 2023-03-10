@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { getRestaurant } from './services/restaurantService';
 import { Outlet } from 'react-router-dom';
+import { Calendar } from './components/Calendar';
 
-// createRestaurant();
 
 function App() {
+  const [currentDate, setCurrentDate] = useState(new Date());
   return (
     <div>
       <main>
-        <Outlet></Outlet>
+          <Calendar value={currentDate} onChange={setCurrentDate}></Calendar>
       </main>
     </div>
   );
