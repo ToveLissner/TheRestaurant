@@ -1,6 +1,6 @@
 import { ReactElement, useState } from "react";
 
-export default function MultiStepForm(steps: ReactElement[]) {
+export function MultiStepForm(steps: ReactElement[]) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   function next() {
@@ -13,7 +13,7 @@ export default function MultiStepForm(steps: ReactElement[]) {
   function back() {
     setCurrentStepIndex((i) => {
       if (i <= 0) return i;
-      return i + 1;
+      return i - 1;
     });
   }
 
@@ -25,6 +25,8 @@ export default function MultiStepForm(steps: ReactElement[]) {
     currentStepIndex,
     step: steps[currentStepIndex],
     steps,
+    isFirstStep: currentStepIndex === 0,
+    isLastStep: currentStepIndex === steps.length - 1,
     goTo,
     next,
     back,

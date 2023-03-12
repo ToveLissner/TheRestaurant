@@ -1,4 +1,5 @@
 import React from "react";
+import { Booking } from "./pages/Bookingspage/Booking";
 
 import "./App.css";
 import { getRestaurant } from "./services/restaurantService";
@@ -10,7 +11,7 @@ function App() {
   return (
     <div>
       <main>
-        <Outlet></Outlet>
+        <Booking />
       </main>
     </div>
   );
