@@ -9,7 +9,7 @@ import { IRestaurant } from "../models/IRestaurant";
 
 export function handleClick() {
   getBookings();
-  //   getRestaurant();
+  // getRestaurant();
   // createBooking();
 }
 
