@@ -1,28 +1,28 @@
 import { FormEvent, useState } from "react";
-import { AddressForm } from "./AddressForm";
+import { DateForm } from "./DateForm";
 import { MultiStepForm } from "./MultiStepForm";
 import { ICustomer } from "../../models/ICustomer";
 import { IBooking } from "../../models/IBooking";
-import { UserForm } from "./UserForm";
+import { CustomerInfoForm } from "./CustomerInfoForm";
 
 type FormData = {
-  firstName: string;
-  lastName: string;
-  NumberOfGuests: string;
-  street: string;
-  city: string;
-  state: string;
-  zip: string;
+  name: string;
+  lastname: string;
+  email: string;
+  phone: string;
+  numberOfGuests: string;
+  date: string;
+  time: string;
 };
 
 const INITIAL_DATA: FormData = {
-  firstName: "",
-  lastName: "",
-  NumberOfGuests: "",
-  street: "",
-  city: "",
-  state: "",
-  zip: "",
+  name: "",
+  lastname: "",
+  email: "",
+  phone: "",
+  numberOfGuests: "",
+  date: "",
+  time: "",
 };
 
 export const createCustomer: ICustomer[] = [];
@@ -38,8 +38,8 @@ export function Booking() {
   }
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     MultiStepForm([
-      <UserForm {...data} updateFields={updateFields} />,
-      <AddressForm {...data} updateFields={updateFields} />,
+      <DateForm {...data} updateFields={updateFields} />,
+      <CustomerInfoForm {...data} updateFields={updateFields} />,
     ]);
 
   function onSubmit(e: FormEvent) {
