@@ -8,10 +8,10 @@ import { Guests } from './components/Guests';
 import { FirstFormSelections } from './components/FirstFormSelections';
 import { DinnerWrapper } from './components/DinnerWrapper';
 import { ConfirmBookingWrapper } from './components/ConfirmBookingWrapper';
-import { CostumerInputWrapper } from './components/CustomerInputWrapper';
 import { AddBooking } from './components/AddBooking';
 import { IBooking } from './models/IBooking';
 import { setDate, format } from 'date-fns';
+import { CustomerInputWrapper } from './components/CustomerInputWrapper';
 
 function App() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -111,7 +111,7 @@ const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
           <DinnerWrapper time={dinnerTime} onClick={handleTimeClick}></DinnerWrapper>
           <ConfirmBookingWrapper></ConfirmBookingWrapper>
 
-          <CostumerInputWrapper></CostumerInputWrapper>
+          <CustomerInputWrapper></CustomerInputWrapper>
           <button onClick={handleClick}>Hämta Bokningar</button>
 
           <FirstFormSelections dateValue={currentDate} guests={numberOfGuests}></FirstFormSelections>
