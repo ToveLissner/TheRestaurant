@@ -19,12 +19,22 @@ export const Admin = ()=>{
 
     let bookingsFromDB:IBooking[]=bookings;
 
+    console.log(bookingsFromDB);
+
+    // filtering //
+
     let bookingsHtml = bookingsFromDB.map((booking)=>{
 
     return (
         <>
             <div>
-                {booking.date}
+                <p>{booking.date}</p> 
+                <p>{booking.time}</p> 
+                <p>{booking.numberOfGuests}</p>
+                {/* <p>{booking.customer.name}</p>  
+                <p>{booking.customer.lastname}</p> 
+                <p>{booking.customer.email}</p> 
+                <p>{booking.customer.phone}</p>  */}
             </div>
         </>
     )
