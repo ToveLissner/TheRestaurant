@@ -15,7 +15,7 @@ const getBookingsToAdmin = async (): Promise<IBookingFromDB[]> => {
     return response.data;
   };
 
-  // radera OM EJ KLAR - måste fråga sebastian //
+  // radera OBS EJ KLAR - måste fråga sebastian //
 
 const removeBooking = async (): Promise<IBookingFromDB> => {
 let response = await axios.delete("https://school-restaurant-api.azurewebsites.net/booking/delete/{booking._id}");
