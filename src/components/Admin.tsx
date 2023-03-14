@@ -1,34 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IBooking } from "../models/IBooking";
 import { getBookings } from "../services/restaurantService";
 
 export const Admin = ()=>{
 
-    let bookingsFromDB = getBookings();
+    const [bookings, setBookings] = useState<IBooking[]>([])
 
-    const [bookings, setBookings] = useState<IBooking[]>([{restaurantId: "6409b9ec4e7f91245cbd6d91",
-    date: "",
-    time: "",
-    numberOfGuests: 0,
-    customer: {
-        name: "",
-        lastname: "",
-        email: "",
-        phone: "",
-      }  
-}])
+    useEffect(()=> {
+        const getData = async () => {
+            let bookingsFromApi: IBooking[] = await getBookings();
+            setBookings(bookingsFromApi);
+        };
 
-// const getBookingsFromDB =()=>{
-//     let newBookings = {
-//         ...bookings,
-//         bookings: bookingsFromDB,
-//     }
-//     getBookingsFromDB();
-//     setBookings(newBookings);
-// }
+        if(bookings.length>0) 
+        return;
+        getData();
+    });
+
+    let bookingsFromDB:IBooking[]=bookings;
+
+    let bookingsHtml = bookingsFromDB.map((booking)=>{
+
+    return (
+        <>
+            <div>
+                {booking.date}
+            </div>
+        </>
+    )
+    
+    });
 
     return (
      <> 
+        {bookingsHtml}
      </>   
     );
 

@@ -42,7 +42,7 @@ export const getBookings = async (): Promise<IBooking[]> => {
     "https://school-restaurant-api.azurewebsites.net/booking/restaurant/6409b9ec4e7f91245cbd6d91"
   );
 
-  console.log(response.data);
+  // console.log(response.data);
 
   return response.data;
 };
