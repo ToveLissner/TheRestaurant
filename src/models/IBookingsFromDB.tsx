@@ -1,4 +1,4 @@
-export interface IAdminBookings {
+export interface IBookingFromDB {
     customerId: string;
     date: string;
     numberOfGuests: number;

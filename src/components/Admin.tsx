@@ -1,14 +1,37 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
-import { IBooking } from "../models/IBooking";
-import { getBookings } from "../services/restaurantService";
+import { IBookingFromDB } from "../models/IBookingsFromDB";
+import { Wrapper } from "./styled/Wrappers";
+
+// api-anrop som ska flyttas till service //
+
+const getBookingsToAdmin = async (): Promise<IBookingFromDB[]> => {
+    let response = await axios.get<IBookingFromDB[]>(
+      "https://school-restaurant-api.azurewebsites.net/booking/restaurant/6409b9ec4e7f91245cbd6d91"
+    );
+  
+    console.log(response.data);
+  
+    return response.data;
+  };
+
+  // radera OM EJ KLAR - måste fråga sebastian //
+
+const removeBooking = async (): Promise<IBookingFromDB> => {
+let response = await axios.delete("https://school-restaurant-api.azurewebsites.net/booking/delete/{booking._id}");
+
+return response.data;
+};
+
+// koden //
 
 export const Admin = ()=>{
 
-    const [bookings, setBookings] = useState<IBooking[]>([])
+    const [bookings, setBookings] = useState<IBookingFromDB[]>([])
 
     useEffect(()=> {
         const getData = async () => {
-            let bookingsFromApi: IBooking[] = await getBookings();
+            let bookingsFromApi: IBookingFromDB[] = await getBookingsToAdmin();
             setBookings(bookingsFromApi);
         };
 
@@ -17,25 +40,20 @@ export const Admin = ()=>{
         getData();
     });
 
-    let bookingsFromDB:IBooking[]=bookings;
-
-    console.log(bookingsFromDB);
-
-    // filtering //
+    let bookingsFromDB:IBookingFromDB[]=bookings;
 
     let bookingsHtml = bookingsFromDB.map((booking)=>{
 
     return (
         <>
-            <div>
+            <Wrapper>
                 <p>{booking.date}</p> 
                 <p>{booking.time}</p> 
                 <p>{booking.numberOfGuests}</p>
-                {/* <p>{booking.customer.name}</p>  
-                <p>{booking.customer.lastname}</p> 
-                <p>{booking.customer.email}</p> 
-                <p>{booking.customer.phone}</p>  */}
-            </div>
+                <p>{booking.customerId}</p>
+                <p>{booking._id}</p>
+                <button type="button" onClick={()=>{removeBooking()}}>radera</button>
+            </Wrapper>
         </>
     )
     

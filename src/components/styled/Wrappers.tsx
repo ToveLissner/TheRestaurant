@@ -6,8 +6,7 @@ export const Wrapper = styled.div `
     display: flex;
     flex-direction: row;
     width: 100%;
-    background-color: yellow;
-    justify-content: end;
+    justify-content: left;
     height: 60px;
 `;
 
