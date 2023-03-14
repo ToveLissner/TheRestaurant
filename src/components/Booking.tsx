@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { IBooking } from "../models/IBooking";
 import { getBookings } from "../services/restaurantService";
-import { BookingButton } from "./styled/Buttons";
+import { BookingButton } from "./BookingButton";
+import { CheckForBookingButton } from "./styled/Buttons";
 
 export const Booking = ()=>{
 
@@ -80,9 +81,9 @@ export const Booking = ()=>{
 
     return (
      <> 
-      <BookingButton onClick={() => {numberDate(booking)}}>Finns det tid</BookingButton>
+      <CheckForBookingButton onClick={() => {numberDate(booking)}}>Finns det tid</CheckForBookingButton>
       {bookingHtml}
-      <BookingButton/>
+      <BookingButton></BookingButton>
      </>   
     );
 

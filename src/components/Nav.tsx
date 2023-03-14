@@ -7,9 +7,14 @@ import { NavStyled } from "./styled/NavStyled";
 import { Wrapper } from "./styled/Wrappers";
 
 export function Nav (){
+
+    function clickOnMenu(){
+        console.log("hej");
+    }
+
     return (
         <NavStyled>
-            <MenuIconWrapper>
+            <MenuIconWrapper onClick={clickOnMenu}>
                 <MenuIcon></MenuIcon>
                 <MenuIcon></MenuIcon>
                 <MenuIcon></MenuIcon>
@@ -25,7 +30,7 @@ export function Nav (){
                     <Link to="/booking">Boka bord</Link>
                 </Li>
             </LiWrapper>
-            <Wrapper><Button bgcolor="white">Boka bord</Button></Wrapper>
+            <Wrapper><Button bgcolor="transparent">Boka bord</Button></Wrapper>
         </NavStyled>
     )
 };

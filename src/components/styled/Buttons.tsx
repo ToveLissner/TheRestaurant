@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { handleClick } from "../../services/restaurantService";
 import { DateWrapper } from "./Wrappers";
 
-export const BookingButton = styled.button `
+export const CheckForBookingButton = styled.button `
     background-color: green;
 `;
 
@@ -14,8 +14,8 @@ interface IButtonProps{
 };
 
 export const Button = styled.button `
-    color: white;
-    border: 1px solid white;
+    color: black;
+    border: 1px solid black;
     background-color: ${(props:IButtonProps)=>props.bgcolor||"yellow"};
 `;
 

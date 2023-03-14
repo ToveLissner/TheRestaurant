@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { getBookings } from "../services/restaurantService";
+import { CheckForBookingButton } from "./styled/Buttons";
 
 export const BookingButton = ()=>{
 
@@ -28,4 +29,8 @@ export const BookingButton = ()=>{
     }
 
     console.log(bookingButton);
+
+    return (
+        <CheckForBookingButton>Kolla</CheckForBookingButton>
+    )
     }
