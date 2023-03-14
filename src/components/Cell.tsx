@@ -3,7 +3,7 @@ interface ICellProps {
 }
 
 export const Cell = (props: ICellProps) => {
-    isActive = false;
+    let isActive = false; 
 
     return (
         <></>

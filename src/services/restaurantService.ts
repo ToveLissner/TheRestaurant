@@ -47,6 +47,7 @@ export const getBookings = async (): Promise<IBooking[]> => {
   return response.data;
 };
 
+
 // createBooking
 
 export const createBooking = async (): Promise<IBooking> => {
