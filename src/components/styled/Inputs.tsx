@@ -7,7 +7,7 @@ interface IInputProps{
 };
 
 export const Input = styled.input.attrs((props:IInputProps)=>({type:"text"}))`
-
+ 
 `;
 
 // ärvd input med annan typ // kontrollera denna

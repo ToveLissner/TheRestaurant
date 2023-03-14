@@ -1,19 +1,22 @@
 import React from "react";
 
 import "./App.css";
-import { getRestaurant } from "./services/restaurantService";
+import { handleClick } from "./services/restaurantService";
 import { Outlet } from "react-router-dom";
-
-// createRestaurant();
+import { Header } from './components/Header';
+import { Booking } from './components/Booking';
 
 function App() {
   return (
     <div>
+      <Header/>
       <main>
         <Outlet></Outlet>
       </main>
+      <button onClick={handleClick}>Test</button>
+      <Booking/>
     </div>
-  );
+  )
 }
 
 export default App;

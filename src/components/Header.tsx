@@ -5,5 +5,5 @@ export function Header(){
         <div>
             <Nav/>
         </div>
-    );
+    )
 }

@@ -1,4 +1,10 @@
 import styled from "styled-components";
+import { handleClick } from "../../services/restaurantService";
+import { DateWrapper } from "./Wrappers";
+
+export const CheckForBookingButton = styled.button `
+    background-color: green;
+`;
 
 // vit knapp som det går att ändra färg på //
 // <Button bgcolor="green"> </Button> //
@@ -8,14 +14,18 @@ interface IButtonProps{
 };
 
 export const Button = styled.button `
-    background-color: ${(props:IButtonProps)=>props.bgcolor||"white"}
+    color: black;
+    border: 1px solid black;
+    background-color: ${(props:IButtonProps)=>props.bgcolor||"yellow"};
 `;
 
-// arv där vi bara ändrar färgerna //
+// arv där vi bara ändrar färgerna // MÅSTE FIXA DENNA
 
 export const SaveButton = styled(Button)`
-    background-color: black;
-    color: white;
+    color: red;
+    background-color: ${(props:IButtonProps)=>props.bgcolor||"black"};
 `;
+
+
 
 
