@@ -15,7 +15,7 @@ function App() {
 		<ThemeProvider theme={theme}>
 			<>
 				<GlobalStyles>
-					<Burger></Burger>
+					<Burger />
 				</GlobalStyles>
 			</>
 		</ThemeProvider>
