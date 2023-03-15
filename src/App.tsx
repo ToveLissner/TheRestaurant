@@ -22,7 +22,7 @@ function App() {
       <main>
         <Outlet></Outlet>
       </main>
-      <Admin/>
+      <Booking/>
     </div>
   );
 }

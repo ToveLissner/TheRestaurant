@@ -4,7 +4,7 @@ export interface ICellProps {
     selected: boolean;
 }
 
-const SELECTED_BG_COLOR = "#448A21";
+const SELECTED_BG_COLOR = "#e1e1e1";
 
 export const Cell = styled.div`
     border: 1px solid #e1e1e1;  
@@ -22,7 +22,7 @@ export const DateCell = styled(Cell)`
         props.selected ? SELECTED_BG_COLOR : "transparent"};
         
     &:hover{
-       // background-color: #e1e1e1;
+        background-color: #e1e1e1;
     }  
 `;
 

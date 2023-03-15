@@ -19,67 +19,34 @@ import { IBookedTables } from "../models/IBookedTables";
 interface ICalendarProps {
     value: Date;
     onChange: (value: Date) => void;
-    selected: boolean;
+    //selected: boolean;
     bookedTables: IBookedTables;
     isToggled: boolean;
     onClick: (index: number) => void; 
 }
 
 export const Calendar = (props: ICalendarProps) => {
-    const startDate = startOfMonth(props.value);
-    const endDate = endOfMonth(props.value);
-    const numberofDays = differenceInDays(endDate, startDate) +1;
- 
-    const prefixDays = startDate.getDay();
+    const startDate = startOfMonth(props.value);    //Start day of month
+    const endDate = endOfMonth(props.value);    //EndDate of month
+    const numberofDays = differenceInDays(endDate, startDate) +1;   //Total days of the month
+
+    //Cell fillers for start and end of month
+    const prefixDays = startDate.getDay();  
     const suffixDays = 6 - endDate.getDay();
 
+    //Substract 1 month to go to previous month
     const changeToPrevMonth = () => {
         props.onChange(sub(props.value, {months: 1}));
     }
-
+    //Add 1 month to go the next month
     const changeToNextMonth = () => {
         props.onChange(add(props.value, {months: 1}));
     }
 
-    // const handleClickDate = async (index: number) => {
-    //     const date = setDate(props.value, index);
-    //     props.onChange(date);
-    //     //console.log(date);
-
-    //     const correctDateFormat = format(props.value, 'yyyy-MM-dd');
-
-    //     let bookingsFromApi: IBooking[] = await getBookings();
-                        
-    //     let listOfBookingsForSpecificDay = [
-    //         {
-    //             dinnerTime: "18:00",
-    //             tables: 0,
-    //         },
-    //         {
-    //             dinnerTime: "21:00",
-    //             tables: 0,
-    //         }
-    //     ];
-
-    //     bookingsFromApi.map( (booking) => {
-    //         if(correctDateFormat === booking.date){
-
-    //             if((booking.time === "18:00") && listOfBookingsForSpecificDay[0].tables <15){
-    //                 listOfBookingsForSpecificDay[0].tables++;
-    //                 showTimeSlots();
-    //             }
-    //             if((booking.time === "21:00") && listOfBookingsForSpecificDay[0].tables <15){
-    //                 listOfBookingsForSpecificDay[1].tables++;
-    //             }
-    //         }
-    //     });
-        
-    // }
-
     const showTimeSlots = () => {
 
     }
-
+    //Map through const list of days and create weekday Cells
     let daysOfWeekHtml = daysOfWeek.map( (day) => {
 
         return(
@@ -92,7 +59,7 @@ export const Calendar = (props: ICalendarProps) => {
         const isCurrentDate = dateCounts === props.value.getDate();
 
         return (
-            <DateCell selected={props.selected} onClick={() => props.onClick(dateCounts)} key={dateCounts}>{dateCounts}</DateCell>
+            <DateCell selected={false} onClick={() => props.onClick(dateCounts)} key={dateCounts}>{dateCounts}</DateCell>
         )});
 
     let arrayOfPrefixDays = Array.from( {length: prefixDays -1});

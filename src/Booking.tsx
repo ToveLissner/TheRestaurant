@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { getBookings, getRestaurant } from './services/restaurantService';
+import { createBooking, getBookings, getRestaurant } from './services/restaurantService';
 import { Outlet } from 'react-router-dom';
 import { Calendar } from './components/Calendar';
 import { Guests } from './components/Guests';
@@ -18,7 +18,7 @@ import { IBookedTables } from './models/IBookedTables';
 function App() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [numberOfGuests, setNumberOfGuests] = useState(0);
-  const [isSelected, setIsSelected] = useState(false);
+  // const [isSelected, setIsSelected] = useState(false);
   const [bookedTables, setBookedTables] = useState<IBookedTables>({
     firstTimeSlot: {
       dinnerTime: "", 
@@ -31,6 +31,7 @@ function App() {
   });
   const[isToggled, setIsToggled] = useState(false); 
   const [dinnerTime, setDinnerTime] = useState(""); 
+  const [btnState, setBtnState] = useState(false);
   const [booking, setBooking] = useState<IBooking>({
     restaurantId: "6409b9ec4e7f91245cbd6d91",
     date: "",
@@ -48,6 +49,12 @@ function App() {
     getBookings();
   }
 
+
+  const toggleActive = () => {
+    //setBtnState(btnState === !btnState);
+    console.log("funka");
+}
+
   const guestHandleClick = (index: number) =>{
     // props.onChange(index);
     let guests = [...listOfGuests];
@@ -62,12 +69,7 @@ const getSelectedCell = (index: number) => {
 
 }
 
-interface IListOfBookings {
-  dinnerTime: string;
-  tables: number;
-}
-
-let listOfBookingsForSpecificDay: IListOfBookings[] = [];
+let listOfBookingsForSpecificDay: IBookedTables;
 
 const handleClickDate = async (index: number) => {
   const date = setDate(currentDate, index);
@@ -80,69 +82,55 @@ const handleClickDate = async (index: number) => {
 
   // console.log(isSelected);
 
-  //setIsSelected(!isSelected);
+  // setIsSelected(!isSelected);
 
   let bookingsFromApi: IBooking[] = await getBookings();
                   
-  listOfBookingsForSpecificDay = [
-      {
+  listOfBookingsForSpecificDay = {
+    firstTimeSlot: {
           dinnerTime: "18:00",
           tables: 0,
       },
-      {
+      secondTimeSlot: {
           dinnerTime: "21:00",
           tables: 0,
       }
-  ];
+    };
 
   bookingsFromApi.map( (booking) => {
 
       if(correctDateFormat === booking.date){
 
-        if((booking.time === "18:00") && listOfBookingsForSpecificDay[0].tables <15){
-            listOfBookingsForSpecificDay[0].tables++;
-
-            //console.log("finns att boka den "+booking.time+ " kl 18:00");
-            //showTimeSlots();
+        if((booking.time === "18:00") && listOfBookingsForSpecificDay.firstTimeSlot.tables <15){
+            listOfBookingsForSpecificDay.firstTimeSlot.tables++;
+            return;
         } 
 
         console.log("Antal bokade bord: ");
-        if((booking.time === "21:00") && listOfBookingsForSpecificDay[0].tables <15){
-            listOfBookingsForSpecificDay[1].tables++;
-            //console.log("finns att boka den "+booking.time+ " kl 21:00");
+        if((booking.time === "21:00") && listOfBookingsForSpecificDay.secondTimeSlot.tables <15){
+            listOfBookingsForSpecificDay.secondTimeSlot.tables++;
+            return;
         }
 
       }
+    
 
-      // console.log(listOfBookingsForSpecificDay[0].dinnerTime +" " +listOfBookingsForSpecificDay[0].tables +`\n`
-      //             +listOfBookingsForSpecificDay[1].dinnerTime +" " +listOfBookingsForSpecificDay[1].tables);
-      
-      //console. log("tables book for this date: " +tablesBookedForCurrentDate);
+      setBookedTables(listOfBookingsForSpecificDay);
   });
   
   setBooking( {...booking, date: correctDateFormat} );
 
-  const tablesBookedForCurrentDate = listOfBookingsForSpecificDay[0].dinnerTime+" "+listOfBookingsForSpecificDay[0].tables +`\n`+listOfBookingsForSpecificDay[1].dinnerTime +" " +listOfBookingsForSpecificDay[1].tables;
+  //const tablesBookedForCurrentDate = listOfBookingsForSpecificDay.firstTimeSlot.dinnerTime+" "+listOfBookingsForSpecificDay.secondTimeSlot.tables +`\n`+listOfBookingsForSpecificDay[1].dinnerTime +" " +listOfBookingsForSpecificDay[1].tables;
 
   //console.log(listOfBookingsForSpecificDay);
   //const updatedBookedTables = setBookedTables(listOfBookingsForSpecificDay);
 
-setBookedTables(
-  {...bookedTables, firstTimeSlot: 
-    {
-      ...bookedTables.firstTimeSlot, dinnerTime: listOfBookingsForSpecificDay[0].dinnerTime, tables: listOfBookingsForSpecificDay[0].tables
-    }
-  }
-  );
-
-  console.log(bookedTables);
-
   //displayAvailableTimeSlot(updatedBookedTables);
 }
 
-const displayAvailableTimeSlot = (listOfTablesBooked: IListOfBookings[]) => {
-  console.log(JSON.stringify(listOfTablesBooked[0].dinnerTime));
-  console.log(JSON.stringify(listOfTablesBooked[0].tables));
+const displayAvailableTimeSlot = (listOfTablesBooked: IBookedTables) => {
+  console.log(JSON.stringify(listOfTablesBooked.firstTimeSlot.dinnerTime));
+  console.log(JSON.stringify(listOfTablesBooked.secondTimeSlot.tables));
 }
 
 const handleTimeClick = (diningTime: string) => {
@@ -155,14 +143,14 @@ const handleCustomerInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 }
 
 const confirmBookingClick = () => {
-  console.log("skicka bokning");
+  createBooking(booking);
 }
 
   return (
     <div>
       <main>
-          <Guests selected={isSelected} guestValue={numberOfGuests} onChange={setNumberOfGuests} onClick={guestHandleClick}></Guests>
-          <Calendar isToggled={false} selected={isSelected} bookedTables={bookedTables} value={currentDate} onChange={setCurrentDate} onClick={handleClickDate}></Calendar>
+          <Guests guestValue={booking.numberOfGuests} onChange={setNumberOfGuests} onClick={guestHandleClick}></Guests>
+          <Calendar isToggled={false} bookedTables={bookedTables} value={currentDate} onChange={setCurrentDate} onClick={handleClickDate}></Calendar>
           <div>{JSON.stringify(booking)}</div>
           <DinnerWrapper time={dinnerTime} onClick={handleTimeClick}></DinnerWrapper>
           {/* <ConfirmBookingWrapper></ConfirmBookingWrapper> */}
