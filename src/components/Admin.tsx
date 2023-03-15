@@ -3,7 +3,7 @@ import { IBookingFromDB } from "../models/IBookingsFromDB";
 import { AdminWrapper } from "./styled/Wrappers";
 import { AdminButton } from "./styled/Buttons";
 import { AdminButtonDiv } from "./styled/Div";
-import { getBookingsFromDB, removeBooking } from "../services/restaurantService";
+import { getBookingsFromDB, removeBooking, updateBooking } from "../services/restaurantService";
 
 export const Admin = () => {
   const [bookings, setBookings] = useState<IBookingFromDB[]>([]);
@@ -18,6 +18,24 @@ export const Admin = () => {
     getData();
   });
 
+  // ändra bokning //
+
+  function changeBooking(booking: IBookingFromDB) {
+    console.log();
+
+  };
+
+                      // async () => {
+            //   let changed = await updateBooking(booking);
+            //   if(changed!==booking.index) {
+            //   let changedBookingList = [...bookings];
+            //     changedBookingList.push;
+            //   setBookings(changedBookingList);
+            //   }
+            // }}
+
+  // //
+
   let bookingsFromDB: IBookingFromDB[] = bookings;
 
   let bookingsHtml = bookingsFromDB.map((booking, index: number) => {
@@ -29,7 +47,12 @@ export const Admin = () => {
         <p>KundID: {booking.customerId}</p>
         <p>BokningsID: {booking._id}</p>
         <AdminButtonDiv>
-          <AdminButton bgcolor="#5E5DF0">Redigera</AdminButton>
+          <AdminButton bgcolor="#5E5DF0"type="button"
+            >Redigera</AdminButton>
+
+            {/* <button type="button" onClick={changeBooking(booking)}>Ändra</button> */}
+
+
           <AdminButton
             bgcolor="red"
             type="button"
