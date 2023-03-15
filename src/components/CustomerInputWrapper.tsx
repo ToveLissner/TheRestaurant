@@ -23,33 +23,27 @@ export const CustomerInputWrapper = (props: ICustomerInputWrapperProps) => {
                 <InputLabel>
                     Namn
                 </InputLabel>
-                <Input>
-                     <input placeholder="Förnamn" value={props.name} onChange={props.onChange} name="customer.name"/>
-                </Input>
+                <Input placeholder="Förnamn" value={props.name} onChange={props.onChange} name="name" />
             </InputContainer>
             <InputContainer>
                 <InputLabel>
                     Efternamn
                 </InputLabel>
-                <Input>
-                     <input placeholder="Efternamn" value={props.lastname} onChange={props.onChange} name="customer.lastname"/>
-                </Input>
+                <Input placeholder="Efternamn" value={props.lastname} onChange={props.onChange} name="lastname" />
             </InputContainer>
             <InputContainer>
                 <InputLabel>
                     E-post
                 </InputLabel>
-                <Input>
-                     <input placeholder="E-post" value={props.email} onChange={props.onChange} name="customer.email"/>
-                </Input>
+                <Input placeholder="E-post" value={props.email} onChange={props.onChange} name="email"/>
+                    
             </InputContainer>
             <InputContainer>
                 <InputLabel>
                     Telefonnummer
                 </InputLabel>
-                <Input>
-                     <input placeholder="Telefonnummer" value={props.phone} onChange={props.onChange} name="customer.phone"/>
-                </Input>
+                <Input placeholder="Telefonnummer" value={props.phone} onChange={props.onChange} name="phone"/>
+                     
             </InputContainer>
         </Container>
     );

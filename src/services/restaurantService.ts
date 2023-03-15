@@ -59,6 +59,14 @@ export const createBooking = async (): Promise<IBooking> => {
   return response.data;
 };
 
+export const createNewBooking = async (newBooking: IBooking): Promise<IBooking> => {
+  let response = await axios.post(
+    "https://school-restaurant-api.azurewebsites.net/booking/create",
+  );
+
+  return response.data;
+};
+
 // createRestaurant //
 
 export const createRestaurant = async (): Promise<IRestaurant> => {

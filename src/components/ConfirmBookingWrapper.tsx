@@ -1,9 +1,13 @@
 import { ConfirmBookingButton } from "./styled/ConfirmBookingButton";
 import { H3 } from "./styled/H3";
 
-export const ConfirmBookingWrapper = () => {
+interface IConfirmBookingWrapperProps {
+    onClick: () => void; 
+}
+
+export const ConfirmBookingWrapper = (props: IConfirmBookingWrapperProps) => {
 
     return(
-        <ConfirmBookingButton><H3>Bekräfta bokning</H3></ConfirmBookingButton>
+        <ConfirmBookingButton onClick={ () => {props.onClick()}}><H3>Bekräfta bokning</H3></ConfirmBookingButton>
     );
 }

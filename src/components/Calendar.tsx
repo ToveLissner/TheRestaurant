@@ -14,12 +14,13 @@ import { CalendarWeekdays } from "./styled/CalendarWeekdays";
 import { getBookings } from "../services/restaurantService";
 import { IBooking } from "../models/IBooking";
 import { useState } from "react";
+import { IBookedTables } from "../models/IBookedTables";
 
 interface ICalendarProps {
     value: Date;
     onChange: (value: Date) => void;
     selected: boolean;
-    bookedTables: number;
+    bookedTables: IBookedTables;
     isToggled: boolean;
     onClick: (index: number) => void; 
 }

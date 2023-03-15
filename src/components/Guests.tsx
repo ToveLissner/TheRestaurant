@@ -17,7 +17,7 @@ export const Guests = (props: IGuestsProps) => {
     let numberOfGuestsHtml = numberOfGuests.map( (number, index) => {
 
         return(
-            <DateCell selected={false} onClick={() => {props.onClick(number)}} key={index}>{number}</DateCell>
+            <DateCell selected={props.selected} onClick={() => {props.onClick(number)}} key={index}>{number}</DateCell>
         );
     });
 

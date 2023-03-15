@@ -1,4 +1,8 @@
+import { IFirstTimeSlot } from "./IFirstTimeslot"
+import { ISecondTimeSlot } from "./ISecondTimeslot";
+
 export interface IBookedTables {
-    dinnerTime: string;
-    tables: 0;
+    firstTimeSlot: IFirstTimeSlot;
+    secondTimeSlot: ISecondTimeSlot;
+
 }
