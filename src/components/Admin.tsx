@@ -17,13 +17,13 @@ const getBookingsToAdmin = async (): Promise<IBookingFromDB[]> => {
   return response.data;
 };
 
-// radera OBS EJ KLAR - måste fråga sebastian //
+// radera // VILL DU VERKLIGEN RADERA? //
 
-/* const removeBooking = async (): Promise<IBookingFromDB> => {
-    let response = await axios.delete("https://school-restaurant-api.azurewebsites.net/booking/delete/{booking._id}");
+const removeBooking = async (booking: IBookingFromDB): Promise<boolean> => {
+    let response = await axios.delete(`https://school-restaurant-api.azurewebsites.net/booking/delete/${booking._id}`);
 
-return response.data;
-};*/
+return response.status === 200;
+};
 
 // koden //
 
@@ -40,18 +40,6 @@ export const Admin = () => {
     getData();
   });
 
-  //ger också error code 500
-  const removeBooking = () => {
-    setBookings((current) =>
-      current.filter((bookingObject) => bookingObject._id === bookingObject._id)
-    );
-    axios.delete(
-      `https://school-restaurant-api.azurewebsites.net/booking/delete/{booking._id}`
-    );
-    setBookings(bookings);
-    return true;
-  };
-
   let bookingsFromDB: IBookingFromDB[] = bookings;
 
   let bookingsHtml = bookingsFromDB.map((booking, index: number) => {
@@ -67,8 +55,13 @@ export const Admin = () => {
           <AdminButton
             bgcolor="red"
             type="button"
-            onClick={() => {
-              removeBooking();
+            onClick={async () => {
+              let removed = await removeBooking(booking);
+              if(removed) {
+              let copy = [...bookings];
+              copy.splice(index, 1);
+              setBookings(copy);
+              }
             }}
           >
             Radera
