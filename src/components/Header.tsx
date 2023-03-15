@@ -1,6 +1,6 @@
 import { Nav } from "./Nav";
 
-export function Header(){
+export const  Header = () => {
     return(
         <div>
             <Nav/>

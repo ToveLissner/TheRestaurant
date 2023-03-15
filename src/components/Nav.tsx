@@ -6,7 +6,7 @@ import { MenuIcon, MenuIconWrapper } from "./styled/Menu";
 import { NavStyled } from "./styled/NavStyled";
 import { Wrapper } from "./styled/Wrappers";
 
-export function Nav (){
+export const  Nav = () => {
 
     function clickOnMenu(){
         console.log("hej");
@@ -20,17 +20,18 @@ export function Nav (){
                 <MenuIcon></MenuIcon>
             </MenuIconWrapper>
             <LiWrapper>
-                <Li>
+                {/* <Li>
                     <Link to="/">Hem</Link>
-                </Li>
-                <Li>
+                </Li> */}
+                {/* <Li>
                     <Link to="/contact">Kontakt</Link>
                 </Li>
                 <Li>
                     <Link to="/booking">Boka bord</Link>
-                </Li>
+                </Li> */}
             </LiWrapper>
             <Wrapper><Button bgcolor="transparent">Boka bord</Button></Wrapper>
         </NavStyled>
-    )
+     )
+
 };

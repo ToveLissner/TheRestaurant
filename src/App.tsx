@@ -24,7 +24,7 @@ function App() {
       </main>
       <Admin/>
     </div>
-  )
+  );
 }
 
 export default App;
