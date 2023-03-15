@@ -1,5 +1,5 @@
 import React from "react"
-import { StyledMenu } from "./Menu.styled"
+/*import { StyledMenu } from "./Menu.styled"
 import { bool} from 'prop-types';
 import { isBooleanObject } from "util/types";
 
@@ -30,4 +30,4 @@ Menu.propTypes = {
 }
 
 
-export default Menu;
+export default Menu;*/

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyledBurger } from "./Burger.styled";
+/*import { StyledBurger } from "./Burger.styled";
 import { bool, func } from 'prop-types';
 
 interface Open {
@@ -24,4 +24,4 @@ Burger.propTypes = {
 
 export default Burger;
 
-
+*/

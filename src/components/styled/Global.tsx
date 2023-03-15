@@ -1,6 +1,6 @@
-/*import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
-export const GlobalStyles = createGlobalStyle`
+/*export const GlobalStyles = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;700&family=Poppins:wght@400;700&display=swap');
     html, body {
     margin: 0;
