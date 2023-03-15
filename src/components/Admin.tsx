@@ -7,6 +7,8 @@ import { getBookingsFromDB, removeBooking, updateBooking } from "../services/res
 
 export const Admin = () => {
   const [bookings, setBookings] = useState<IBookingFromDB[]>([]);
+  const [selectedBooking, setSelectedBooking] = useState<IBookingFromDB>();
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -21,9 +23,19 @@ export const Admin = () => {
   // ändra bokning //
 
   function changeBooking(booking: IBookingFromDB) {
-    console.log();
+    console.log("Showing modal");
+    setSelectedBooking(booking);
+    setShowModal(true);
 
   };
+
+  async function saveBooking() {
+    if(selectedBooking) {
+      let changed = await updateBooking(selectedBooking);
+      
+      setShowModal(false);
+    }
+  }
 
                       // async () => {
             //   let changed = await updateBooking(booking);
@@ -50,7 +62,7 @@ export const Admin = () => {
           <AdminButton bgcolor="#5E5DF0"type="button"
             >Redigera</AdminButton>
 
-            {/* <button type="button" onClick={changeBooking(booking)}>Ändra</button> */}
+            <button type="button" onClick={() => changeBooking(booking)}>Ändra</button> 
 
 
           <AdminButton
@@ -72,5 +84,14 @@ export const Admin = () => {
     );
   });
 
-  return <>{bookingsHtml}</>;
+  let modalHtml = (<div>
+    <form>
+      <input value={selectedBooking?.date} />
+      <button onClick={saveBooking}>Spara</button>
+    </form>
+  </div>);
+
+  return (<>
+    {showModal ? modalHtml : <></>}
+  {bookingsHtml}</>);
 };
