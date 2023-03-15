@@ -1,9 +1,15 @@
 import React from "react";
 import { StyledBurger } from "./Burger.styled";
+import { bool, func } from 'prop-types';
 
-const Burger = () => {
+interface Open {
+	open: boolean,
+	setOpen: boolean
+}
+
+const Burger = ({ open, setOpen }: Open) => {
 	return (
-		<StyledBurger>
+		<StyledBurger open={open} onClick={() => setOpen(!open)}>
 			<div />
 			<div />
 			<div />
@@ -11,6 +17,11 @@ const Burger = () => {
 	);
 };
 
+Burger.propTypes = {
+	open: bool.isRequired,
+	setOpen: func.isRequired,
+};
+
 export default Burger;
 
-//https://css-tricks.com/hamburger-menu-with-a-side-of-react-hooks-and-styled-components/
+
