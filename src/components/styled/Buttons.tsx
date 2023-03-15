@@ -14,9 +14,9 @@ interface IButtonProps {
   bgcolor: string;
 }
 
-const pressDownAnimation = keyframes`
-transform: translate(4px);
-`;
+// const pressDownAnimation = keyframes`
+// transform: translate(4px);
+// `;
 
 export const Button = styled.button`
   color: black;
