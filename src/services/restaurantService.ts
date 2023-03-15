@@ -20,20 +20,20 @@ export function handleClick() {
 //     phone: "0735516899",
 //   };
 
-//   let michael: ICustomer = {
-//     name: "Michael",
-//     lastname: "Carlström",
-//     email: "mcs@gmail.com",
-//     phone: "08-6514410",
-//   };
+// let sebastian: ICustomer = {
+//   name: "Sebastian",
+//   lastname: "Skoog",
+//   email: "sebastian@gmail.com",
+//   phone: "0707266666",
+// };
 
-//   let test: IBooking = {
-//     restaurantId: "6409b9ec4e7f91245cbd6d91",
-//     date: "2023-03-14",
-//     time: "18:00",
-//     numberOfGuests: 4,
-//     customer: michael,
-//   };
+// let test: IBooking = {
+//   restaurantId: "6409b9ec4e7f91245cbd6d91",
+//   date: "2023-03-14",
+//   time: "18:00",
+//   numberOfGuests: 6,
+//   customer: sebastian,
+// };
 
 // getBookings[] // HELA LISTAN
 
@@ -42,7 +42,7 @@ export const getBookings = async (): Promise<IBooking[]> => {
     "https://school-restaurant-api.azurewebsites.net/booking/restaurant/6409b9ec4e7f91245cbd6d91"
   );
 
-  console.log(response.data);
+  // console.log(response.data);
 
   return response.data;
 };

@@ -10,8 +10,6 @@ export const BookingButton = ()=>{
         }
         
         let dinners: IBookingButton = {six: 0, nine: 0};
-        
-        console.log(dinners);
 
     const [bookingButton, setBookingButton] = useState<IBookingButton>({six: 0, nine: 0})
 
@@ -27,8 +25,6 @@ export const BookingButton = ()=>{
         };
         setBookingButton(newBookingButton);
     }
-
-    console.log(bookingButton);
 
     return (
         <CheckForBookingButton>Kolla</CheckForBookingButton>
