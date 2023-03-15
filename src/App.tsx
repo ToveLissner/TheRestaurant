@@ -7,12 +7,18 @@ import { Header } from "./components/Header";
 import { Booking } from "./components/Booking";
 import { GlobalStyles } from "./components/styled/Global";
 import { ThemeProvider } from "styled-components";
+import { theme } from "./components/styled/Theme";
+import Burger from "./components/styled/Burger/Burger";
 
 function App() {
 	return (
-		<>
-			<GlobalStyles></GlobalStyles>
-		</>
+		<ThemeProvider theme={theme}>
+			<>
+				<GlobalStyles>
+					<Burger></Burger>
+				</GlobalStyles>
+			</>
+		</ThemeProvider>
 	);
 }
 
