@@ -70,7 +70,8 @@ export const updateBooking = async (
   booking: IBookingFromDB
 ): Promise<IBookingFromDB> => {
   let response = await axios.put<IBookingFromDB>(
-    `https://school-restaurant-api.azurewebsites.net/booking/update/${booking._id}`
+    `https://school-restaurant-api.azurewebsites.net/booking/update/${booking._id}`,
+    booking
   );
 
   console.log(response.data);
