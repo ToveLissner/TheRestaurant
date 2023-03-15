@@ -1,7 +1,6 @@
 import React from "react";
 
 import "./App.css";
-import { handleClick } from "./services/restaurantService";
 import { Outlet } from "react-router-dom";
 import { Header } from './components/Header';
 import { Booking } from './components/Booking';
@@ -14,8 +13,6 @@ function App() {
       <main>
         <Outlet></Outlet>
       </main>
-      <button onClick={handleClick}>Test</button>
-      <Booking/>
       <Admin/>
     </div>
   )

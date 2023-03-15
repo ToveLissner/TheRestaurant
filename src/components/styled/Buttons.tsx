@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { handleClick } from "../../services/restaurantService";
 import { DateWrapper } from "./Wrappers";
 import { keyframes } from "styled-components";
 

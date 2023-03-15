@@ -1,58 +1,91 @@
 import axios from "axios";
 import { IBooking } from "../models/IBooking";
-import { ICustomer } from "../models/ICustomer";
+import { IBookingFromDB } from "../models/IBookingsFromDB";
+import { ICustomerFromDB } from "../models/ICustomerFromDB";
 import { IRestaurant } from "../models/IRestaurant";
 
-// resturantId 6409b9ec4e7f91245cbd6d91
-
-// saker som ej hör hit //
-
-export function handleClick() {
-  getBookings();
-  // getRestaurant();
-  // createBooking();
-}
-
-// let tove: ICustomer = {
-//     name: "Tove",
-//     lastname: "Lissner",
-//     email: "tove.lissner@gmail.com",
-//     phone: "0735516899",
-//   };
-
-// let sebastian: ICustomer = {
-//   name: "Sebastian",
-//   lastname: "Skoog",
-//   email: "sebastian@gmail.com",
-//   phone: "0707266666",
-// };
-
-// let test: IBooking = {
-//   restaurantId: "6409b9ec4e7f91245cbd6d91",
-//   date: "2023-03-14",
-//   time: "18:00",
-//   numberOfGuests: 6,
-//   customer: sebastian,
-// };
-
-// getBookings[] // HELA LISTAN
+// getBookings[] // HELA LISTAN // OBS det vi får tillbaka är ju fel???
 
 export const getBookings = async (): Promise<IBooking[]> => {
   let response = await axios.get<IBooking[]>(
     "https://school-restaurant-api.azurewebsites.net/booking/restaurant/6409b9ec4e7f91245cbd6d91"
   );
 
-  // console.log(response.data);
+  return response.data;
+};
+
+// korrekt svar tillbaka //
+
+export const getBookingsFromDB = async (): Promise<IBookingFromDB[]> => {
+  let response = await axios.get<IBookingFromDB[]>(
+    "https://school-restaurant-api.azurewebsites.net/booking/restaurant/6409b9ec4e7f91245cbd6d91"
+  );
+
+  console.log(response.data);
+
+  return response.data;
+};
+
+// getBooking // OBS måste skicka med booking
+
+export const getBooking = async (
+  booking: IBookingFromDB
+): Promise<IBookingFromDB> => {
+  let response = await axios.get<IBookingFromDB>(
+    `https://school-restaurant-api.azurewebsites.net/booking/restaurant/${booking._id}`
+  );
+
+  console.log(response.data);
+
+  return response.data;
+};
+
+// getCustomer // OBS måste skicka med customer
+
+export const getCustomer = async (
+  customer: ICustomerFromDB
+): Promise<ICustomerFromDB> => {
+  let response = await axios.get<ICustomerFromDB>(
+    `https://school-restaurant-api.azurewebsites.net/customer/${customer.id}`
+  );
+
+  return response.data;
+};
+
+// removeBooking // OBS måste skicka med booking
+
+export const removeBooking = async (
+  booking: IBookingFromDB
+): Promise<boolean> => {
+  let response = await axios.delete(
+    `https://school-restaurant-api.azurewebsites.net/booking/delete/${booking._id}`
+  );
+
+  return response.status === 200;
+};
+
+// updateBooking // måste skicka med booking // behövs det säkerställas att ändring skett även här, som när vi tog bort
+
+export const updateBooking = async (
+  booking: IBookingFromDB
+): Promise<IBookingFromDB> => {
+  let response = await axios.put<IBookingFromDB>(
+    `https://school-restaurant-api.azurewebsites.net/booking/update/${booking._id}`
+  );
+
+  console.log(response.data);
 
   return response.data;
 };
 
 // createBooking
 
-export const createBooking = async (): Promise<IBooking> => {
+export const createBooking = async (
+  newBooking: IBooking
+): Promise<IBooking> => {
   let response = await axios.post(
     "https://school-restaurant-api.azurewebsites.net/booking/create",
-    test
+    newBooking
   );
 
   return response.data;
@@ -85,12 +118,4 @@ export const getRestaurant = async (): Promise<IRestaurant> => {
   return response.data;
 };
 
-// getCustomer // OBS NÅGOT SOM EJ STÄMMER - måste nog använda customerId
-
-export const getCustomer = async (): Promise<ICustomer> => {
-  let response = await axios.get<ICustomer>(
-    "https://school-restaurant-api.azurewebsites.net/customer/6409b9ec4e7f91245cbd6d91"
-  );
-
-  return response.data;
-};
+// resturantId 6409b9ec4e7f91245cbd6d91 //
