@@ -20,3 +20,27 @@ export const GlobalStyles = createGlobalStyle`
   }
 
 `;
+
+
+//ska in i app.tsx
+
+type StateProps = {
+  open: boolean;
+  setOpen: boolean;
+}
+
+const [open, setOpen] = useState(false);
+return (
+  
+    <ThemeProvider theme={theme}>
+      <>
+        <GlobalStyles/>
+
+        <div>
+          <Burger open={open} setOpen={setOpen}/>
+          <Menu open={open} setOpen={setOpen}/>
+        </div>
+      </>
+      
+    </ThemeProvider>
+);
