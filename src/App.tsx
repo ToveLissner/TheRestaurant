@@ -8,10 +8,10 @@ import { Guests } from './components/Guests';
 import { FirstFormSelections } from './components/FirstFormSelections';
 import { DinnerWrapper } from './components/DinnerWrapper';
 import { ConfirmBookingWrapper } from './components/ConfirmBookingWrapper';
-import { AddBooking } from './components/AddBooking';
 import { IBooking } from './models/IBooking';
 import { setDate, format } from 'date-fns';
 import { CustomerInputWrapper } from './components/CustomerInputWrapper';
+import { NextFormButtonWrapper } from './components/NextFormButtonWrapper';
 
 function App() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -53,6 +53,10 @@ const handleClickDate = async (index: number) => {
   const correctDateFormat = format(date, 'yyyy-MM-dd');
 
   console.log(correctDateFormat);
+
+  console.log(isSelected);
+
+  setIsSelected(!isSelected);
 
   let bookingsFromApi: IBooking[] = await getBookings();
                   
@@ -96,6 +100,9 @@ const handleTimeClick = (diningTime: string) => {
   setBooking({...booking, time: diningTime})
 }
 
+const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  setBooking({...booking, [e.target.name]: e.target.value});
+}
 
 const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     
@@ -106,15 +113,15 @@ const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     <div>
       <main>
           <Guests selected={false} guestValue={numberOfGuests} onChange={setNumberOfGuests} onClick={guestHandleClick}></Guests>
-          <Calendar isToggled={false} selected={false} bookedTables={bookedTables} value={currentDate} onChange={setCurrentDate} onClick={handleClickDate}></Calendar>
+          <Calendar isToggled={false} selected={isSelected} bookedTables={bookedTables} value={currentDate} onChange={setCurrentDate} onClick={handleClickDate}></Calendar>
           <div>{JSON.stringify(booking)}</div>
           <DinnerWrapper time={dinnerTime} onClick={handleTimeClick}></DinnerWrapper>
+          {/* <ConfirmBookingWrapper></ConfirmBookingWrapper> */}
+          <NextFormButtonWrapper></NextFormButtonWrapper>
+
+          <CustomerInputWrapper name={booking.customer.name} lastname={booking.customer.lastname} email={booking.customer.email} phone={booking.customer.phone} onChange={handleInputChange}></CustomerInputWrapper>
+
           <ConfirmBookingWrapper></ConfirmBookingWrapper>
-
-          <CustomerInputWrapper></CustomerInputWrapper>
-          <button onClick={handleClick}>Hämta Bokningar</button>
-
-          <FirstFormSelections dateValue={currentDate} guests={numberOfGuests}></FirstFormSelections>
       </main>
     </div>  
   );

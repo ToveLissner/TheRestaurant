@@ -1,12 +1,5 @@
 import { useEffect, useState } from "react";
 
-interface IAddBookingProps {
-    name: string;
-    lastname: string; 
-    email: string;
-    phone: string;
-}
-
 export const AddBooking = () => {
 
     return( 

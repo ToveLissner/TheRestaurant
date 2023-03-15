@@ -1,14 +1,20 @@
 import styled from "styled-components";
 
 export const ConfirmBookingButton = styled.button`
-    margin: 40px auto;
+    margin: 40px auto 100px;
     width: 600px;
     height: 70px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #8C3503;
-    color: #fff;
-    border: none;
+    background-color: transparent;
+    color: #8C3503;
+    border: 2px solid #8C3503;
     cursor: pointer;
+    transition: 200ms ease-in;
+
+    &:hover{
+        background-color: #8C3503;
+        color: #fff;
+    }
 `;

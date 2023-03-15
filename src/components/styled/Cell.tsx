@@ -22,14 +22,14 @@ export const DateCell = styled(Cell)`
         props.selected ? SELECTED_BG_COLOR : "transparent"};
         
     &:hover{
-        background-color: #e1e1e1;
+       // background-color: #e1e1e1;
     }  
 `;
 
 export const PrefixCell = styled(Cell)`
-    background-color: orange;
+    background-color: #8C3503;
 `;
 
 export const SuffixCell = styled(PrefixCell)`
-    background-color: orange;
+    background-color: #8C3503;
 `;
