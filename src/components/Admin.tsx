@@ -1,38 +1,16 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { IBookingFromDB } from "../models/IBookingsFromDB";
 import { AdminWrapper } from "./styled/Wrappers";
 import { AdminButton } from "./styled/Buttons";
 import { AdminButtonDiv } from "./styled/Div";
-
-// api-anrop som ska flyttas till service //
-
-const getBookingsToAdmin = async (): Promise<IBookingFromDB[]> => {
-  let response = await axios.get<IBookingFromDB[]>(
-    "https://school-restaurant-api.azurewebsites.net/booking/restaurant/6409b9ec4e7f91245cbd6d91"
-  );
-
-  console.log(response.data);
-
-  return response.data;
-};
-
-// radera // VILL DU VERKLIGEN RADERA? //
-
-const removeBooking = async (booking: IBookingFromDB): Promise<boolean> => {
-    let response = await axios.delete(`https://school-restaurant-api.azurewebsites.net/booking/delete/${booking._id}`);
-
-return response.status === 200;
-};
-
-// koden //
+import { getBookingsFromDB, removeBooking } from "../services/restaurantService";
 
 export const Admin = () => {
   const [bookings, setBookings] = useState<IBookingFromDB[]>([]);
 
   useEffect(() => {
     const getData = async () => {
-      let bookingsFromApi: IBookingFromDB[] = await getBookingsToAdmin();
+      let bookingsFromApi: IBookingFromDB[] = await getBookingsFromDB();
       setBookings(bookingsFromApi);
     };
 
