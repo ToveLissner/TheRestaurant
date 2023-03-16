@@ -3,8 +3,9 @@ import { IBookingFromDB } from "../models/IBookingsFromDB";
 import { AdminWrapper } from "./styled/Wrappers";
 import { AdminButton } from "./styled/Buttons";
 import { AdminButtonDiv } from "./styled/Div";
-import { getBookings, getBookingsFromDB, removeBooking, updateBooking } from "../services/restaurantService";
+import { createBooking, getBookingsFromDB, removeBooking, updateBooking } from "../services/restaurantService";
 import { IBookingUpdate } from "../models/IBookingUpdate";
+import { IBooking } from "../models/IBooking";
 
 export const Admin = () => {
   const [bookings, setBookings] = useState<IBookingFromDB[]>([]);
@@ -25,6 +26,20 @@ export const Admin = () => {
     customerId: "",
   });
   const [showModal, setShowModal] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+
+  const [newBooking, setNewBooking] = useState<IBooking>({
+    restaurantId: "6409b9ec4e7f91245cbd6d91",
+    date: "2023-04-06",
+    time: "18:00",
+    numberOfGuests: 0,
+    customer: {
+      name: "Admin",
+      lastname: "",
+      email: "",
+      phone: ""
+    }
+  });
 
   useEffect(() => {
     const getData = async () => {
@@ -36,6 +51,7 @@ export const Admin = () => {
   });
 
   // ÄNDRA I BOKNINGEN //
+
   function changeBooking(booking: IBookingFromDB) {
     setSelectedBooking(booking);
     console.log(booking);
@@ -81,8 +97,6 @@ export const Admin = () => {
           <AdminButton bgcolor="#5E5DF0"type="button" onClick={() => changeBooking(booking)}
             >Redigera</AdminButton>
 
-            <button type="button" >Ändra</button> 
-
           <AdminButton
             bgcolor="red"
             type="button"
@@ -112,18 +126,82 @@ export const Admin = () => {
 
   let modalHtml = (<div>
     <form >
-      <input value={selectedBooking?.customerId } />
+      {/* <input value={selectedBooking?.customerId } /> */}
       <input value={selectedBooking?.date} onChange={handleInputChanges} name="date" />
-      <input value={selectedBooking?.numberOfGuests} onChange={handleInputChanges} name="numberOfGuests" />
+      <select onChange={handleSelectChanges} name="numberOfGuests" value={selectedBooking?.numberOfGuests }>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+      </select> 
       <select onChange={handleSelectChanges} name="time" value={selectedBooking?.time }>
         <option>18:00</option>
         <option>21:00</option>
       </select> 
-      <button onClick={saveBooking}>Spara</button>
+      <button onClick={saveBooking}>Spara ändringar för {selectedBooking?._id}</button>
     </form>
   </div>);
 
+// ny bokning //
+
+function handleNewBooking(newBooking: IBooking){
+  setNewBooking(newBooking);
+  console.log(newBooking);
+  setShowForm(true);
+};
+
+async function saveNewBooking(e:FormEvent) {
+  e.preventDefault();
+  setNewBooking(newBooking);
+  if(newBooking) {
+    console.log(newBooking);
+    await createBooking(newBooking);
+      setShowForm(false);
+      // updatedBooking();
+  }
+}
+
+function handleNewInputs(e:ChangeEvent<HTMLInputElement>){
+  setNewBooking({...newBooking, [e.target.name]: e.target.value});
+};
+
+function handleNewSelect(e:ChangeEvent<HTMLSelectElement>){
+  setNewBooking({...newBooking, [e.target.name]: e.target.value});
+};
+
+let newBookingmodal = (
+  <div>
+    <form >
+      {/* <input value={newBooking.restaurantId} /> */}
+      <input value={newBooking.date} onChange={handleNewInputs} name="date" />
+      <select onChange={handleNewSelect} name="time" value={newBooking.time }>
+        <option>18:00</option>
+        <option>21:00</option>
+      </select> 
+      <select onChange={handleNewSelect} name="numberOfGuests" value={newBooking.numberOfGuests }>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+      </select> 
+      {/* <input value={newBooking.customer.name} onChange={handleNewInputs} name="firstname" /> 
+      <input value={newBooking.customer.lastname} onChange={handleNewInputs} name="lastname" />
+      <input value={newBooking.customer.email} onChange={handleNewInputs} name="email" />
+      <input value={newBooking.customer.phone} onChange={handleNewInputs} name="phone" />  */}
+      <button onClick={saveNewBooking}>Lägg till ny bokning</button>
+    </form>
+  </div>
+);
+
+// return //
+
   return (<>
+  <button type="button" onClick={() => handleNewBooking(newBooking)}>Lägg till bokning</button> 
     {showModal ? modalHtml : <></>}
+    {showForm ? newBookingmodal : <></>}
   {bookingsHtml}</>);
 };
