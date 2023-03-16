@@ -1,6 +1,7 @@
 import axios from "axios";
 import { IBooking } from "../models/IBooking";
 import { IBookingFromDB } from "../models/IBookingsFromDB";
+import { IBookingUpdate } from "../models/IBookingUpdate";
 import { ICustomerFromDB } from "../models/ICustomerFromDB";
 import { IRestaurant } from "../models/IRestaurant";
 
@@ -67,14 +68,12 @@ export const removeBooking = async (
 // updateBooking // måste skicka med booking // behövs det säkerställas att ändring skett även här, som när vi tog bort
 
 export const updateBooking = async (
-  booking: IBookingFromDB
+  booking: IBookingUpdate
 ): Promise<IBookingFromDB> => {
   let response = await axios.put<IBookingFromDB>(
-    `https://school-restaurant-api.azurewebsites.net/booking/update/${booking._id}`,
+    `https://school-restaurant-api.azurewebsites.net/booking/update/${booking.id}`,
     booking
   );
-
-  console.log(response.data);
 
   return response.data;
 };
