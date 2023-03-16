@@ -11,7 +11,7 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
   body {
-    background-color: darkslategray;
+    background-color: ${theme.primaryWhite};
     font-family: "Poppins", sans-serif;
     height: 100vh;
     text-rendering: optimizeLegibility;

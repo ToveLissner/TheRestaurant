@@ -12,6 +12,9 @@ import { theme } from "./components/styled/Theme";
 import { Admin } from "./components/Admin";
 import Booking from "./Booking";
 import { StyledHeroImage } from "./components/styled/Hero/Image/Image.styled";
+import Title from "./components/styled/Hero/Title/Title";
+import Main from "./components/styled/MainContent/Main";
+import Footer from "./components/styled/Footer/Footer";
 
 function App() {
 	// type StateProps = {
@@ -29,9 +32,13 @@ function App() {
 		// </div>
 		<ThemeProvider theme={theme}>
 			<GlobalStyles />
+
 			<StyledHeroImage>
 				<Header />
+				<Title />
 			</StyledHeroImage>
+			<Main />
+			<Footer />
 		</ThemeProvider>
 	);
 }

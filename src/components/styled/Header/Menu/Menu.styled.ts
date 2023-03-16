@@ -12,6 +12,10 @@ export const StyledNavContainer = styled.article`
 	justify-content: space-between;
 	padding: 30px 40px 30px 40px;
 	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
 `;
 
 export const StyledMenu = styled.nav<Props>`
