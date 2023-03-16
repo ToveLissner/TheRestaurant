@@ -50,7 +50,7 @@ export const Admin = () => {
     getData();
   });
 
-  // ÄNDRA I BOKNINGEN //
+  // ÄNDRA I EN BOKNING //
 
   function changeBooking(booking: IBookingFromDB) {
     setSelectedBooking(booking);
@@ -83,39 +83,6 @@ export const Admin = () => {
     setBookings(bookingsFromDB);
   }
 
-  let bookingsFromDB: IBookingFromDB[] = bookings;
-
-  let bookingsHtml = bookingsFromDB.map((booking, index: number) => {
-    return (
-      <AdminWrapper key={index}>
-        <p>Datum: {booking.date}</p>
-        <p>Tid: {booking.time}</p>
-        <p>Antal gäster: {booking.numberOfGuests}</p>
-        <p>KundID: {booking.customerId}</p>
-        <p>BokningsID: {booking._id}</p>
-        <AdminButtonDiv>
-          <AdminButton bgcolor="#5E5DF0"type="button" onClick={() => changeBooking(booking)}
-            >Redigera</AdminButton>
-
-          <AdminButton
-            bgcolor="red"
-            type="button"
-            onClick={async () => {
-              let removed = await removeBooking(booking);
-              if(removed) {
-              let copy = [...bookings];
-              copy.splice(index, 1);
-              setBookings(copy);
-              }
-            }}
-          >
-            Radera
-          </AdminButton>
-        </AdminButtonDiv>
-      </AdminWrapper>
-    );
-  });
-
   function handleInputChanges(e:ChangeEvent<HTMLInputElement>){
     setSelectedBooking({...selectedBooking, [e.target.name]: e.target.value});
   };
@@ -144,7 +111,7 @@ export const Admin = () => {
     </form>
   </div>);
 
-// ny bokning //
+  // LÄGGA TILL EN BOKNING //
 
 function handleNewBooking(newBooking: IBooking){
   setNewBooking(newBooking);
@@ -196,6 +163,40 @@ let newBookingmodal = (
     </form>
   </div>
 );
+
+  // LOOPAR IGENOM ALLA BOKNINGAR //
+
+  let bookingsFromDB: IBookingFromDB[] = bookings;
+
+  let bookingsHtml = bookingsFromDB.map((booking, index: number) => {
+    return (
+      <AdminWrapper key={index}>
+        <p>Datum: {booking.date}</p>
+        <p>Tid: {booking.time}</p>
+        <p>Antal gäster: {booking.numberOfGuests}</p>
+        <p>KundID: {booking.customerId}</p>
+        <p>BokningsID: {booking._id}</p>
+        <AdminButtonDiv>
+          <AdminButton bgcolor="#5E5DF0"type="button" onClick={() => changeBooking(booking)}
+            >Redigera</AdminButton>
+          <AdminButton
+            bgcolor="red"
+            type="button"
+            onClick={async () => {
+              let removed = await removeBooking(booking);
+              if(removed) {
+              let copy = [...bookings];
+              copy.splice(index, 1);
+              setBookings(copy);
+              }
+            }}
+          >
+            Radera
+          </AdminButton>
+        </AdminButtonDiv>
+      </AdminWrapper>
+    );
+  });
 
 // return //
 
