@@ -1,9 +1,9 @@
 import { Nav } from "./Nav";
 
-export const  Header = () => {
-    return(
-        <div>
-            <Nav/>
-        </div>
-    )
-}
+export const Header = () => {
+	return (
+		<div>
+			<Nav />
+		</div>
+	);
+};

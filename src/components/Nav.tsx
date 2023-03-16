@@ -1,37 +1,17 @@
-import { Link } from "react-router-dom";
-import { Button } from "./styled/Buttons";
-import { Li, LiWrapper } from "./styled/Li";
-
-import { MenuIcon, MenuIconWrapper } from "./styled/Menu";
-import { NavStyled } from "./styled/NavStyled";
-import { Wrapper } from "./styled/Wrappers";
-
-export const  Nav = () => {
-
-    function clickOnMenu(){
-        console.log("hej");
-    }
-
-    return (
-        <NavStyled>
-            <MenuIconWrapper onClick={clickOnMenu}>
-                <MenuIcon></MenuIcon>
-                <MenuIcon></MenuIcon>
-                <MenuIcon></MenuIcon>
-            </MenuIconWrapper>
-            <LiWrapper>
-                {/* <Li>
-                    <Link to="/">Hem</Link>
-                </Li> */}
-                {/* <Li>
-                    <Link to="/contact">Kontakt</Link>
-                </Li>
-                <Li>
-                    <Link to="/booking">Boka bord</Link>
-                </Li> */}
-            </LiWrapper>
-            <Wrapper><Button bgcolor="transparent">Boka bord</Button></Wrapper>
-        </NavStyled>
-     )
-
+import Burger from "./styled/Header/Burger/Burger";
+import Menu from "./styled/Header/Menu/Menu";
+import Boka from "./styled/Header/Boka/Boka";
+import { useState } from "react";
+import { StyledNavContainer } from "./styled/Header/Menu/Menu.styled";
+export const Nav = () => {
+	const [open, setOpen] = useState(false);
+	return (
+		<StyledNavContainer>
+			<div>
+				<Burger open={open} setOpen={setOpen} />
+				<Menu open={open} />
+			</div>
+			<Boka />
+		</StyledNavContainer>
+	);
 };
