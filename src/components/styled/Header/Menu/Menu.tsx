@@ -1,7 +1,6 @@
 import React from "react";
-import { StyledMenu } from "./Menu.styled";
-import { bool } from "prop-types";
-import { isBooleanObject } from "util/types";
+import { StyledMenuLinks, StyledMenu } from "./Menu.styled";
+import { Link } from "react-router-dom";
 
 interface Props {
 	open: boolean;
@@ -10,10 +9,11 @@ interface Props {
 const Menu: React.FC<Props> = ({ open }) => {
 	return (
 		<StyledMenu open={open}>
-			<a href="/">Start</a>
-			<a href="/">Boka</a>
-			<a href="/">Meny</a>
-			<a href="/">Kontakt</a>
+			<StyledMenuLinks to="../../">Start</StyledMenuLinks>
+			<StyledMenuLinks to="#">Boka</StyledMenuLinks>
+			<StyledMenuLinks to="#">Meny</StyledMenuLinks>
+			<StyledMenuLinks to="../../pages/Contact">Kontakt</StyledMenuLinks>
+			<StyledMenuLinks to="#">Admin</StyledMenuLinks>
 		</StyledMenu>
 	);
 };

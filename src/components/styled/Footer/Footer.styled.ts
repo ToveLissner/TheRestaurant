@@ -27,25 +27,45 @@ export const StyledFooterTitle = styled.h2`
 
 export const StyledFooterLinksContainer = styled.article`
 	width: 100%;
-	background-color: darkslategray;
 	display: flex;
 	height: inherit;
 `;
 
 export const StyledFooterNavLinks = styled.ul`
 	width: 50%;
-	background-color: pink;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	padding: 0 15% 0 15%;
+	justify-content: space-around;
 `;
 
 export const StyledFooterSocialLinks = styled.ul`
 	width: 50%;
-	background-color: green;
+	padding: 0 15% 0 15%;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: flex-start;
+
+	a {
+		text-decoration: none;
+		color: white;
+		font-size: 1.2em;
+	}
 `;
 
 export const StyledFooterItems = styled.li`
 	color: white;
+	text-decoration: none;
+	font-weight: bold;
 `;
 
 export const StyledLinks = styled(Link)`
-	color: red;
+	display: flex;
+	color: white;
+	font-size: 1.2em;
+	text-decoration: none;
 `;

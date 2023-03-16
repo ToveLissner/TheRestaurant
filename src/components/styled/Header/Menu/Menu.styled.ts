@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { theme } from "../../Theme";
+import { Link } from "react-router-dom";
 
 interface Props {
 	open: boolean;
@@ -33,15 +34,15 @@ export const StyledMenu = styled.nav<Props>`
 	transform: ${({ open }) => (open ? "translateX(1)" : "translateX(-100%)")};
 	transition: transform 0.3s ease-in-out;
 	z-index: -1;
+`;
 
-	a {
-		font-size: 2rem;
-		text-transform: uppercase;
-		padding: 2rem 0;
-		font-weight: bold;
-		letter-spacing: 0.5rem;
-		color: ${theme.primaryWhite};
-		text-decoration: none;
-		transition: color 0.3s linear;
-	}
+export const StyledMenuLinks = styled(Link)`
+	font-size: 2rem;
+	text-transform: uppercase;
+	padding: 2rem 0;
+	font-weight: bold;
+	letter-spacing: 0.5rem;
+	color: ${theme.primaryWhite};
+	text-decoration: none;
+	transition: color 0.3s linear;
 `;
