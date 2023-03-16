@@ -33,7 +33,7 @@ function App() {
   const[isToggled, setIsToggled] = useState(false); 
   const [dinnerTime, setDinnerTime] = useState(""); 
   const [clickedSubmit, setClickedSubmit] = useState("false");
-  const [inputError, setInputError] = useState();
+  const [fullBooked, setFullBooked] = useState(false);
   const [booking, setBooking] = useState<IBooking>({
     restaurantId: "6409b9ec4e7f91245cbd6d91",
     date: "",
@@ -106,18 +106,19 @@ const funka = setSelectedDate(correctDateFormat);
 
         if((booking.time === "18:00") && listOfBookingsForSpecificDay.firstTimeSlot.tables <15){
             listOfBookingsForSpecificDay.firstTimeSlot.tables++;
-            return;
-        } 
+            setFullBooked(fullBooked);
+        } else if((booking.time === "18:00") && listOfBookingsForSpecificDay.firstTimeSlot.tables == 15){
+          setFullBooked(!fullBooked);
+        }
 
-        console.log("Antal bokade bord: ");
         if((booking.time === "21:00") && listOfBookingsForSpecificDay.secondTimeSlot.tables <15){
             listOfBookingsForSpecificDay.secondTimeSlot.tables++;
             return;
         }
 
       }
-    
-      console.log(listOfBookingsForSpecificDay.firstTimeSlot.dinnerTime +" " +listOfBookingsForSpecificDay.firstTimeSlot.tables +`\n`
+
+      console.log(correctDateFormat+":" +`\n`+listOfBookingsForSpecificDay.firstTimeSlot.dinnerTime +" " +listOfBookingsForSpecificDay.firstTimeSlot.tables +`\n`
                   +listOfBookingsForSpecificDay.secondTimeSlot.dinnerTime +" " +listOfBookingsForSpecificDay.secondTimeSlot.tables);
 
       setBookedTables(listOfBookingsForSpecificDay);
@@ -151,16 +152,20 @@ const handleCustomerInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 }
 
 const guestValidation = () => {
+  const guestsNumbers = setNumberOfGuests(booking.numberOfGuests);
+  
   if(booking.numberOfGuests <1){
     console.log("saknar gäster");
   }
 
-  console.log(booking.numberOfGuests);
+  console.log(setNumberOfGuests(booking.numberOfGuests));
 
 }
 
+
 const confirmBookingClick = () => {
   guestValidation();
+  createBooking(booking);
 }
 
   return (
@@ -170,7 +175,7 @@ const confirmBookingClick = () => {
           <Calendar isToggled={false} bookedTables={bookedTables} value={currentDate} onChange={setCurrentDate} onClick={handleClickDate}></Calendar>
           {/* <div>{date}</div> */}
           <div>{JSON.stringify(booking)}</div>
-          <DinnerWrapper time={dinnerTime} onClick={handleTimeClick}></DinnerWrapper>
+          <DinnerWrapper onChange={setFullBooked} fullBooked={fullBooked} time={dinnerTime} onClick={handleTimeClick}></DinnerWrapper>
           {/* <ConfirmBookingWrapper></ConfirmBookingWrapper> */}
           <NextFormButtonWrapper></NextFormButtonWrapper>
 

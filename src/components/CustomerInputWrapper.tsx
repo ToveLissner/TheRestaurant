@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
 import { errorInputMessages } from "../consts/error";
 import { ConfirmBookingWrapper } from "./ConfirmBookingWrapper";
 import { ErrorMessage } from "./ErrorMessage";
+import { CheckForBookingButton } from "./styled/Buttons";
 import { ConfirmBookingButton } from "./styled/ConfirmBookingButton";
 import { Container } from "./styled/Container";
 import { ErrorStyling } from "./styled/ErrorStyling";
@@ -25,43 +26,76 @@ export const CustomerInputWrapper = (props: ICustomerInputWrapperProps) => {
     const [lastnameError, setLastnameError] = useState("");
     const [emailError, setEmailError] = useState("");
     const [phoneError, setPhoneError] = useState("");
+    const [showNoValid, setShowNoValid] = useState(false);
 
     const nameValidation = () => {
+
+        let setIfValid;
+
         if(/[!@#$%^&*(),.?":{}|<>]/g.test(props.name) || !/^[A-Z]/.test(props.name) || /\d+/g.test(props.name)) {
             setNameError("Förnamnet innehåller felaktiga tecken");
+            setIfValid = false;
         } else {
             setNameError("");
+            setIfValid = true;
         }
+
+        return setIfValid;
     }
 
     const lastnameValidation = () => {
+
+        let setIfValid;
+
         if(/[!@#$%^&*(),.?":{}|<>]/g.test(props.lastname) || !/^[A-Z]/.test(props.lastname) || /\d+/g.test(props.lastname)) {
             setLastnameError("Efternamnet innehåller felaktiga tecken");
+            setIfValid = false;
         } else {
             setLastnameError("");
+            setIfValid = true;
         }
+
+        return setIfValid;
     }
 
     const emailValidation = () => {
         const regEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
+        let setIfValid; 
+
         if( regEx.test(props.email)) {
             setEmailError("Email is Correct ");
+            setIfValid = true;
         } else if( !regEx.test(props.email) && props.email !=""){
             setEmailError("Email is NOT correct ");
+            setIfValid = false;
         } else {
             setEmailError("");
         }
+
+        return setIfValid;
     }
 
     const phoneNumberValidation = () => {
         const regEx = /^[0-9\b]+$/;
 
+        let setIfValid; 
+
         if(!regEx.test(props.phone)) {
             setPhoneError("Phonenumber is wrooong!");
+            setIfValid = false;
         } else {
             setPhoneError("");
+            setIfValid = true;
         }
+
+        return setIfValid;
+    }
+
+    const checkValidations = () => {
+        if(nameValidation() && lastnameValidation() && emailValidation() && phoneNumberValidation()){
+            
+        } 
     }
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -71,6 +105,8 @@ export const CustomerInputWrapper = (props: ICustomerInputWrapperProps) => {
         lastnameValidation();
         emailValidation(); 
         phoneNumberValidation();
+        checkValidations();
+        //console.log(checkValue());
     }
 
     return(
