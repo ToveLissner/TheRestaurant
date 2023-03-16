@@ -1,6 +1,7 @@
 import axios from "axios";
 import { IBooking } from "../models/IBooking";
 import { IBookingFromDB } from "../models/IBookingsFromDB";
+import { IBookingUpdate } from "../models/IBookingUpdate";
 import { ICustomerFromDB } from "../models/ICustomerFromDB";
 import { IRestaurant } from "../models/IRestaurant";
 
@@ -21,12 +22,10 @@ export const getBookingsFromDB = async (): Promise<IBookingFromDB[]> => {
     "https://school-restaurant-api.azurewebsites.net/booking/restaurant/6409b9ec4e7f91245cbd6d91"
   );
 
-  console.log(response.data);
-
   return response.data;
 };
 
-// getBooking // OBS måste skicka med booking
+// getBooking //
 
 export const getBooking = async (
   booking: IBookingFromDB
@@ -35,12 +34,10 @@ export const getBooking = async (
     `https://school-restaurant-api.azurewebsites.net/booking/restaurant/${booking._id}`
   );
 
-  console.log(response.data);
-
   return response.data;
 };
 
-// getCustomer // OBS måste skicka med customer
+// getCustomer //
 
 export const getCustomer = async (
   customer: ICustomerFromDB
@@ -52,7 +49,7 @@ export const getCustomer = async (
   return response.data;
 };
 
-// removeBooking // OBS måste skicka med booking
+// removeBooking //
 
 export const removeBooking = async (
   booking: IBookingFromDB
@@ -64,17 +61,15 @@ export const removeBooking = async (
   return response.status === 200;
 };
 
-// updateBooking // måste skicka med booking // behövs det säkerställas att ändring skett även här, som när vi tog bort
+// updateBooking //
 
 export const updateBooking = async (
-  booking: IBookingFromDB
+  booking: IBookingUpdate
 ): Promise<IBookingFromDB> => {
   let response = await axios.put<IBookingFromDB>(
-    `https://school-restaurant-api.azurewebsites.net/booking/update/${booking._id}`,
+    `https://school-restaurant-api.azurewebsites.net/booking/update/${booking.id}`,
     booking
   );
-
-  console.log(response.data);
 
   return response.data;
 };
