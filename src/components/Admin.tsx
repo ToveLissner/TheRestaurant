@@ -32,7 +32,7 @@ export const Admin = () => {
     restaurantId: "6409b9ec4e7f91245cbd6d91",
     date: "2023-04-06",
     time: "18:00",
-    numberOfGuests: 0,
+    numberOfGuests: 1,
     customer: {
       name: "Admin",
       lastname: "",
@@ -50,11 +50,10 @@ export const Admin = () => {
     getData();
   });
 
-  // ÄNDRA I EN BOKNING //
+// ÄNDRA EN BOKNING //
 
   function changeBooking(booking: IBookingFromDB) {
     setSelectedBooking(booking);
-    console.log(booking);
     setShowModal(true);
   };
 
@@ -70,10 +69,8 @@ export const Admin = () => {
       id: selectedBooking._id,
     }
     if(selectedBooking) {
-      console.log(selectedBookingToSave);
       await updateBooking(selectedBookingToSave);
         setShowModal(false);
-        console.log(selectedBooking);
         updatedBooking();
     }
   }
@@ -111,11 +108,10 @@ export const Admin = () => {
     </form>
   </div>);
 
-  // LÄGGA TILL EN BOKNING //
+// LÄGG TILL BOKNING //
 
 function handleNewBooking(newBooking: IBooking){
   setNewBooking(newBooking);
-  console.log(newBooking);
   setShowForm(true);
 };
 
@@ -123,12 +119,11 @@ async function saveNewBooking(e:FormEvent) {
   e.preventDefault();
   setNewBooking(newBooking);
   if(newBooking) {
-    console.log(newBooking);
     await createBooking(newBooking);
       setShowForm(false);
-      // updatedBooking();
+      updatedBooking();
   }
-}
+};
 
 function handleNewInputs(e:ChangeEvent<HTMLInputElement>){
   setNewBooking({...newBooking, [e.target.name]: e.target.value});
@@ -164,7 +159,7 @@ let newBookingmodal = (
   </div>
 );
 
-  // LOOPAR IGENOM ALLA BOKNINGAR //
+// LOOPAR IGENOM ALLA BOKNINGAR //
 
   let bookingsFromDB: IBookingFromDB[] = bookings;
 
@@ -197,8 +192,6 @@ let newBookingmodal = (
       </AdminWrapper>
     );
   });
-
-// RETURN //
 
   return (<>
   <button type="button" onClick={() => handleNewBooking(newBooking)}>Lägg till bokning</button> 
