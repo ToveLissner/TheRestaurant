@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import hero from "../../../../images/pancakes.jpg";
+import { device } from "../../Breakpoints";
 
 export const StyledHeroImage = styled.article`
 	height: 90vh;
@@ -9,7 +10,6 @@ export const StyledHeroImage = styled.article`
 	background-size: cover;
 	background-repeat: no-repeat;
 	position: relative;
-	// width: 100%;
 	z-index: 5;
 	display: flex;
 	justify-content: center;

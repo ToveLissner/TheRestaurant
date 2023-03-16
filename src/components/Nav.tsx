@@ -7,10 +7,9 @@ export const Nav = () => {
 	const [open, setOpen] = useState(false);
 	return (
 		<StyledNavContainer>
-			<div>
-				<Burger open={open} setOpen={setOpen} />
-				<Menu open={open} />
-			</div>
+			<Burger open={open} setOpen={setOpen} />
+			<Menu open={open} />
+
 			<Boka />
 		</StyledNavContainer>
 	);
