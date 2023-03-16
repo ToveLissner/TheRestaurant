@@ -198,7 +198,7 @@ let newBookingmodal = (
     );
   });
 
-// return //
+// RETURN //
 
   return (<>
   <button type="button" onClick={() => handleNewBooking(newBooking)}>Lägg till bokning</button> 
