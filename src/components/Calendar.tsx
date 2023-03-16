@@ -20,6 +20,7 @@ interface ICalendarProps {
     value: Date;
     onChange: (value: Date) => void;
     //selected: boolean;
+    // setSelectedDate(): void;
     bookedTables: IBookedTables;
     isToggled: boolean;
     onClick: (index: number) => void; 
@@ -29,6 +30,10 @@ export const Calendar = (props: ICalendarProps) => {
     const startDate = startOfMonth(props.value);    //Start day of month
     const endDate = endOfMonth(props.value);    //EndDate of month
     const numberofDays = differenceInDays(endDate, startDate) +1;   //Total days of the month
+
+    // const dateIsh = setDate(props);
+
+    // console.log(props.onChange(props.value));
 
     //Cell fillers for start and end of month
     const prefixDays = startDate.getDay();  
@@ -46,6 +51,7 @@ export const Calendar = (props: ICalendarProps) => {
     const showTimeSlots = () => {
 
     }
+
     //Map through const list of days and create weekday Cells
     let daysOfWeekHtml = daysOfWeek.map( (day) => {
 
@@ -53,7 +59,14 @@ export const Calendar = (props: ICalendarProps) => {
             <Cell className="litetes" key={day}>{day}</Cell>
     )}); 
 
+    
+            
     let arrayOfDays = Array.from( {length: numberofDays});
+
+    const checkForDate = () => {
+
+    }
+
     let daysOfMonthHTML = arrayOfDays.map( (day, index) => {
         const dateCounts = index + 1;
         const isCurrentDate = dateCounts === props.value.getDate();
@@ -96,6 +109,7 @@ export const Calendar = (props: ICalendarProps) => {
             </CalendarGrid>
             <CalendarSelected>
                 <H3>Valt datum: {format(props.value, "dd LLLL yyyy")}</H3>
+                {/* <H3 >{printOutChosenDay}</H3> */}
             </CalendarSelected>
         </CalendarDiv>
     );

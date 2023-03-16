@@ -14,11 +14,12 @@ import { setDate, format } from 'date-fns';
 import { CustomerInputWrapper } from './components/CustomerInputWrapper';
 import { NextFormButtonWrapper } from './components/NextFormButtonWrapper';
 import { IBookedTables } from './models/IBookedTables';
+import { errorInputMessages } from "./consts/error";
 
 function App() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [numberOfGuests, setNumberOfGuests] = useState(0);
-  // const [isSelected, setIsSelected] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("");
   const [bookedTables, setBookedTables] = useState<IBookedTables>({
     firstTimeSlot: {
       dinnerTime: "", 
@@ -31,7 +32,8 @@ function App() {
   });
   const[isToggled, setIsToggled] = useState(false); 
   const [dinnerTime, setDinnerTime] = useState(""); 
-  const [btnState, setBtnState] = useState(false);
+  const [clickedSubmit, setClickedSubmit] = useState("false");
+  const [inputError, setInputError] = useState();
   const [booking, setBooking] = useState<IBooking>({
     restaurantId: "6409b9ec4e7f91245cbd6d91",
     date: "",
@@ -49,7 +51,6 @@ function App() {
     getBookings();
   }
 
-
   const toggleActive = () => {
     //setBtnState(btnState === !btnState);
     console.log("funka");
@@ -64,6 +65,7 @@ function App() {
 
     setBooking( {...booking, numberOfGuests: index});
 }
+let test: string | undefined;
 
 const getSelectedCell = (index: number) => {
 
@@ -71,16 +73,17 @@ const getSelectedCell = (index: number) => {
 
 let listOfBookingsForSpecificDay: IBookedTables;
 
+let funka: string;
+
 const handleClickDate = async (index: number) => {
   const date = setDate(currentDate, index);
   //props.onChange(date);
-  //console.log(index);
+  //console.log(date);
 
-  const correctDateFormat = format(date, 'yyyy-MM-dd');
+ const correctDateFormat = format(date, 'yyyy-MM-dd');
 
-  // console.log(correctDateFormat);
+const funka = setSelectedDate(correctDateFormat); 
 
-  // console.log(isSelected);
 
   // setIsSelected(!isSelected);
 
@@ -114,6 +117,8 @@ const handleClickDate = async (index: number) => {
 
       }
     
+      console.log(listOfBookingsForSpecificDay.firstTimeSlot.dinnerTime +" " +listOfBookingsForSpecificDay.firstTimeSlot.tables +`\n`
+                  +listOfBookingsForSpecificDay.secondTimeSlot.dinnerTime +" " +listOfBookingsForSpecificDay.secondTimeSlot.tables);
 
       setBookedTables(listOfBookingsForSpecificDay);
   });
@@ -126,6 +131,9 @@ const handleClickDate = async (index: number) => {
   //const updatedBookedTables = setBookedTables(listOfBookingsForSpecificDay);
 
   //displayAvailableTimeSlot(updatedBookedTables);
+
+  const clickDate = date;
+  return clickDate;
 }
 
 const displayAvailableTimeSlot = (listOfTablesBooked: IBookedTables) => {
@@ -142,8 +150,17 @@ const handleCustomerInputChange = (e: ChangeEvent<HTMLInputElement>) => {
   setBooking({...booking, customer: {...booking.customer, [e.target.name]: e.target.value }});
 }
 
+const guestValidation = () => {
+  if(booking.numberOfGuests <1){
+    console.log("saknar gäster");
+  }
+
+  console.log(booking.numberOfGuests);
+
+}
+
 const confirmBookingClick = () => {
-  createBooking(booking);
+  guestValidation();
 }
 
   return (
@@ -151,17 +168,19 @@ const confirmBookingClick = () => {
       <main>
           <Guests guestValue={booking.numberOfGuests} onChange={setNumberOfGuests} onClick={guestHandleClick}></Guests>
           <Calendar isToggled={false} bookedTables={bookedTables} value={currentDate} onChange={setCurrentDate} onClick={handleClickDate}></Calendar>
+          {/* <div>{date}</div> */}
           <div>{JSON.stringify(booking)}</div>
           <DinnerWrapper time={dinnerTime} onClick={handleTimeClick}></DinnerWrapper>
           {/* <ConfirmBookingWrapper></ConfirmBookingWrapper> */}
           <NextFormButtonWrapper></NextFormButtonWrapper>
 
-          <CustomerInputWrapper name={booking.customer.name} lastname={booking.customer.lastname} email={booking.customer.email} phone={booking.customer.phone} onChange={handleCustomerInputChange}></CustomerInputWrapper>
+          <CustomerInputWrapper name={booking.customer.name} lastname={booking.customer.lastname} email={booking.customer.email} phone={booking.customer.phone} onChange={handleCustomerInputChange} onClick={confirmBookingClick}></CustomerInputWrapper>
 
-          <ConfirmBookingWrapper onClick={confirmBookingClick}></ConfirmBookingWrapper>
+          {/* <ConfirmBookingWrapper onClick={confirmBookingClick}></ConfirmBookingWrapper> */}
       </main>
     </div>  
   );
+
 }
 
 export default App;
