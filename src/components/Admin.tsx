@@ -292,7 +292,7 @@ export const Admin = () => {
 
   //SORTERING & SÖKFÄLT //
 
-  const searchItems = (searchValue: any) => {
+  /*const searchItems = (searchValue: any) => {
     setSearchInput(searchValue);
     if (searchInput !== "") {
       const filteredData = bookingsFromDB.filter((booking) => {
@@ -306,7 +306,21 @@ export const Admin = () => {
       setFilteredResults(bookingsFromDB);
     }
     console.log(filteredResults);
-  };
+  };*/
+
+  useEffect(() => {
+    if (searchInput !== "") {
+      const filteredData = bookingsFromDB.filter((booking) => {
+        return Object.values(booking)
+          .join("")
+          .toLowerCase()
+          .includes(searchInput.toLowerCase());
+      });
+      setFilteredResults(filteredData);
+    } else {
+      setFilteredResults(bookingsFromDB);
+    }
+  }, [searchInput]);
 
   const sortBy = () => {
     return (
@@ -323,24 +337,28 @@ export const Admin = () => {
         <input
           type="text"
           placeholder="Sök..."
-          onChange={(e) => searchItems(e.target.value)}
+          onChange={(e) => setSearchInput(e.target.value)}
         />
       </div>
     );
   };
 
-// tillfällig lösning //  
+  // tillfällig lösning //
 
-const QuickFix = styled.div`
-  height: 100px;
-`;
+  const QuickFix = styled.div`
+    height: 100px;
+  `;
 
   return (
     <>
-      <QuickFix/>
+      <QuickFix />
       {sortBy()}
       <AdminTitle>Admin</AdminTitle>
-      <button className="AddBookingButton" type="button" onClick={() => handleNewBooking(newBooking)}>
+      <button
+        className="AddBookingButton"
+        type="button"
+        onClick={() => handleNewBooking(newBooking)}
+      >
         Lägg till bokning
       </button>
       {showModal ? modalHtml : <></>}
