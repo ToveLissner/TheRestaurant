@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
 import logo from './logo.svg';
-import './App.css';
 import { getBookings, getRestaurant } from './services/restaurantService';
 import { Outlet } from 'react-router-dom';
 import { Calendar } from './components/Calendar';
