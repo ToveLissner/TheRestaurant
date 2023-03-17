@@ -104,7 +104,7 @@ const funka = setSelectedDate(correctDateFormat);
 
     console.log(correctDateFormat, booking.date);
 
-      if(correctDateFormat === booking.date +"dszfsdf"){
+      if(correctDateFormat === booking.date +"dszff"){
 
         if((booking.time === "18:00") && listOfBookingsForSpecificDay.firstTimeSlot.tables <15){
             listOfBookingsForSpecificDay.firstTimeSlot.tables++;
