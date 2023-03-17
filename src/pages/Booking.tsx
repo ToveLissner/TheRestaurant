@@ -49,7 +49,6 @@ function App() {
   }
 
   const guestHandleClick = (index: number) =>{
-    // props.onChange(index);
     let guests = [...listOfGuests];
     let selection = guests[guests.findIndex( (g) => g === index)];
 
