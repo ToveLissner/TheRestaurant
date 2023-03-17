@@ -4,12 +4,14 @@ import { GuestDiv } from "./styled/GuestDiv";
 import { GuestNumberGrid } from "./styled/GuestNumberGrid";
 import { GuestSelected } from "./styled/GuestSelected";
 import { H3 } from "./styled/H3";
+import { ChangeH4, H4 } from "./styled/H4";
 
 interface IGuestsProps {
-    guestValue?: number;
+    guestValue: number;
     onChange: (guestValue: number) => void;
-    selected: boolean;
+    //selected: boolean;
     onClick: (index: number) => void; 
+
 }
 
 export const Guests = (props: IGuestsProps) => {
@@ -17,7 +19,7 @@ export const Guests = (props: IGuestsProps) => {
     let numberOfGuestsHtml = numberOfGuests.map( (number, index) => {
 
         return(
-            <DateCell selected={props.selected} onClick={() => {props.onClick(number)}} key={index}>{number}</DateCell>
+            <DateCell selected={props.guestValue === number} onClick={() => {props.onClick(number)}} key={index}>{number}</DateCell>
         );
     });
 
@@ -28,9 +30,10 @@ export const Guests = (props: IGuestsProps) => {
                 <GuestNumberGrid>
                     {numberOfGuestsHtml}
                 </GuestNumberGrid>
-                <GuestSelected>
-                    <H3>Antal gäster: {props.guestValue}</H3>
-                </GuestSelected>
+                {/* <GuestSelected>
+                    <H4>Antal gäster: {props.guestValue}</H4>
+                    <ChangeH4 onClick={() => props.onClick}>Ändra</ChangeH4>
+                </GuestSelected> */}
             </GuestDiv>
         </>
     );
