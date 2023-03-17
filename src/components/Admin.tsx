@@ -327,6 +327,8 @@ export const Admin = () => {
     );
   };
 
+// tillfällig lösning //  
+
 const QuickFix = styled.div`
   height: 100px;
 `;
