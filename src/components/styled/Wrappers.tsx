@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
 
 //ändra till column för mobile
 export const AdminWrapper = styled.div`
-width: 100vw;
+width: 100%;
   display: flex;
   flex-flow: row wrap;
   max-height: 20rem;
@@ -20,8 +20,10 @@ width: 100vw;
   /* width: 90%; */
   /* gap: 40px; */
   justify-content: space-between;
-  padding-top: 10px;
+  padding-top: 20px;
   padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 20px;
   border-top: 2px solid #fff;
   border-bottom: 2px solid #fff;
   background-color: #d7d7d7;
