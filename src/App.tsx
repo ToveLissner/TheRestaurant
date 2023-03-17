@@ -10,7 +10,7 @@ import { GlobalStyles } from "./components/styled/Global";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./components/styled/Theme";
 import { Admin } from "./components/Admin";
-import Booking from "./Booking";
+import Booking from "./pages/Booking";
 import { StyledHeroImage } from "./components/styled/Hero/Image/Image.styled";
 import Title from "./components/styled/Hero/Title/Title";
 import Main from "./components/styled/MainContent/Main";
@@ -23,24 +23,27 @@ function App() {
   // };
 
   return (
-    // <div>
-    //   <Header/>
-    //   <main>
-    //     <Outlet></Outlet>
-    //   </main>
-    //   <Admin/>
-    // </div>
-
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-
-      <StyledHeroImage>
-        <Header />
-        <Title />
-      </StyledHeroImage>
-      <Main />
+    <div>
+      <Header />
+      <main>
+        <Outlet></Outlet>
+      </main>
       <Footer />
-    </ThemeProvider>
+    </div>
+
+
+      /* <GlobalStyles />
+      <StyledHeroImage>
+        
+        <Title />
+      </StyledHeroImage> */
+
+    // <ThemeProvider theme={theme}>
+
+     
+    //   <Main />
+    //   
+    // </ThemeProvider>
   );
 }
 
