@@ -15,8 +15,6 @@ export const DinnerWrapper = (props: IDinnerWrapperProps) => {
     const early = "18:00";
     const late = "21:00";
 
-np
-
     return(
         <DinnerSlots>
             <DinnerButton  fullBooked={props.fullBooked} onChange={ () => {props.onChange(props.fullBooked)}}><H3>18:00 Boka</H3></DinnerButton>
