@@ -1,6 +1,5 @@
 import React from "react";
 import { StyledMenuLinks, StyledMenu } from "./Menu.styled";
-import { Link } from "react-router-dom";
 
 interface Props {
 	open: boolean;

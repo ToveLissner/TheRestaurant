@@ -1,4 +1,3 @@
-import React from "react";
 import { StyledBokaBtn, StyledBokaText } from "./Boka.styled";
 
 const Boka = () => {

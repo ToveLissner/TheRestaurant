@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import hero from "../../../../images/pancakes.jpg";
-import { device } from "../../Breakpoints";
 
 export const StyledHeroImage = styled.article`
 	height: 90vh;

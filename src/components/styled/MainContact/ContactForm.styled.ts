@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { theme } from "../Theme";
-import { device } from "../Breakpoints";
 
 export const StyledContactForm = styled.form`
 	width: 100%;
