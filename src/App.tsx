@@ -17,30 +17,31 @@ import Main from "./components/styled/MainContent/Main";
 import Footer from "./components/styled/Footer/Footer";
 
 function App() {
-	// type StateProps = {
-	// 	open: boolean;
-	// 	setOpen: boolean;
-	// };
+  // type StateProps = {
+  // 	open: boolean;
+  // 	setOpen: boolean;
+  // };
 
-	return (
-		// <div>
-		//   <Header/>
-		//   <main>
-		//     <Outlet></Outlet>
-		//   </main>
-		//   <Admin/>
-		// </div>
-		<ThemeProvider theme={theme}>
-			<GlobalStyles />
+  return (
+    // <div>
+    //   <Header/>
+    //   <main>
+    //     <Outlet></Outlet>
+    //   </main>
+    //   <Admin/>
+    // </div>
 
-			<StyledHeroImage>
-				<Header />
-				<Title />
-			</StyledHeroImage>
-			<Main />
-			<Footer />
-		</ThemeProvider>
-	);
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+
+      <StyledHeroImage>
+        <Header />
+        <Title />
+      </StyledHeroImage>
+      <Main />
+      <Footer />
+    </ThemeProvider>
+  );
 }
 
 export default App;

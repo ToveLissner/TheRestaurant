@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, useEffect, useState, useMemo } from "react";
 import { IBookingFromDB } from "../models/IBookingsFromDB";
-import { AdminWrapper } from "./styled/Wrappers";
-import { AdminButton } from "./styled/Buttons";
-import { AdminButtonDiv } from "./styled/Div";
+import { AdminWrapper } from "../components/styled/Wrappers";
+import { AdminButton } from "../components/styled/Buttons";
+import { AdminButtonDiv } from "../components/styled/Div";
 import {
   createBooking,
   getBookingsFromDB,
