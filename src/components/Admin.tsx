@@ -11,6 +11,7 @@ import {
 } from "../services/restaurantService";
 import { IBookingUpdate } from "../models/IBookingUpdate";
 import { IBooking } from "../models/IBooking";
+import styled from "styled-components";
 
 export const Admin = () => {
   const [bookings, setBookings] = useState<IBookingFromDB[]>([]);
@@ -326,8 +327,15 @@ export const Admin = () => {
     );
   };
 
+// tillfällig lösning //  
+
+const QuickFix = styled.div`
+  height: 100px;
+`;
+
   return (
     <>
+      <QuickFix/>
       {sortBy()}
       <button type="button" onClick={() => handleNewBooking(newBooking)}>
         Lägg till bokning
