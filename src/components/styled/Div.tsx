@@ -2,6 +2,6 @@ import styled from "styled-components";
 
 export const AdminButtonDiv = styled.div`
   display: flex;
-  justify_content: space-around;
+  justify-content: flex-end;
   width: 40vh;
 `;
