@@ -17,7 +17,7 @@ export const DinnerWrapper = (props: IDinnerWrapperProps) => {
 
     return(
         <DinnerSlots>
-            <DinnerButton  fullBooked={props.fullBooked} onChange={ () => {props.onChange(props.fullBooked)}}><H3>18:00 Boka</H3></DinnerButton>
+            <DinnerButton  fullBooked={props.fullBooked} onChange={ () => {props.onChange(props.fullBooked)}}  onClick={ () => {props.onClick(early)}}><H3>18:00 Boka</H3></DinnerButton>
             <DinnerButton fullBooked={props.fullBooked} onChange={ () => {props.onChange(props.fullBooked)} } onClick={ () => {props.onClick(late)}}><H3>21:00 Boka</H3></DinnerButton>
         </DinnerSlots>
     );

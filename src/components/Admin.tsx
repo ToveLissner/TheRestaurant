@@ -12,6 +12,8 @@ import {
 import { IBookingUpdate } from "../models/IBookingUpdate";
 import { IBooking } from "../models/IBooking";
 import styled from "styled-components";
+import { AdminTitle } from "./styled/AdminTitle";
+import "../components/ExitStyled.css";
 
 export const Admin = () => {
   const [bookings, setBookings] = useState<IBookingFromDB[]>([]);
@@ -337,7 +339,8 @@ const QuickFix = styled.div`
     <>
       <QuickFix/>
       {sortBy()}
-      <button type="button" onClick={() => handleNewBooking(newBooking)}>
+      <AdminTitle>Admin</AdminTitle>
+      <button className="AddBookingButton" type="button" onClick={() => handleNewBooking(newBooking)}>
         Lägg till bokning
       </button>
       {showModal ? modalHtml : <></>}

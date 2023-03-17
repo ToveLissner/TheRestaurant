@@ -96,9 +96,13 @@ export const CustomerInputWrapper = (props: ICustomerInputWrapperProps) => {
 
     const checkValidations = () => {
         if(nameValidation() && lastnameValidation() && emailValidation() && phoneNumberValidation()){
-            
+            MessageForCompleteBooked();
         } 
     }
+
+    const MessageForCompleteBooked = () => {
+        alert("Din bokning är nu godkänd, Välkommen!");
+      }
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
