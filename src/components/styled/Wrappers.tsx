@@ -17,7 +17,7 @@ export const AdminWrapper = styled.div`
   max-height: 20rem;
   /* width: fit-content; */
   width: 80%;
-  gap: 40px;;
+  gap: 40px;
   margin: 1vh;
   padding: 1vh;
   background-color: #d7d7d7;
