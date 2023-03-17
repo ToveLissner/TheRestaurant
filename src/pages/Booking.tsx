@@ -1,19 +1,18 @@
 import React, { ChangeEvent, useState } from 'react';
 import logo from './logo.svg';
-import './App.css';
-import { getBookings, getRestaurant } from './services/restaurantService';
+import { getBookings, getRestaurant } from '../services/restaurantService';
 import { Outlet } from 'react-router-dom';
-import { Calendar } from './components/Calendar';
-import { Guests } from './components/Guests';
-import { listOfGuests } from "./consts/guests";
-import { FirstFormSelections } from './components/FirstFormSelections';
-import { DinnerWrapper } from './components/DinnerWrapper';
-import { ConfirmBookingWrapper } from './components/ConfirmBookingWrapper';
-import { IBooking } from './models/IBooking';
+import { Calendar } from '../components/Calendar';
+import { Guests } from '../components/Guests';
+import { listOfGuests } from "../consts/guests";
+import { FirstFormSelections } from '../components/FirstFormSelections';
+import { DinnerWrapper } from '../components/DinnerWrapper';
+import { ConfirmBookingWrapper } from '../components/ConfirmBookingWrapper';
+import { IBooking } from '../models/IBooking';
 import { setDate, format } from 'date-fns';
-import { CustomerInputWrapper } from './components/CustomerInputWrapper';
-import { NextFormButtonWrapper } from './components/NextFormButtonWrapper';
-import { IBookedTables } from './models/IBookedTables';
+import { CustomerInputWrapper } from '../components/CustomerInputWrapper';
+import { NextFormButtonWrapper } from '../components/NextFormButtonWrapper';
+import { IBookedTables } from '../models/IBookedTables';
 
 function App() {
   const [currentDate, setCurrentDate] = useState(new Date());
