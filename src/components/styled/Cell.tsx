@@ -27,9 +27,9 @@ export const DateCell = styled(Cell)`
 `;
 
 export const PrefixCell = styled(Cell)`
-    background-color: #8C3503;
+    background-color: #171926;
 `;
 
 export const SuffixCell = styled(PrefixCell)`
-    background-color: #8C3503;
+    background-color: #171926;
 `;

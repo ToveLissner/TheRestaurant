@@ -3,6 +3,7 @@ import { errorInputMessages } from "../consts/error";
 import { ConfirmBookingWrapper } from "./ConfirmBookingWrapper";
 import { ErrorMessage } from "./ErrorMessage";
 import { CheckForBookingButton } from "./styled/Buttons";
+import { CheckForGDPR } from "./styled/CheckForGDPR";
 import { ConfirmBookingButton } from "./styled/ConfirmBookingButton";
 import { Container } from "./styled/Container";
 import { ErrorStyling } from "./styled/ErrorStyling";
@@ -10,6 +11,7 @@ import { H3 } from "./styled/H3";
 import { Input } from "./styled/Input";
 import { InputContainer } from "./styled/InputContainer";
 import { InputLabel } from "./styled/InputLabel";
+import { LabelGDPR } from "./styled/LabelGDPR";
 
 interface ICustomerInputWrapperProps {
     name: string;
@@ -153,6 +155,11 @@ export const CustomerInputWrapper = (props: ICustomerInputWrapperProps) => {
                 <Input placeholder="Telefonnummer" value={props.phone} onChange={props.onChange} name="phone" required/>                
             </InputContainer>
             {/* <ConfirmBookingWrapper onClick={confirmBookingClick}></ConfirmBookingWrapper> */}
+
+            <CheckForGDPR>
+            <input type="checkbox" name="" id="" required/>
+            <LabelGDPR>Hur vi hanterar era personuppgifter(GDPR)</LabelGDPR>
+            </CheckForGDPR>
             <ConfirmBookingButton onClick={ () => {props.onClick()}}><H3>Bekräfta bokning</H3></ConfirmBookingButton>
             </form>
         </Container>

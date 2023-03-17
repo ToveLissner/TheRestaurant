@@ -100,11 +100,9 @@ const funka = setSelectedDate(correctDateFormat);
     };
 
 
-  bookingsFromApi.map( (booking) => {
+    bookingsFromApi.map( (booking) => {
 
-    console.log(correctDateFormat, booking.date);
-
-      if(correctDateFormat === booking.date +"dszff"){
+      if(correctDateFormat === booking.date){
 
         if((booking.time === "18:00") && listOfBookingsForSpecificDay.firstTimeSlot.tables <15){
             listOfBookingsForSpecificDay.firstTimeSlot.tables++;
@@ -179,7 +177,7 @@ const confirmBookingClick = () => {
           {/* <div>{JSON.stringify(booking)}</div> */}
           <DinnerWrapper onChange={setFullBooked} fullBooked={fullBooked} time={dinnerTime} onClick={handleTimeClick}></DinnerWrapper>
           {/* <ConfirmBookingWrapper></ConfirmBookingWrapper> */}
-          <NextFormButtonWrapper></NextFormButtonWrapper>
+          {/* <NextFormButtonWrapper></NextFormButtonWrapper> */}
 
           <CustomerInputWrapper name={booking.customer.name} lastname={booking.customer.lastname} email={booking.customer.email} phone={booking.customer.phone} onChange={handleCustomerInputChange} onClick={confirmBookingClick}></CustomerInputWrapper>
 

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ConfirmBookingButton = styled.button`
-    margin: 40px auto 100px;
+    margin: 0px auto 100px;
     width: 600px;
     height: 70px;
     display: flex;
