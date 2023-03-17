@@ -176,7 +176,7 @@ const confirmBookingClick = () => {
           <Guests guestValue={booking.numberOfGuests} onChange={setNumberOfGuests} onClick={guestHandleClick}></Guests>
           <Calendar isToggled={false} bookedTables={bookedTables} value={currentDate} onChange={setCurrentDate} onClick={handleClickDate}></Calendar>
           {/* <div>{date}</div> */}
-          <div>{JSON.stringify(booking)}</div>
+          {/* <div>{JSON.stringify(booking)}</div> */}
           <DinnerWrapper onChange={setFullBooked} fullBooked={fullBooked} time={dinnerTime} onClick={handleTimeClick}></DinnerWrapper>
           {/* <ConfirmBookingWrapper></ConfirmBookingWrapper> */}
           <NextFormButtonWrapper></NextFormButtonWrapper>
