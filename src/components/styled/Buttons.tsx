@@ -24,7 +24,7 @@ export const Button = styled.button`
 `;
 
 export const AdminButton = styled.button`
-  border-radius: 999px;
+  border-radius: 25px;
   box-shadow: #5e5df0 0 10px 20px -10px;
   box-sizing: border-box;
   color: #ffffff;
@@ -33,12 +33,12 @@ export const AdminButton = styled.button`
     NotoColorEmoji, "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji",
     EmojiSymbols, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue",
     "Noto Sans", sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 24px;
   opacity: 1;
   outline: 0 solid transparent;
-  padding: 4px 14px;
+  padding: 2px 40px;
   width: fit-content;
   border: 0;
   margin-right: 2%;
@@ -47,6 +47,7 @@ export const AdminButton = styled.button`
   }
   background-color: ${(props: IButtonProps) => props.bgcolor || "yellow"};
 `;
+
 
 // arv där vi bara ändrar färgerna // MÅSTE FIXA DENNA
 

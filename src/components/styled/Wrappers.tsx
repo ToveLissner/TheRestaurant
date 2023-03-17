@@ -12,6 +12,7 @@ export const Wrapper = styled.div`
 
 //ändra till column för mobile
 export const AdminWrapper = styled.div`
+width: 100vw;
   display: flex;
   flex-flow: row wrap;
   max-height: 20rem;
@@ -19,11 +20,12 @@ export const AdminWrapper = styled.div`
   /* width: 90%; */
   /* gap: 40px; */
   justify-content: space-between;
-  margin: 1vh;
-  padding: 1vh;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  border-top: 2px solid #fff;
+  border-bottom: 2px solid #fff;
   background-color: #d7d7d7;
-  border-radius: 3%;
-  border: 2px solid black;
+  
   font-family: Inter, Helvetica, "Apple Color Emoji", "Segoe UI Emoji",
     NotoColorEmoji, "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji",
     EmojiSymbols, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue",
