@@ -15,10 +15,12 @@ export const AdminWrapper = styled.div`
   display: flex;
   flex-flow: row wrap;
   max-height: 20rem;
-  width: fit-content;
+  /* width: fit-content; */
+  width: 80%;
+  gap: 40px;;
   margin: 1vh;
   padding: 1vh;
-  background-color: orange;
+  background-color: #d7d7d7;
   border-radius: 3%;
   border: 2px solid black;
   font-family: Inter, Helvetica, "Apple Color Emoji", "Segoe UI Emoji",
