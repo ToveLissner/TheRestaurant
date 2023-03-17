@@ -108,7 +108,7 @@ export const Calendar = (props: ICalendarProps) => {
                 {/* {Array.from({length: numberofDays}).map( () => ())} */}
             </CalendarGrid>
             <CalendarSelected>
-                <H3>Valt datum: {format(props.value, "dd LLLL yyyy")}</H3>
+                {/* <H3>Valt datum: {format(props.value, "dd LLLL yyyy")}</H3> */}
                 {/* <H3 >{printOutChosenDay}</H3> */}
             </CalendarSelected>
         </CalendarDiv>
