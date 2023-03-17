@@ -5,13 +5,12 @@ import Contact from "./pages/Contact";
 import Booking from "./pages/Bookingspage/Booking";
 
 export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      { path: "/home", element: <Home />, index: true },
-      { path: "/contact", element: <Contact /> },
-      { path: "/booking", element: <Booking /> },
-    ],
-  },
+	{
+		path: "/",
+		element: <Home />,
+	},
+	{
+		path: "/pages/Contact",
+		element: <Contact />,
+	},
 ]);

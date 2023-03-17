@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
+import { theme } from "./Theme";
 
-/*export const GlobalStyles = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Open+Sans:wght@400;700&family=Poppins:wght@400;700&display=swap');
+export const GlobalStyles = createGlobalStyle`
     html, body {
     margin: 0;
     padding: 0;
@@ -10,37 +10,9 @@ import { createGlobalStyle } from "styled-components";
     box-sizing: border-box;
   }
   body {
-    background-color: darkslategray;
-    align-items: center;
-    display: flex;
-    font-family: "Poppins", sans-serif;
+    background-color: ${theme.primaryWhite};
     height: 100vh;
-    justify-content: center;
     text-rendering: optimizeLegibility;
   }
 
 `;
-
-
-//ska in i app.tsx
-
-type StateProps = {
-  open: boolean;
-  setOpen: boolean;
-}
-
-const [open, setOpen] = useState(false);
-return (
-  
-    <ThemeProvider theme={theme}>
-      <>
-        <GlobalStyles/>
-
-        <div>
-          <Burger open={open} setOpen={setOpen}/>
-          <Menu open={open} setOpen={setOpen}/>
-        </div>
-      </>
-      
-    </ThemeProvider>
-);*/
