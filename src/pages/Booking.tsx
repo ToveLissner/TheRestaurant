@@ -106,10 +106,11 @@ const funka = setSelectedDate(correctDateFormat);
 
         if((booking.time === "18:00") && listOfBookingsForSpecificDay.firstTimeSlot.tables <15){
             listOfBookingsForSpecificDay.firstTimeSlot.tables++;
-            setFullBooked(fullBooked);
         } else if((booking.time === "18:00") && listOfBookingsForSpecificDay.firstTimeSlot.tables == 15){
-          setFullBooked(!fullBooked);
+          setFullBooked(false);
         }
+
+        console.log(test);
 
         if((booking.time === "21:00") && listOfBookingsForSpecificDay.secondTimeSlot.tables <15){
             listOfBookingsForSpecificDay.secondTimeSlot.tables++;
@@ -174,7 +175,7 @@ const confirmBookingClick = () => {
           <Guests guestValue={booking.numberOfGuests} onChange={setNumberOfGuests} onClick={guestHandleClick}></Guests>
           <Calendar isToggled={false} bookedTables={bookedTables} value={currentDate} onChange={setCurrentDate} onClick={handleClickDate}></Calendar>
           {/* <div>{date}</div> */}
-          {/* <div>{JSON.stringify(booking)}</div> */}
+          <div>{JSON.stringify(booking)}</div>
           <DinnerWrapper onChange={setFullBooked} fullBooked={fullBooked} time={dinnerTime} onClick={handleTimeClick}></DinnerWrapper>
           {/* <ConfirmBookingWrapper></ConfirmBookingWrapper> */}
           {/* <NextFormButtonWrapper></NextFormButtonWrapper> */}
