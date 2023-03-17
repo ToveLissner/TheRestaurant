@@ -16,7 +16,7 @@ export const AdminWrapper = styled.div`
   flex-flow: row wrap;
   max-height: 20rem;
   /* width: fit-content; */
-  width: 80%;
+  width: 90%;
   gap: 40px;
   margin: 1vh;
   padding: 1vh;
