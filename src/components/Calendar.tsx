@@ -24,6 +24,7 @@ interface ICalendarProps {
     bookedTables: IBookedTables;
     isToggled: boolean;
     onClick: (index: number) => void; 
+    date: string;
 }
 
 export const Calendar = (props: ICalendarProps) => {
@@ -88,7 +89,7 @@ export const Calendar = (props: ICalendarProps) => {
         return (
             <SuffixCell key={index}></SuffixCell>
         )});
-    
+
     return (
         <CalendarDiv>
             <H3>Calendar</H3>
@@ -108,7 +109,7 @@ export const Calendar = (props: ICalendarProps) => {
                 {/* {Array.from({length: numberofDays}).map( () => ())} */}
             </CalendarGrid>
             <CalendarSelected>
-                {/* <H3>Valt datum: {format(props.value, "dd LLLL yyyy")}</H3> */}
+                <H3>Valt datum: {props.date}</H3>
                 {/* <H3 >{printOutChosenDay}</H3> */}
             </CalendarSelected>
         </CalendarDiv>

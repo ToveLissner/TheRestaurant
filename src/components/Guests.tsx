@@ -30,10 +30,10 @@ export const Guests = (props: IGuestsProps) => {
                 <GuestNumberGrid>
                     {numberOfGuestsHtml}
                 </GuestNumberGrid>
-                {/* <GuestSelected>
+                <GuestSelected>
                     <H4>Antal gäster: {props.guestValue}</H4>
                     <ChangeH4 onClick={() => props.onClick}>Ändra</ChangeH4>
-                </GuestSelected> */}
+                </GuestSelected>
             </GuestDiv>
         </>
     );

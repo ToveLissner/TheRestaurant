@@ -13,12 +13,14 @@ import { setDate, format } from 'date-fns';
 import { CustomerInputWrapper } from '../components/CustomerInputWrapper';
 import { NextFormButtonWrapper } from '../components/NextFormButtonWrapper';
 import { IBookedTables } from '../models/IBookedTables';
+import { Seperator } from '../components/styled/Seperator';
 
 
 function App() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [numberOfGuests, setNumberOfGuests] = useState(0);
   const [selectedDate, setSelectedDate] = useState("");
+  const [isVisible, setIsVisible] = useState(true);
   const [bookedTables, setBookedTables] = useState<IBookedTables>({
     firstTimeSlot: {
       dinnerTime: "", 
@@ -62,17 +64,20 @@ function App() {
 
     console.log(index);
 
+    setIsVisible(false);
+
     setBooking( {...booking, numberOfGuests: index});
 }
-let test: string | undefined;
+
+
+
+console.log(isVisible);
 
 const getSelectedCell = (index: number) => {
 
 }
 
 let listOfBookingsForSpecificDay: IBookedTables;
-
-let funka: string;
 
 const handleClickDate = async (index: number) => {
   const date = setDate(currentDate, index);
@@ -81,7 +86,9 @@ const handleClickDate = async (index: number) => {
 
  const correctDateFormat = format(date, 'yyyy-MM-dd');
 
-const funka = setSelectedDate(correctDateFormat); 
+setSelectedDate(correctDateFormat);
+
+//const funka = setSelectedDate(correctDateFormat); 
 
 
   // setIsSelected(!isSelected);
@@ -124,7 +131,7 @@ const funka = setSelectedDate(correctDateFormat);
 
       setBookedTables(listOfBookingsForSpecificDay);
   });
-  
+
   setBooking( {...booking, date: correctDateFormat} );
 
   //const tablesBookedForCurrentDate = listOfBookingsForSpecificDay.firstTimeSlot.dinnerTime+" "+listOfBookingsForSpecificDay.secondTimeSlot.tables +`\n`+listOfBookingsForSpecificDay[1].dinnerTime +" " +listOfBookingsForSpecificDay[1].tables;
@@ -173,7 +180,8 @@ const confirmBookingClick = () => {
     <div>
       <main>
           <Guests guestValue={booking.numberOfGuests} onChange={setNumberOfGuests} onClick={guestHandleClick}></Guests>
-          <Calendar isToggled={false} bookedTables={bookedTables} value={currentDate} onChange={setCurrentDate} onClick={handleClickDate}></Calendar>
+          <Seperator></Seperator>
+          <Calendar isToggled={false} bookedTables={bookedTables} value={currentDate} date={selectedDate} onChange={setCurrentDate} onClick={handleClickDate}></Calendar>
           {/* <div>{date}</div> */}
           <div>{JSON.stringify(booking)}</div>
           <DinnerWrapper onChange={setFullBooked} fullBooked={fullBooked} time={dinnerTime} onClick={handleTimeClick}></DinnerWrapper>
