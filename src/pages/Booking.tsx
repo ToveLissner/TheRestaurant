@@ -1,192 +1,232 @@
-import React, { ChangeEvent, useState } from 'react';
-import logo from './logo.svg';
-import { createBooking, getBookings, getRestaurant } from '../services/restaurantService';
-import { Outlet } from 'react-router-dom';
-import { Calendar } from '../components/Calendar';
-import { Guests } from '../components/Guests';
+import React, { ChangeEvent, useState } from "react";
+import logo from "./logo.svg";
+import {
+	createBooking,
+	getBookings,
+	getRestaurant,
+} from "../services/restaurantService";
+import { Outlet } from "react-router-dom";
+import { Calendar } from "../components/Calendar";
+import { Guests } from "../components/Guests";
 import { listOfGuests } from "../consts/guests";
-import { FirstFormSelections } from '../components/FirstFormSelections';
-import { DinnerWrapper } from '../components/DinnerWrapper';
-import { ConfirmBookingWrapper } from '../components/ConfirmBookingWrapper';
-import { IBooking } from '../models/IBooking';
-import { setDate, format } from 'date-fns';
-import { CustomerInputWrapper } from '../components/CustomerInputWrapper';
-import { NextFormButtonWrapper } from '../components/NextFormButtonWrapper';
-import { IBookedTables } from '../models/IBookedTables';
-
+import { FirstFormSelections } from "../components/FirstFormSelections";
+import { DinnerWrapper } from "../components/DinnerWrapper";
+import { ConfirmBookingWrapper } from "../components/ConfirmBookingWrapper";
+import { IBooking } from "../models/IBooking";
+import { setDate, format } from "date-fns";
+import { CustomerInputWrapper } from "../components/CustomerInputWrapper";
+import { NextFormButtonWrapper } from "../components/NextFormButtonWrapper";
+import { IBookedTables } from "../models/IBookedTables";
+import { Header } from "../components/Header";
+import Footer from "../components/styled/Footer/Footer";
 
 function App() {
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [numberOfGuests, setNumberOfGuests] = useState(0);
-  const [selectedDate, setSelectedDate] = useState("");
-  const [bookedTables, setBookedTables] = useState<IBookedTables>({
-    firstTimeSlot: {
-      dinnerTime: "", 
-      tables: 0
-    },
-    secondTimeSlot: {
-      dinnerTime: "", 
-      tables: 0
-    }
-  });
-  const[isToggled, setIsToggled] = useState(false); 
-  const [dinnerTime, setDinnerTime] = useState(""); 
-  const [clickedSubmit, setClickedSubmit] = useState("false");
-  const [fullBooked, setFullBooked] = useState(false);
-  const [booking, setBooking] = useState<IBooking>({
-    restaurantId: "6409b9ec4e7f91245cbd6d91",
-    date: "",
-    time: "",
-    numberOfGuests: 0,
-    customer: {
-        name: "",
-        lastname: "",
-        email: "",
-        phone: ""
-    }
-  });
+	const [currentDate, setCurrentDate] = useState(new Date());
+	const [numberOfGuests, setNumberOfGuests] = useState(0);
+	const [selectedDate, setSelectedDate] = useState("");
+	const [bookedTables, setBookedTables] = useState<IBookedTables>({
+		firstTimeSlot: {
+			dinnerTime: "",
+			tables: 0,
+		},
+		secondTimeSlot: {
+			dinnerTime: "",
+			tables: 0,
+		},
+	});
+	const [isToggled, setIsToggled] = useState(false);
+	const [dinnerTime, setDinnerTime] = useState("");
+	const [clickedSubmit, setClickedSubmit] = useState("false");
+	const [fullBooked, setFullBooked] = useState(false);
+	const [booking, setBooking] = useState<IBooking>({
+		restaurantId: "6409b9ec4e7f91245cbd6d91",
+		date: "",
+		time: "",
+		numberOfGuests: 0,
+		customer: {
+			name: "",
+			lastname: "",
+			email: "",
+			phone: "",
+		},
+	});
 
-  const handleClick = () => {
-    getBookings();
-  }
+	const handleClick = () => {
+		getBookings();
+	};
 
-  const toggleActive = () => {
-    //setBtnState(btnState === !btnState);
-    console.log("funka");
-}
+	const toggleActive = () => {
+		//setBtnState(btnState === !btnState);
+		console.log("funka");
+	};
 
-  const guestHandleClick = (index: number) =>{
-    // props.onChange(index);
-    let guests = [...listOfGuests];
-    let selection = guests[guests.findIndex( (g) => g === index)];
+	const guestHandleClick = (index: number) => {
+		// props.onChange(index);
+		let guests = [...listOfGuests];
+		let selection = guests[guests.findIndex((g) => g === index)];
 
-    console.log(index);
+		console.log(index);
 
-    setBooking( {...booking, numberOfGuests: index});
-}
-let test: string | undefined;
+		setBooking({ ...booking, numberOfGuests: index });
+	};
+	let test: string | undefined;
 
-const getSelectedCell = (index: number) => {
+	const getSelectedCell = (index: number) => {};
 
-}
+	let listOfBookingsForSpecificDay: IBookedTables;
 
-let listOfBookingsForSpecificDay: IBookedTables;
+	let funka: string;
 
-let funka: string;
+	const handleClickDate = async (index: number) => {
+		const date = setDate(currentDate, index);
+		//props.onChange(date);
+		//console.log(date);
 
-const handleClickDate = async (index: number) => {
-  const date = setDate(currentDate, index);
-  //props.onChange(date);
-  //console.log(date);
+		const correctDateFormat = format(date, "yyyy-MM-dd");
 
- const correctDateFormat = format(date, 'yyyy-MM-dd');
+		const funka = setSelectedDate(correctDateFormat);
 
-const funka = setSelectedDate(correctDateFormat); 
+		// setIsSelected(!isSelected);
 
+		let bookingsFromApi: IBooking[] = await getBookings();
 
-  // setIsSelected(!isSelected);
+		listOfBookingsForSpecificDay = {
+			firstTimeSlot: {
+				dinnerTime: "18:00",
+				tables: 0,
+			},
+			secondTimeSlot: {
+				dinnerTime: "21:00",
+				tables: 0,
+			},
+		};
 
-  let bookingsFromApi: IBooking[] = await getBookings();
-                  
-  listOfBookingsForSpecificDay = {
-    firstTimeSlot: {
-          dinnerTime: "18:00",
-          tables: 0,
-      },
-      secondTimeSlot: {
-          dinnerTime: "21:00",
-          tables: 0,
-      }
-    };
+		bookingsFromApi.map((booking) => {
+			if (correctDateFormat === booking.date) {
+				if (
+					booking.time === "18:00" &&
+					listOfBookingsForSpecificDay.firstTimeSlot.tables < 15
+				) {
+					listOfBookingsForSpecificDay.firstTimeSlot.tables++;
+				} else if (
+					booking.time === "18:00" &&
+					listOfBookingsForSpecificDay.firstTimeSlot.tables == 15
+				) {
+					setFullBooked(false);
+				}
 
+				console.log(test);
 
-    bookingsFromApi.map( (booking) => {
+				if (
+					booking.time === "21:00" &&
+					listOfBookingsForSpecificDay.secondTimeSlot.tables < 15
+				) {
+					listOfBookingsForSpecificDay.secondTimeSlot.tables++;
+					return;
+				}
+			}
 
-      if(correctDateFormat === booking.date){
+			console.log(
+				correctDateFormat +
+					":" +
+					`\n` +
+					listOfBookingsForSpecificDay.firstTimeSlot.dinnerTime +
+					" " +
+					listOfBookingsForSpecificDay.firstTimeSlot.tables +
+					`\n` +
+					listOfBookingsForSpecificDay.secondTimeSlot.dinnerTime +
+					" " +
+					listOfBookingsForSpecificDay.secondTimeSlot.tables
+			);
 
-        if((booking.time === "18:00") && listOfBookingsForSpecificDay.firstTimeSlot.tables <15){
-            listOfBookingsForSpecificDay.firstTimeSlot.tables++;
-        } else if((booking.time === "18:00") && listOfBookingsForSpecificDay.firstTimeSlot.tables == 15){
-          setFullBooked(false);
-        }
+			setBookedTables(listOfBookingsForSpecificDay);
+		});
 
-        console.log(test);
+		setBooking({ ...booking, date: correctDateFormat });
 
-        if((booking.time === "21:00") && listOfBookingsForSpecificDay.secondTimeSlot.tables <15){
-            listOfBookingsForSpecificDay.secondTimeSlot.tables++;
-            return;
-        }
+		//const tablesBookedForCurrentDate = listOfBookingsForSpecificDay.firstTimeSlot.dinnerTime+" "+listOfBookingsForSpecificDay.secondTimeSlot.tables +`\n`+listOfBookingsForSpecificDay[1].dinnerTime +" " +listOfBookingsForSpecificDay[1].tables;
 
-      }
+		//console.log(listOfBookingsForSpecificDay);
+		//const updatedBookedTables = setBookedTables(listOfBookingsForSpecificDay);
 
-      console.log(correctDateFormat+":" +`\n`+listOfBookingsForSpecificDay.firstTimeSlot.dinnerTime +" " +listOfBookingsForSpecificDay.firstTimeSlot.tables +`\n`
-                  +listOfBookingsForSpecificDay.secondTimeSlot.dinnerTime +" " +listOfBookingsForSpecificDay.secondTimeSlot.tables);
+		//displayAvailableTimeSlot(updatedBookedTables);
 
-      setBookedTables(listOfBookingsForSpecificDay);
-  });
-  
-  setBooking( {...booking, date: correctDateFormat} );
+		const clickDate = date;
+		return clickDate;
+	};
 
-  //const tablesBookedForCurrentDate = listOfBookingsForSpecificDay.firstTimeSlot.dinnerTime+" "+listOfBookingsForSpecificDay.secondTimeSlot.tables +`\n`+listOfBookingsForSpecificDay[1].dinnerTime +" " +listOfBookingsForSpecificDay[1].tables;
+	const displayAvailableTimeSlot = (listOfTablesBooked: IBookedTables) => {
+		console.log(JSON.stringify(listOfTablesBooked.firstTimeSlot.dinnerTime));
+		console.log(JSON.stringify(listOfTablesBooked.secondTimeSlot.tables));
+	};
 
-  //console.log(listOfBookingsForSpecificDay);
-  //const updatedBookedTables = setBookedTables(listOfBookingsForSpecificDay);
+	const handleTimeClick = (diningTime: string) => {
+		setBooking({ ...booking, time: diningTime });
+	};
 
-  //displayAvailableTimeSlot(updatedBookedTables);
+	const handleCustomerInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+		setBooking({
+			...booking,
+			customer: { ...booking.customer, [e.target.name]: e.target.value },
+		});
+	};
 
-  const clickDate = date;
-  return clickDate;
-}
+	const guestValidation = () => {
+		const guestsNumbers = setNumberOfGuests(booking.numberOfGuests);
 
-const displayAvailableTimeSlot = (listOfTablesBooked: IBookedTables) => {
-  console.log(JSON.stringify(listOfTablesBooked.firstTimeSlot.dinnerTime));
-  console.log(JSON.stringify(listOfTablesBooked.secondTimeSlot.tables));
-}
+		if (booking.numberOfGuests < 1) {
+			console.log("saknar gäster");
+		}
 
-const handleTimeClick = (diningTime: string) => {
-  
-  setBooking({...booking, time: diningTime})
-}
+		console.log(setNumberOfGuests(booking.numberOfGuests));
+	};
 
-const handleCustomerInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-  setBooking({...booking, customer: {...booking.customer, [e.target.name]: e.target.value }});
-}
+	const confirmBookingClick = () => {
+		guestValidation();
+		createBooking(booking);
+	};
 
-const guestValidation = () => {
-  const guestsNumbers = setNumberOfGuests(booking.numberOfGuests);
-  
-  if(booking.numberOfGuests <1){
-    console.log("saknar gäster");
-  }
+	return (
+		<div>
+			<main>
+				<Header />
+				<Guests
+					guestValue={booking.numberOfGuests}
+					onChange={setNumberOfGuests}
+					onClick={guestHandleClick}
+				></Guests>
+				<Calendar
+					isToggled={false}
+					bookedTables={bookedTables}
+					value={currentDate}
+					onChange={setCurrentDate}
+					onClick={handleClickDate}
+				></Calendar>
+				{/* <div>{date}</div> */}
+				<div>{JSON.stringify(booking)}</div>
+				<DinnerWrapper
+					onChange={setFullBooked}
+					fullBooked={fullBooked}
+					time={dinnerTime}
+					onClick={handleTimeClick}
+				></DinnerWrapper>
+				{/* <ConfirmBookingWrapper></ConfirmBookingWrapper> */}
+				{/* <NextFormButtonWrapper></NextFormButtonWrapper> */}
 
-  console.log(setNumberOfGuests(booking.numberOfGuests));
+				<CustomerInputWrapper
+					name={booking.customer.name}
+					lastname={booking.customer.lastname}
+					email={booking.customer.email}
+					phone={booking.customer.phone}
+					onChange={handleCustomerInputChange}
+					onClick={confirmBookingClick}
+				></CustomerInputWrapper>
 
-}
-
-
-const confirmBookingClick = () => {
-  guestValidation();
-  createBooking(booking);
-}
-
-  return (
-    <div>
-      <main>
-          <Guests guestValue={booking.numberOfGuests} onChange={setNumberOfGuests} onClick={guestHandleClick}></Guests>
-          <Calendar isToggled={false} bookedTables={bookedTables} value={currentDate} onChange={setCurrentDate} onClick={handleClickDate}></Calendar>
-          {/* <div>{date}</div> */}
-          <div>{JSON.stringify(booking)}</div>
-          <DinnerWrapper onChange={setFullBooked} fullBooked={fullBooked} time={dinnerTime} onClick={handleTimeClick}></DinnerWrapper>
-          {/* <ConfirmBookingWrapper></ConfirmBookingWrapper> */}
-          {/* <NextFormButtonWrapper></NextFormButtonWrapper> */}
-
-          <CustomerInputWrapper name={booking.customer.name} lastname={booking.customer.lastname} email={booking.customer.email} phone={booking.customer.phone} onChange={handleCustomerInputChange} onClick={confirmBookingClick}></CustomerInputWrapper>
-
-          {/* <ConfirmBookingWrapper onClick={confirmBookingClick}></ConfirmBookingWrapper> */}
-      </main>
-    </div>  
-  );
-
+				{/* <ConfirmBookingWrapper onClick={confirmBookingClick}></ConfirmBookingWrapper> */}
+				<Footer />
+			</main>
+		</div>
+	);
 }
 
 export default App;

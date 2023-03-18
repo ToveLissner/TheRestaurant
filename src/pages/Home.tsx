@@ -17,6 +17,7 @@ export default function Home() {
 				<Title />
 			</StyledHeroImage>
 			<Main />
+			<Footer />
 		</ThemeProvider>
 	);
 }

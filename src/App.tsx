@@ -17,34 +17,15 @@ import Main from "./components/styled/MainContent/Main";
 import Footer from "./components/styled/Footer/Footer";
 
 function App() {
-  // type StateProps = {
-  // 	open: boolean;
-  // 	setOpen: boolean;
-  // };
-
-  return (
-    <div>
-      <Header />
-      <main>
-        <Outlet></Outlet>
-      </main>
-      <Footer />
-    </div>
-
-
-      /* <GlobalStyles />
-      <StyledHeroImage>
-        
-        <Title />
-      </StyledHeroImage> */
-
-    // <ThemeProvider theme={theme}>
-
-     
-    //   <Main />
-    //   
-    // </ThemeProvider>
-  );
+	return (
+		<div>
+			{/* <Header /> */}
+			<main>
+				<Outlet />
+			</main>
+			{/* <Footer /> */}
+		</div>
+	);
 }
 
 export default App;
