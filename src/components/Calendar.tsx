@@ -15,6 +15,8 @@ import { getBookings } from "../services/restaurantService";
 import { IBooking } from "../models/IBooking";
 import { useState } from "react";
 import { IBookedTables } from "../models/IBookedTables";
+import { ChangeH4 } from "./styled/H4";
+import { CalendarWrapper } from "./styled/CalendarWrapper";
 
 interface ICalendarProps {
     value: Date;
@@ -25,6 +27,8 @@ interface ICalendarProps {
     isToggled: boolean;
     onClick: (index: number) => void; 
     date: string;
+    visibleState: boolean;
+    displaySection: () => void;
 }
 
 export const Calendar = (props: ICalendarProps) => {
@@ -93,24 +97,26 @@ export const Calendar = (props: ICalendarProps) => {
     return (
         <CalendarDiv>
             <H3>Calendar</H3>
-            <CalendarHeader>
-                <LeftButton onClick={changeToPrevMonth}>left</LeftButton>
-                <CalendarMonth>{format(props.value, "LLLL yyyy")}</CalendarMonth>
-                <RightButton onClick={changeToNextMonth}>right</RightButton>
-            </CalendarHeader>
-            <CalendarGrid>
-                {/* {daysOfWeek.map( (day) => (
-                    <Cell key={day}>{day}</Cell>
-                ) )} */}
-                {daysOfWeekHtml}
-                {prefixDaysOfMonth}
-                {daysOfMonthHTML}
-                {suffixDaysOfMonth}
-                {/* {Array.from({length: numberofDays}).map( () => ())} */}
-            </CalendarGrid>
+            <CalendarWrapper selected={props.visibleState}>
+                <CalendarHeader>
+                    <LeftButton onClick={changeToPrevMonth}>left</LeftButton>
+                    <CalendarMonth>{format(props.value, "LLLL yyyy")}</CalendarMonth>
+                    <RightButton onClick={changeToNextMonth}>right</RightButton>
+                </CalendarHeader>
+                <CalendarGrid>
+                    {/* {daysOfWeek.map( (day) => (
+                        <Cell key={day}>{day}</Cell>
+                    ) )} */}
+                    {daysOfWeekHtml}
+                    {prefixDaysOfMonth}
+                    {daysOfMonthHTML}
+                    {suffixDaysOfMonth}
+                    {/* {Array.from({length: numberofDays}).map( () => ())} */}
+                </CalendarGrid>
+            </CalendarWrapper>
             <CalendarSelected>
                 <H3>Valt datum: {props.date}</H3>
-                {/* <H3 >{printOutChosenDay}</H3> */}
+                <ChangeH4 onClick={props.displaySection}>Ändra</ChangeH4>
             </CalendarSelected>
         </CalendarDiv>
     );

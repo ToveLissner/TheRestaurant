@@ -14,13 +14,18 @@ import { CustomerInputWrapper } from '../components/CustomerInputWrapper';
 import { NextFormButtonWrapper } from '../components/NextFormButtonWrapper';
 import { IBookedTables } from '../models/IBookedTables';
 import { Seperator } from '../components/styled/Seperator';
+import { H2 } from '../components/styled/H2';
+import { TestContext, testOfContext } from '../context/BookingContext';
+import { CalendarParagraph } from '../components/CalendarParagraph';
+import { CalendarParagraphStyled } from '../components/styled/CalendarParagraphStyled';
 
 
 function App() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [numberOfGuests, setNumberOfGuests] = useState(0);
   const [selectedDate, setSelectedDate] = useState("");
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisibleGuest, setIsVisibleGuest] = useState(false);
+  const [isVisibleCalendar, setIsVisibleCalendar] = useState(false);
   const [bookedTables, setBookedTables] = useState<IBookedTables>({
     firstTimeSlot: {
       dinnerTime: "", 
@@ -34,7 +39,8 @@ function App() {
   const[isToggled, setIsToggled] = useState(false); 
   const [dinnerTime, setDinnerTime] = useState(""); 
   const [clickedSubmit, setClickedSubmit] = useState("false");
-  const [fullBooked, setFullBooked] = useState(false);
+  const [fullBookedEarly, setFullBookedEarly] = useState(false);
+  const [fullBookedLate, setFullBookedLate] = useState(false);
   const [booking, setBooking] = useState<IBooking>({
     restaurantId: "6409b9ec4e7f91245cbd6d91",
     date: "",
@@ -48,30 +54,27 @@ function App() {
     }
   });
 
+  <TestContext.Provider value={testOfContext}></TestContext.Provider>
+
   const handleClick = () => {
     getBookings();
   }
 
-  const toggleActive = () => {
-    //setBtnState(btnState === !btnState);
-    console.log("funka");
-}
-
   const guestHandleClick = (index: number) =>{
-    // props.onChange(index);
     let guests = [...listOfGuests];
     let selection = guests[guests.findIndex( (g) => g === index)];
 
-    console.log(index);
-
-    setIsVisible(false);
-
+    hideSectionGuest();
     setBooking( {...booking, numberOfGuests: index});
 }
 
+const hideSectionGuest = () => {
+  setIsVisibleGuest(true);
+}
 
-
-console.log(isVisible);
+const displaySectionGuest = () => {
+  setIsVisibleGuest(false);
+}
 
 const getSelectedCell = (index: number) => {
 
@@ -81,8 +84,8 @@ let listOfBookingsForSpecificDay: IBookedTables;
 
 const handleClickDate = async (index: number) => {
   const date = setDate(currentDate, index);
-  //props.onChange(date);
-  //console.log(date);
+
+  hideSectionCalendar();
 
  const correctDateFormat = format(date, 'yyyy-MM-dd');
 
@@ -111,20 +114,27 @@ setSelectedDate(correctDateFormat);
 
       if(correctDateFormat === booking.date){
 
-        if((booking.time === "18:00") && listOfBookingsForSpecificDay.firstTimeSlot.tables <15){
-            listOfBookingsForSpecificDay.firstTimeSlot.tables++;
-        } else if((booking.time === "18:00") && listOfBookingsForSpecificDay.firstTimeSlot.tables == 15){
-          setFullBooked(false);
-        }
+        if((booking.time === "18:00") && listOfBookingsForSpecificDay.firstTimeSlot.tables <7){
+          listOfBookingsForSpecificDay.firstTimeSlot.tables++;
+          setFullBookedEarly(true);
+        } 
 
-        console.log(test);
+        // if((booking.time === "18:00") && listOfBookingsForSpecificDay.firstTimeSlot.tables >6){
+        //   listOfBookingsForSpecificDay.firstTimeSlot.tables = listOfBookingsForSpecificDay.firstTimeSlot.tables;
+        //   setFullBookedEarly(false);
+        // }
 
-        if((booking.time === "21:00") && listOfBookingsForSpecificDay.secondTimeSlot.tables <15){
-            listOfBookingsForSpecificDay.secondTimeSlot.tables++;
-            return;
-        }
+        // if((booking.time === "21:00") && listOfBookingsForSpecificDay.secondTimeSlot.tables <7){
+        //     listOfBookingsForSpecificDay.secondTimeSlot.tables++;
+        //     setFullBookedLate(true)
+        // } 
+        // if((booking.time === "21:00") && listOfBookingsForSpecificDay.secondTimeSlot.tables >=7){
+        //   setFullBookedLate(false);
+        // }
 
       }
+
+      console.log(listOfBookingsForSpecificDay.firstTimeSlot.tables);
 
       console.log(correctDateFormat+":" +`\n`+listOfBookingsForSpecificDay.firstTimeSlot.dinnerTime +" " +listOfBookingsForSpecificDay.firstTimeSlot.tables +`\n`
                   +listOfBookingsForSpecificDay.secondTimeSlot.dinnerTime +" " +listOfBookingsForSpecificDay.secondTimeSlot.tables);
@@ -142,7 +152,16 @@ setSelectedDate(correctDateFormat);
   //displayAvailableTimeSlot(updatedBookedTables);
 
   const clickDate = date;
+
   return clickDate;
+}
+
+const hideSectionCalendar = () => {
+  //setIsVisibleCalendar(true);
+}
+
+const displaySectionCalendar = () => {
+  setIsVisibleCalendar(false);
 }
 
 const displayAvailableTimeSlot = (listOfTablesBooked: IBookedTables) => {
@@ -170,21 +189,28 @@ const guestValidation = () => {
 
 }
 
-
 const confirmBookingClick = () => {
   guestValidation();
   createBooking(booking);
 }
 
+console.log(fullBookedEarly);
+
   return (
     <div>
       <main>
-          <Guests guestValue={booking.numberOfGuests} onChange={setNumberOfGuests} onClick={guestHandleClick}></Guests>
+          <H2>Boka Bord</H2>
+          <CalendarParagraphStyled>
+            <CalendarParagraph/>
+          </CalendarParagraphStyled>
           <Seperator></Seperator>
-          <Calendar isToggled={false} bookedTables={bookedTables} value={currentDate} date={selectedDate} onChange={setCurrentDate} onClick={handleClickDate}></Calendar>
+          <Guests guestValue={booking.numberOfGuests} visibleState={isVisibleGuest} displaySection={displaySectionGuest} onChange={setNumberOfGuests} onClick={guestHandleClick} ></Guests>
+          <Seperator></Seperator>
+          <Calendar isToggled={false} bookedTables={bookedTables} visibleState={isVisibleCalendar} value={currentDate} date={selectedDate} displaySection={displaySectionCalendar} onChange={setCurrentDate} onClick={handleClickDate}></Calendar>
+          <Seperator></Seperator>
           {/* <div>{date}</div> */}
-          <div>{JSON.stringify(booking)}</div>
-          <DinnerWrapper onChange={setFullBooked} fullBooked={fullBooked} time={dinnerTime} onClick={handleTimeClick}></DinnerWrapper>
+          {/* <div>{JSON.stringify(booking)}</div> */}
+          <DinnerWrapper fullBookedEarly={fullBookedEarly} time={dinnerTime} onClick={handleTimeClick} ></DinnerWrapper>
           {/* <ConfirmBookingWrapper></ConfirmBookingWrapper> */}
           {/* <NextFormButtonWrapper></NextFormButtonWrapper> */}
 

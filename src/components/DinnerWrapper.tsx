@@ -4,8 +4,9 @@ import { H3 } from "./styled/H3";
 
 interface IDinnerWrapperProps {
     time: string;
-    fullBooked: boolean;
-    onChange : (booked: boolean) => void;
+    fullBookedEarly: boolean;
+    // fullBookedLate: boolean;
+    //onChange : (booked: boolean) => void;
     onClick: (text: string) => void;
     //showNextButton: () => void;
 }
@@ -17,8 +18,8 @@ export const DinnerWrapper = (props: IDinnerWrapperProps) => {
 
     return(
         <DinnerSlots>
-            <DinnerButton  fullBooked={props.fullBooked} onChange={ () => {props.onChange(props.fullBooked)}}  onClick={ () => {props.onClick(early)}}><H3>18:00 Boka</H3></DinnerButton>
-            <DinnerButton fullBooked={props.fullBooked} onChange={ () => {props.onChange(props.fullBooked)} } onClick={ () => {props.onClick(late)}}><H3>21:00 Boka</H3></DinnerButton>
-        </DinnerSlots>
+            {/* <DinnerButton onChange={ () => {(props.fullBookedEarly)}} onClick={ () => {props.onClick(early)}}><H3>18:00 Boka</H3></DinnerButton> */}
+            {/* <DinnerButton onChange={ () => {(props.fullBookedLate)} } onClick={ () => {props.onClick(late)}}><H3>21:00 Boka</H3></DinnerButton> */}
+        </DinnerSlots> 
     );
 }

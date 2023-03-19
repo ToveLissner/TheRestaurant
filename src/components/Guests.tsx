@@ -1,4 +1,5 @@
 import { numberOfGuests } from "../consts/guests";
+import { testOfContext } from "../context/BookingContext";
 import { Cell, DateCell } from "./styled/Cell";
 import { GuestDiv } from "./styled/GuestDiv";
 import { GuestNumberGrid } from "./styled/GuestNumberGrid";
@@ -11,8 +12,9 @@ interface IGuestsProps {
     onChange: (guestValue: number) => void;
     //selected: boolean;
     onClick: (index: number) => void; 
-
-}
+    visibleState: boolean;
+    displaySection: () => void;
+} 
 
 export const Guests = (props: IGuestsProps) => {
 
@@ -27,12 +29,12 @@ export const Guests = (props: IGuestsProps) => {
         <>  
             <GuestDiv>
                 <H3>Antal personer</H3>
-                <GuestNumberGrid>
+                <GuestNumberGrid selected={props.visibleState}>
                     {numberOfGuestsHtml}
                 </GuestNumberGrid>
-                <GuestSelected>
+                <GuestSelected> 
                     <H4>Antal gäster: {props.guestValue}</H4>
-                    <ChangeH4 onClick={() => props.onClick}>Ändra</ChangeH4>
+                    <ChangeH4 onClick={props.displaySection}>Ändra</ChangeH4>
                 </GuestSelected>
             </GuestDiv>
         </>
