@@ -212,7 +212,7 @@ console.log(fullBookedEarly);
           <Seperator></Seperator>
           {/* <div>{date}</div> */}
           {/* <div>{JSON.stringify(booking)}</div> */}
-          <DinnerWrapper fullBookedEarly={fullBookedEarly} time={dinnerTime} onClick={handleTimeClick} ></DinnerWrapper>
+          <DinnerWrapper onChange={setFullBookedEarly} fullBookedEarly={fullBookedEarly} time={dinnerTime} onClick={handleTimeClick} ></DinnerWrapper>
           {/* <ConfirmBookingWrapper></ConfirmBookingWrapper> */}
           {/* <NextFormButtonWrapper></NextFormButtonWrapper> */}
 

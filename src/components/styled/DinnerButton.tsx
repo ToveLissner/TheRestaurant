@@ -1,23 +1,24 @@
 import styled from "styled-components";
 
 interface IDinnerButtonProps {
-    fullBookedSelection: boolean;
+    fullBookedEarly: boolean;
+    onChange: () => void;
     //fullBookedLate?: boolean;
 }
 
 export const DinnerButton = styled.button`
     width: calc(50% - 5px);
     height: 70px;
-    //background-color: #171926;
-    color: #fff;
+    background-color: #171926;
+    color: green;
     border: none;
     cursor: pointer;
 `;
 
 export const DinnerButtonEarly = styled(DinnerButton)`
-    background-color: ${(props: IDinnerButtonProps) => props.fullBookedSelection ? "green" : "red"};
-    pointer-events: ${(props: IDinnerButtonProps) => props.fullBookedSelection ? "auto" : "none"};
-    opacity: ${(props: IDinnerButtonProps) => props.fullBookedSelection ? "100%" : "50%"};
+    background-color: ${(props: IDinnerButtonProps) => props.fullBookedEarly ? "green" : "red"};
+    pointer-events: ${(props: IDinnerButtonProps) => props.fullBookedEarly ? "auto" : "none"};
+    opacity: ${(props: IDinnerButtonProps) => props.fullBookedEarly ? "100%" : "50%"};
 `;
 
 // export const DinnerButtonLate = styled(DinnerButton)`
