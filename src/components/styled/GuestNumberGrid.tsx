@@ -11,4 +11,5 @@ export const GuestNumberGrid = styled.div`
     text-align: center;
     display: ${ (props: IGuestNumberGridProps) => 
         props.selected ? "none" : "visible"};
+    height: auto;
 `;
