@@ -3,7 +3,7 @@ import { CalendarDiv } from "./styled/CalendarDiv";
 import { CalendarGrid } from "./styled/CalendarGrid";
 import { CalendarHeader } from "./styled/CalendarHeader";
 import { CalendarMonth } from "./styled/CalendarMonth";
-import { H3 } from "./styled/H3";
+import { H3, SectionTitle } from "./styled/H3";
 import { LeftButton } from "./styled/LeftButton";
 import { RightButton } from "./styled/RightButton";
 import { Cell, DateCell, PrefixCell, SuffixCell } from "./styled/Cell";
@@ -15,7 +15,7 @@ import { getBookings } from "../services/restaurantService";
 import { IBooking } from "../models/IBooking";
 import { useState } from "react";
 import { IBookedTables } from "../models/IBookedTables";
-import { ChangeH4 } from "./styled/H4";
+import { ChangeH4, H4 } from "./styled/H4";
 import { CalendarWrapper } from "./styled/CalendarWrapper";
 
 interface ICalendarProps {
@@ -96,7 +96,7 @@ export const Calendar = (props: ICalendarProps) => {
 
     return (
         <CalendarDiv>
-            <H3>Calendar</H3>
+            <SectionTitle selected={props.visibleState}>Calendar</SectionTitle>
             <CalendarWrapper selected={props.visibleState}>
                 <CalendarHeader>
                     <LeftButton onClick={changeToPrevMonth}>left</LeftButton>
@@ -115,7 +115,7 @@ export const Calendar = (props: ICalendarProps) => {
                 </CalendarGrid>
             </CalendarWrapper>
             <CalendarSelected>
-                <H3>Valt datum: {props.date}</H3>
+                <H4>Valt datum: {props.date}</H4>
                 <ChangeH4 onClick={props.displaySection}>Ändra</ChangeH4>
             </CalendarSelected>
         </CalendarDiv>

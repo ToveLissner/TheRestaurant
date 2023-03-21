@@ -8,13 +8,13 @@ export const ConfirmBookingButton = styled.button`
     justify-content: center;
     align-items: center;
     background-color: transparent;
-    color: #8C3503;
-    border: 2px solid #8C3503;
+    color: #171926;
+    border: 2px solid #171926;
     cursor: pointer;
     transition: 200ms ease-in;
 
     &:hover{
-        background-color: #8C3503;
+        background-color: #171926;
         color: #fff;
     }
 `;

@@ -182,10 +182,6 @@ const handleCustomerInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 
 const guestValidation = () => {
   const guestsNumbers = setNumberOfGuests(booking.numberOfGuests);
-  
-  if(booking.numberOfGuests <1){
-    console.log("saknar gäster");
-  }
 
   console.log(setNumberOfGuests(booking.numberOfGuests));
 
@@ -196,7 +192,7 @@ const confirmBookingClick = () => {
   createBooking(booking);
 }
 
-console.log(fullBookedEarly);
+//console.log(fullBookedEarly);
 
   return (
     <div>
@@ -211,7 +207,7 @@ console.log(fullBookedEarly);
           <Calendar isToggled={false} bookedTables={bookedTables} visibleState={isVisibleCalendar} value={currentDate} date={selectedDate} displaySection={displaySectionCalendar} onChange={setCurrentDate} onClick={handleClickDate}></Calendar>
           <Seperator></Seperator>
           {/* <div>{date}</div> */}
-          {/* <div>{JSON.stringify(booking)}</div> */}
+          <div>{JSON.stringify(booking)}</div>i
           <DinnerWrapper onChange={setFullBookedEarly} fullBookedEarly={fullBookedEarly} time={dinnerTime} onClick={handleTimeClick} ></DinnerWrapper>
           {/* <ConfirmBookingWrapper></ConfirmBookingWrapper> */}
           {/* <NextFormButtonWrapper></NextFormButtonWrapper> */}

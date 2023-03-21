@@ -4,7 +4,7 @@ import { Cell, DateCell } from "./styled/Cell";
 import { GuestDiv } from "./styled/GuestDiv";
 import { GuestNumberGrid } from "./styled/GuestNumberGrid";
 import { GuestSelected } from "./styled/GuestSelected";
-import { H3 } from "./styled/H3";
+import { SectionTitle, H3 } from "./styled/H3";
 import { ChangeH4, H4 } from "./styled/H4";
 
 interface IGuestsProps {
@@ -28,7 +28,7 @@ export const Guests = (props: IGuestsProps) => {
         return(
         <>  
             <GuestDiv>
-                <H3>Antal personer</H3>
+                <SectionTitle selected={props.visibleState}>Antal personer</SectionTitle>
                 <GuestNumberGrid selected={props.visibleState}>
                     {numberOfGuestsHtml}
                 </GuestNumberGrid>

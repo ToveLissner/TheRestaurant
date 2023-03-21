@@ -10,7 +10,7 @@ export const DinnerButton = styled.button`
     width: calc(50% - 5px);
     height: 70px;
     background-color: #171926;
-    color: green;
+    color: #fff;
     border: none;
     cursor: pointer;
 `;
