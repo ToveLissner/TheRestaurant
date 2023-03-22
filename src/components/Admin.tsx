@@ -332,7 +332,6 @@ export const Admin = () => {
 	};
 
 	return (
-	
 		<>
 			<AdminTitle>Administrationsläge</AdminTitle>
 			<button
@@ -342,9 +341,9 @@ export const Admin = () => {
 			>
 				Boka bord
 			</button>
-			{sortBy()}
 			{showModal ? modalHtml : <></>}
 			{showForm ? newBookingmodal : <></>}
+			{sortBy()}
 			{bookingsHtml}
 		</>
 
