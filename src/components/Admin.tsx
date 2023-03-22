@@ -13,7 +13,6 @@ import { IBookingUpdate } from "../models/IBookingUpdate";
 import { IBooking } from "../models/IBooking";
 import { AdminTitle } from "./styled/AdminTitle";
 import "../components/ExitStyled.css";
-import { useParams } from "react-router-dom";
 
 export const Admin = () => {
 	const [bookings, setBookings] = useState<IBookingFromDB[]>([]);
@@ -39,11 +38,11 @@ export const Admin = () => {
 
 	const [newBooking, setNewBooking] = useState<IBooking>({
 		restaurantId: "6409b9ec4e7f91245cbd6d91",
-		date: "2023-04-06",
+		date: "",
 		time: "18:00",
 		numberOfGuests: 1,
 		customer: {
-			name: "Admin",
+			name: "",
 			lastname: "",
 			email: "",
 			phone: "",
@@ -160,11 +159,14 @@ export const Admin = () => {
 		setNewBooking({ ...newBooking, [e.target.name]: e.target.value });
 	}
 
+	function handleCustomerInputChange (e: ChangeEvent<HTMLInputElement>) {
+		setNewBooking({...newBooking, customer:{...newBooking.customer, [e.target.name]: e.target.value} })
+	}
+
 	let newBookingmodal = (
 		<div>
 			<form>
-				{/* <input value={newBooking.restaurantId} /> */}
-				<input value={newBooking.date} onChange={handleNewInputs} name="date" />
+				<input placeholder="YYYY-MM-DD" value={newBooking.date} onChange={handleNewInputs} name="date"/>
 				<select onChange={handleNewSelect} name="time" value={newBooking.time}>
 					<option>18:00</option>
 					<option>21:00</option>
@@ -181,10 +183,10 @@ export const Admin = () => {
 					<option>5</option>
 					<option>6</option>
 				</select>
-				{/* <input value={newBooking.customer.name} onChange={handleNewInputs} name="firstname" /> 
-      <input value={newBooking.customer.lastname} onChange={handleNewInputs} name="lastname" />
-      <input value={newBooking.customer.email} onChange={handleNewInputs} name="email" />
-      <input value={newBooking.customer.phone} onChange={handleNewInputs} name="phone" />  */}
+		<input placeholder="Förnamn" value={newBooking.customer.name} onChange={handleCustomerInputChange} name="name"/> 
+      	<input placeholder="Efternamn" value={newBooking.customer.lastname} onChange={handleCustomerInputChange} name="lastname" />
+      	<input placeholder="Mailadress" value={newBooking.customer.email} onChange={handleCustomerInputChange} name="email" />
+      	<input placeholder="Telefonnummer" value={newBooking.customer.phone} onChange={handleCustomerInputChange} name="phone" /> 
 				<button onClick={saveNewBooking}>Lägg till ny bokning</button>
 			</form>
 		</div>
