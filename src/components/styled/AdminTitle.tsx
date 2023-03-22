@@ -6,4 +6,5 @@ export const AdminTitle = styled.div`
     color: #000;
     font-size: 32px;
     font-weight: 600;
+    width: 100%;
 `;

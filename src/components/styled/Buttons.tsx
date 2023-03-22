@@ -25,7 +25,8 @@ export const Button = styled.button`
 
 export const AdminButton = styled.button`
   border-radius: 25px;
-  box-shadow: #5e5df0 0 10px 20px -10px;
+  /* box-shadow: #5e5df0 0 10px 20px -10px; */
+  box-shadow: #161926 0 10px 20px -10px;
   box-sizing: border-box;
   color: #ffffff;
   cursor: pointer;
@@ -41,7 +42,7 @@ export const AdminButton = styled.button`
   padding: 2px 40px;
   width: fit-content;
   border: 0;
-  margin-right: 2%;
+  /* margin-right: 2%; */
   &:active {
     transform: translateY(2px);
   }

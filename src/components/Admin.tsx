@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useEffect, useState, useMemo } from "react";
 import { IBookingFromDB } from "../models/IBookingsFromDB";
-import { AdminWrapper } from "./styled/Wrappers";
+import { AdminWrapper, SortWrapper } from "./styled/Wrappers";
 import { AdminButton } from "./styled/Buttons";
 import { AdminButtonDiv } from "./styled/Div";
 import {
@@ -11,11 +11,8 @@ import {
 } from "../services/restaurantService";
 import { IBookingUpdate } from "../models/IBookingUpdate";
 import { IBooking } from "../models/IBooking";
-import styled from "styled-components";
 import { AdminTitle } from "./styled/AdminTitle";
 import "../components/ExitStyled.css";
-import { Header } from "./Header";
-import Footer from "./styled/Footer/Footer";
 
 export const Admin = () => {
 	const [bookings, setBookings] = useState<IBookingFromDB[]>([]);
@@ -41,11 +38,11 @@ export const Admin = () => {
 
 	const [newBooking, setNewBooking] = useState<IBooking>({
 		restaurantId: "6409b9ec4e7f91245cbd6d91",
-		date: "2023-04-06",
+		date: "",
 		time: "18:00",
 		numberOfGuests: 1,
 		customer: {
-			name: "Admin",
+			name: "",
 			lastname: "",
 			email: "",
 			phone: "",
@@ -105,7 +102,6 @@ export const Admin = () => {
 	let modalHtml = (
 		<div>
 			<form>
-				{/* <input value={selectedBooking?.customerId } /> */}
 				<input
 					value={selectedBooking?.date}
 					onChange={handleInputChanges}
@@ -163,11 +159,14 @@ export const Admin = () => {
 		setNewBooking({ ...newBooking, [e.target.name]: e.target.value });
 	}
 
+	function handleCustomerInputChange (e: ChangeEvent<HTMLInputElement>) {
+		setNewBooking({...newBooking, customer:{...newBooking.customer, [e.target.name]: e.target.value} })
+	}
+
 	let newBookingmodal = (
 		<div>
 			<form>
-				{/* <input value={newBooking.restaurantId} /> */}
-				<input value={newBooking.date} onChange={handleNewInputs} name="date" />
+				<input placeholder="YYYY-MM-DD" value={newBooking.date} onChange={handleNewInputs} name="date"/>
 				<select onChange={handleNewSelect} name="time" value={newBooking.time}>
 					<option>18:00</option>
 					<option>21:00</option>
@@ -184,10 +183,10 @@ export const Admin = () => {
 					<option>5</option>
 					<option>6</option>
 				</select>
-				{/* <input value={newBooking.customer.name} onChange={handleNewInputs} name="firstname" /> 
-      <input value={newBooking.customer.lastname} onChange={handleNewInputs} name="lastname" />
-      <input value={newBooking.customer.email} onChange={handleNewInputs} name="email" />
-      <input value={newBooking.customer.phone} onChange={handleNewInputs} name="phone" />  */}
+		<input placeholder="Förnamn" value={newBooking.customer.name} onChange={handleCustomerInputChange} name="name"/> 
+      	<input placeholder="Efternamn" value={newBooking.customer.lastname} onChange={handleCustomerInputChange} name="lastname" />
+      	<input placeholder="Mailadress" value={newBooking.customer.email} onChange={handleCustomerInputChange} name="email" />
+      	<input placeholder="Telefonnummer" value={newBooking.customer.phone} onChange={handleCustomerInputChange} name="phone" /> 
 				<button onClick={saveNewBooking}>Lägg till ny bokning</button>
 			</form>
 		</div>
@@ -224,6 +223,7 @@ export const Admin = () => {
 	let bookingsHtml =
 		searchInput.length > 0
 			? filteredResults.map((booking, index: number) => {
+
 					return (
 						<AdminWrapper key={index}>
 							<p>Datum: {booking.date}</p>
@@ -233,7 +233,7 @@ export const Admin = () => {
 							<p>BokningsID: {booking._id}</p>
 							<AdminButtonDiv>
 								<AdminButton
-									bgcolor="#5E5DF0"
+									bgcolor="#161926"
 									type="button"
 									onClick={() => changeBooking(booking)}
 								>
@@ -257,6 +257,7 @@ export const Admin = () => {
 						</AdminWrapper>
 					);
 			  })
+
 			: sortedData.map((booking, index: number) => {
 					return (
 						<AdminWrapper key={index}>
@@ -267,7 +268,7 @@ export const Admin = () => {
 							<p>BokningsID: {booking._id}</p>
 							<AdminButtonDiv>
 								<AdminButton
-									bgcolor="#5E5DF0"
+									bgcolor="#161926"
 									type="button"
 									onClick={() => changeBooking(booking)}
 								>
@@ -277,13 +278,16 @@ export const Admin = () => {
 									bgcolor="red"
 									type="button"
 									onClick={async () => {
+										if (window.confirm("Vill du ta bort denna bokning? Åtgärden går ej att ångra")===true) {
 										let removed = await removeBooking(booking);
 										if (removed) {
 											let copy = [...bookings];
 											copy.splice(index, 1);
 											setBookings(copy);
 										}
-									}}
+										}		
+									}
+									}
 								>
 									Radera
 								</AdminButton>
@@ -291,24 +295,6 @@ export const Admin = () => {
 						</AdminWrapper>
 					);
 			  });
-
-	//SORTERING & SÖKFÄLT //
-
-	/*const searchItems = (searchValue: any) => {
-    setSearchInput(searchValue);
-    if (searchInput !== "") {
-      const filteredData = bookingsFromDB.filter((booking) => {
-        return Object.values(booking)
-          .join("")
-          .toLowerCase()
-          .includes(searchInput.toLowerCase());
-      });
-      setFilteredResults(filteredData);
-    } else {
-      setFilteredResults(bookingsFromDB);
-    }
-    console.log(filteredResults);
-  };*/
 
 	useEffect(() => {
 		if (searchInput !== "") {
@@ -326,7 +312,7 @@ export const Admin = () => {
 
 	const sortBy = () => {
 		return (
-			<div>
+			<SortWrapper>
 				<label>
 					<strong>Sortera efter: </strong>
 					<select onChange={(e) => setSortType(e.target.value)}>
@@ -338,36 +324,29 @@ export const Admin = () => {
 				</label>
 				<input
 					type="text"
-					placeholder="Sök..."
+					placeholder="Sök bokning..."
 					onChange={(e) => setSearchInput(e.target.value)}
 				/>
-			</div>
+			</SortWrapper>
 		);
 	};
 
-	// tillfällig lösning //
-
-	const QuickFix = styled.div`
-		height: 100px;
-	`;
-
 	return (
+	
 		<>
-			<Header />
-			<QuickFix />
-			{sortBy()}
-			<AdminTitle>Admin</AdminTitle>
+			<AdminTitle>Administrationsläge</AdminTitle>
 			<button
-				className="AddBookingButton"
 				type="button"
-				onClick={() => handleNewBooking(newBooking)}
+				onClick={() => 
+					handleNewBooking(newBooking)}
 			>
-				Lägg till bokning
+				Boka bord
 			</button>
+			{sortBy()}
 			{showModal ? modalHtml : <></>}
 			{showForm ? newBookingmodal : <></>}
 			{bookingsHtml}
-			<Footer />
 		</>
+
 	);
 };
