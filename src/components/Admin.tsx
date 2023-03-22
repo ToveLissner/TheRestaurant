@@ -162,6 +162,13 @@ export const Admin = () => {
     setNewBooking({ ...newBooking, [e.target.name]: e.target.value });
   }
 
+  const handleCustomerInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+	setNewBooking({
+		...newBooking,
+		customer: { ...newBooking.customer, [e.target.name]: e.target.value }
+	});
+};
+
   let newBookingmodal = (
     <div>
       <form>
@@ -183,6 +190,10 @@ export const Admin = () => {
           <option>5</option>
           <option>6</option>
         </select>
+		<input placeholder="Förnamn" value={newBooking.customer.name} onChange={handleCustomerInputChange} name="name" required/>
+		<input placeholder="Efternamn" value={newBooking.customer.lastname} onChange={handleCustomerInputChange} name="lastname" required/>
+		<input placeholder="E-post" value={newBooking.customer.email} onChange={handleCustomerInputChange} name="email" required/>
+		<input placeholder="Telefonnummer" value={newBooking.customer.phone} onChange={handleCustomerInputChange} name="phone"required/>
         {/* <input value={newBooking.customer.name} onChange={handleNewInputs} name="firstname" /> 
       <input value={newBooking.customer.lastname} onChange={handleNewInputs} name="lastname" />
       <input value={newBooking.customer.email} onChange={handleNewInputs} name="email" />
@@ -326,12 +337,6 @@ export const Admin = () => {
           placeholder="Sök..."
           onChange={(e) => searchItems(e.target.value)}
         />
-		<ErrorStyling>
-			<input placeholder="Förnamn" value={newBooking.customer.name} onChange={handleCustomerInputChange} name="name" required/>
-		</ErrorStyling>
-		<input placeholder="Efternamn" value={newBooking.customer.lastname} onChange={handleCustomerInputChange} name="lastname" required/>
-		<input placeholder="E-post" value={newBooking.customer.email} onChange={handleCustomerInputChange} name="email" required/>
-		<input placeholder="Telefonnummer" value={newBooking.customer.phone} onChange={handleCustomerInputChange} name="phone"required/>
       </div>
     );
   };
