@@ -40,10 +40,10 @@ export const getBooking = async (
 // getCustomer //
 
 export const getCustomer = async (
-  customer: ICustomerFromDB
+  customerId: string
 ): Promise<ICustomerFromDB> => {
   let response = await axios.get<ICustomerFromDB>(
-    `https://school-restaurant-api.azurewebsites.net/customer/${customer.id}`
+    `https://school-restaurant-api.azurewebsites.net/customer/${customerId}`
   );
 
   return response.data;

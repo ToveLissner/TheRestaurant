@@ -1,11 +1,12 @@
 import { ChangeEvent, FormEvent, useEffect, useState, useMemo } from "react";
 import { IBookingFromDB } from "../models/IBookingsFromDB";
-import { AdminWrapper } from "./styled/Wrappers";
+import { AdminWrapper, SortWrapper, Wrapper } from "./styled/Wrappers";
 import { AdminButton } from "./styled/Buttons";
 import { AdminButtonDiv } from "./styled/Div";
 import {
 	createBooking,
 	getBookingsFromDB,
+	getCustomer,
 	removeBooking,
 	updateBooking,
 } from "../services/restaurantService";
@@ -16,6 +17,14 @@ import { AdminTitle } from "./styled/AdminTitle";
 import "../components/ExitStyled.css";
 import { Header } from "./Header";
 import Footer from "./styled/Footer/Footer";
+import { ICustomerFromDB } from "../models/ICustomerFromDB";
+import { ICustomer } from "../models/ICustomer";
+import { useParams } from "react-router-dom";
+
+			//   primaryOrange: "#FF8C42",
+			//   primaryNavy: "#161926",
+			//   secondaryNavy: "#252a40",
+			//   primaryWhite: "#e9edf0",
 
 export const Admin = () => {
 	const [bookings, setBookings] = useState<IBookingFromDB[]>([]);
@@ -54,6 +63,23 @@ export const Admin = () => {
 	const [sortType, setSortType] = useState("");
 	const [filteredResults, setFilteredResults] = useState<IBookingFromDB[]>([]);
 	const [searchInput, setSearchInput] = useState("");
+	// const [customer, setCustomer] = useState({
+	// 	id: "",
+	// 	name: "",
+	// 	lastname: "",
+	// 	email: "",
+	// 	phone: "",
+	// });
+
+	// // const [smallCustomer, setSmallCustomer] = useState ({
+	// // 	name: "",
+	// // 	lastname: "",
+	// // 	email: "",
+	// // 	phone: "",
+	// //   }
+	// // )
+
+	const {id}=useParams();
 
 	useEffect(() => {
 		const getData = async () => {
@@ -219,11 +245,49 @@ export const Admin = () => {
 		return result;
 	}, [bookingsFromDB, sortType]);
 
+	// Hämta kundinformationen från API //
+
+	// async function getCustomerFromTheApi (customerId: string) {
+
+	// 	let customerFromDB = await getCustomer(customerId);
+
+		// if (customerId===customerFromDB.id) {
+		// let newCustomer: ICustomerFromDB =
+		// {
+		// 	id: customerFromDB.id,
+		// 	name: customerFromDB.name,
+		// 	lastname: customerFromDB.lastname,
+		// 	email: customerFromDB.lastname,
+		// 	phone: customerFromDB.phone,
+		// }
+		// setCustomer(newCustomer);
+
+		// console.log(customer);
+
+	// 	if (customerId===customerFromDB.id) {
+	// 		let newCustomer: ICustomer =
+	// 		{
+	// 			name: customerFromDB.name,
+	// 			lastname: customerFromDB.lastname,
+	// 			email: customerFromDB.lastname,
+	// 			phone: customerFromDB.phone,
+	// 		}
+	// 		setSmallCustomer(newCustomer);
+	
+	// 		console.log(smallCustomer);
+	// }
+
+	// console.log(smallCustomer.lastname[1]);
+	// };
+
 	// LOOPAR IGENOM ALLA BOKNINGAR //
 
 	let bookingsHtml =
 		searchInput.length > 0
 			? filteredResults.map((booking, index: number) => {
+
+		// getCustomerFromTheApi(booking.customerId);
+
 					return (
 						<AdminWrapper key={index}>
 							<p>Datum: {booking.date}</p>
@@ -257,6 +321,7 @@ export const Admin = () => {
 						</AdminWrapper>
 					);
 			  })
+
 			: sortedData.map((booking, index: number) => {
 					return (
 						<AdminWrapper key={index}>
@@ -267,7 +332,8 @@ export const Admin = () => {
 							<p>BokningsID: {booking._id}</p>
 							<AdminButtonDiv>
 								<AdminButton
-									bgcolor="#5E5DF0"
+									// bgcolor="#5E5DF0"
+									bgcolor="#161926"
 									type="button"
 									onClick={() => changeBooking(booking)}
 								>
@@ -326,7 +392,7 @@ export const Admin = () => {
 
 	const sortBy = () => {
 		return (
-			<div>
+			<SortWrapper>
 				<label>
 					<strong>Sortera efter: </strong>
 					<select onChange={(e) => setSortType(e.target.value)}>
@@ -338,10 +404,10 @@ export const Admin = () => {
 				</label>
 				<input
 					type="text"
-					placeholder="Sök..."
+					placeholder="Sök bokning..."
 					onChange={(e) => setSearchInput(e.target.value)}
 				/>
-			</div>
+			</SortWrapper>
 		);
 	};
 
@@ -352,22 +418,23 @@ export const Admin = () => {
 	`;
 
 	return (
+	
 		<>
 			<Header />
 			<QuickFix />
-			{sortBy()}
-			<AdminTitle>Admin</AdminTitle>
+			<AdminTitle>Administrationsläge</AdminTitle>
 			<button
-				className="AddBookingButton"
 				type="button"
 				onClick={() => handleNewBooking(newBooking)}
 			>
 				Lägg till bokning
 			</button>
+			{sortBy()}
 			{showModal ? modalHtml : <></>}
 			{showForm ? newBookingmodal : <></>}
 			{bookingsHtml}
-			<Footer />
+			{/* <Footer /> */}
 		</>
+
 	);
 };
