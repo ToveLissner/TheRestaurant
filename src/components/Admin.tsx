@@ -1,30 +1,19 @@
 import { ChangeEvent, FormEvent, useEffect, useState, useMemo } from "react";
 import { IBookingFromDB } from "../models/IBookingsFromDB";
-import { AdminWrapper, SortWrapper, Wrapper } from "./styled/Wrappers";
+import { AdminWrapper, SortWrapper } from "./styled/Wrappers";
 import { AdminButton } from "./styled/Buttons";
 import { AdminButtonDiv } from "./styled/Div";
 import {
 	createBooking,
 	getBookingsFromDB,
-	getCustomer,
 	removeBooking,
 	updateBooking,
 } from "../services/restaurantService";
 import { IBookingUpdate } from "../models/IBookingUpdate";
 import { IBooking } from "../models/IBooking";
-import styled from "styled-components";
 import { AdminTitle } from "./styled/AdminTitle";
 import "../components/ExitStyled.css";
-import { Header } from "./Header";
-import Footer from "./styled/Footer/Footer";
-import { ICustomerFromDB } from "../models/ICustomerFromDB";
-import { ICustomer } from "../models/ICustomer";
 import { useParams } from "react-router-dom";
-
-			//   primaryOrange: "#FF8C42",
-			//   primaryNavy: "#161926",
-			//   secondaryNavy: "#252a40",
-			//   primaryWhite: "#e9edf0",
 
 export const Admin = () => {
 	const [bookings, setBookings] = useState<IBookingFromDB[]>([]);
@@ -63,23 +52,6 @@ export const Admin = () => {
 	const [sortType, setSortType] = useState("");
 	const [filteredResults, setFilteredResults] = useState<IBookingFromDB[]>([]);
 	const [searchInput, setSearchInput] = useState("");
-	// const [customer, setCustomer] = useState({
-	// 	id: "",
-	// 	name: "",
-	// 	lastname: "",
-	// 	email: "",
-	// 	phone: "",
-	// });
-
-	// // const [smallCustomer, setSmallCustomer] = useState ({
-	// // 	name: "",
-	// // 	lastname: "",
-	// // 	email: "",
-	// // 	phone: "",
-	// //   }
-	// // )
-
-	const {id}=useParams();
 
 	useEffect(() => {
 		const getData = async () => {
@@ -131,7 +103,6 @@ export const Admin = () => {
 	let modalHtml = (
 		<div>
 			<form>
-				{/* <input value={selectedBooking?.customerId } /> */}
 				<input
 					value={selectedBooking?.date}
 					onChange={handleInputChanges}
@@ -245,48 +216,11 @@ export const Admin = () => {
 		return result;
 	}, [bookingsFromDB, sortType]);
 
-	// Hämta kundinformationen från API //
-
-	// async function getCustomerFromTheApi (customerId: string) {
-
-	// 	let customerFromDB = await getCustomer(customerId);
-
-		// if (customerId===customerFromDB.id) {
-		// let newCustomer: ICustomerFromDB =
-		// {
-		// 	id: customerFromDB.id,
-		// 	name: customerFromDB.name,
-		// 	lastname: customerFromDB.lastname,
-		// 	email: customerFromDB.lastname,
-		// 	phone: customerFromDB.phone,
-		// }
-		// setCustomer(newCustomer);
-
-		// console.log(customer);
-
-	// 	if (customerId===customerFromDB.id) {
-	// 		let newCustomer: ICustomer =
-	// 		{
-	// 			name: customerFromDB.name,
-	// 			lastname: customerFromDB.lastname,
-	// 			email: customerFromDB.lastname,
-	// 			phone: customerFromDB.phone,
-	// 		}
-	// 		setSmallCustomer(newCustomer);
-	
-	// 		console.log(smallCustomer);
-	// }
-
-	// console.log(smallCustomer.lastname[1]);
-	// };
-
 	// LOOPAR IGENOM ALLA BOKNINGAR //
 
 	let bookingsHtml =
 		searchInput.length > 0
 			? filteredResults.map((booking, index: number) => {
-
-		// getCustomerFromTheApi(booking.customerId);
 
 					return (
 						<AdminWrapper key={index}>
@@ -297,7 +231,7 @@ export const Admin = () => {
 							<p>BokningsID: {booking._id}</p>
 							<AdminButtonDiv>
 								<AdminButton
-									bgcolor="#5E5DF0"
+									bgcolor="#161926"
 									type="button"
 									onClick={() => changeBooking(booking)}
 								>
@@ -332,7 +266,6 @@ export const Admin = () => {
 							<p>BokningsID: {booking._id}</p>
 							<AdminButtonDiv>
 								<AdminButton
-									// bgcolor="#5E5DF0"
 									bgcolor="#161926"
 									type="button"
 									onClick={() => changeBooking(booking)}
@@ -343,13 +276,16 @@ export const Admin = () => {
 									bgcolor="red"
 									type="button"
 									onClick={async () => {
+										if (window.confirm("Vill du ta bort denna bokning? Åtgärden går ej att ångra")===true) {
 										let removed = await removeBooking(booking);
 										if (removed) {
 											let copy = [...bookings];
 											copy.splice(index, 1);
 											setBookings(copy);
 										}
-									}}
+										}		
+									}
+									}
 								>
 									Radera
 								</AdminButton>
@@ -357,24 +293,6 @@ export const Admin = () => {
 						</AdminWrapper>
 					);
 			  });
-
-	//SORTERING & SÖKFÄLT //
-
-	/*const searchItems = (searchValue: any) => {
-    setSearchInput(searchValue);
-    if (searchInput !== "") {
-      const filteredData = bookingsFromDB.filter((booking) => {
-        return Object.values(booking)
-          .join("")
-          .toLowerCase()
-          .includes(searchInput.toLowerCase());
-      });
-      setFilteredResults(filteredData);
-    } else {
-      setFilteredResults(bookingsFromDB);
-    }
-    console.log(filteredResults);
-  };*/
 
 	useEffect(() => {
 		if (searchInput !== "") {
@@ -411,29 +329,21 @@ export const Admin = () => {
 		);
 	};
 
-	// tillfällig lösning //
-
-	const QuickFix = styled.div`
-		height: 100px;
-	`;
-
 	return (
 	
 		<>
-			<Header />
-			<QuickFix />
 			<AdminTitle>Administrationsläge</AdminTitle>
 			<button
 				type="button"
-				onClick={() => handleNewBooking(newBooking)}
+				onClick={() => 
+					handleNewBooking(newBooking)}
 			>
-				Lägg till bokning
+				Boka bord
 			</button>
 			{sortBy()}
 			{showModal ? modalHtml : <></>}
 			{showForm ? newBookingmodal : <></>}
 			{bookingsHtml}
-			{/* <Footer /> */}
 		</>
 
 	);
