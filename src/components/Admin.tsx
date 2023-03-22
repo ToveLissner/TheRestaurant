@@ -14,6 +14,7 @@ import { IBooking } from "../models/IBooking";
 import styled from "styled-components";
 import { AdminTitle } from "./styled/AdminTitle";
 import "../components/ExitStyled.css";
+import { ErrorStyling } from "./styled/ErrorStyling";
 
 export const Admin = () => {
   const [bookings, setBookings] = useState<IBookingFromDB[]>([]);
@@ -325,6 +326,12 @@ export const Admin = () => {
           placeholder="Sök..."
           onChange={(e) => searchItems(e.target.value)}
         />
+		<ErrorStyling>
+			<input placeholder="Förnamn" value={newBooking.customer.name} onChange={handleCustomerInputChange} name="name" required/>
+		</ErrorStyling>
+		<input placeholder="Efternamn" value={newBooking.customer.lastname} onChange={handleCustomerInputChange} name="lastname" required/>
+		<input placeholder="E-post" value={newBooking.customer.email} onChange={handleCustomerInputChange} name="email" required/>
+		<input placeholder="Telefonnummer" value={newBooking.customer.phone} onChange={handleCustomerInputChange} name="phone"required/>
       </div>
     );
   };
