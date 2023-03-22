@@ -207,7 +207,7 @@ const confirmBookingClick = () => {
           <Calendar isToggled={false} bookedTables={bookedTables} visibleState={isVisibleCalendar} value={currentDate} date={selectedDate} displaySection={displaySectionCalendar} onChange={setCurrentDate} onClick={handleClickDate}></Calendar>
           <Seperator></Seperator>
           {/* <div>{date}</div> */}
-          <div>{JSON.stringify(booking)}</div>i
+          {/* <div>{JSON.stringify(booking)}</div> */}
           <DinnerWrapper onChange={setFullBookedEarly} fullBookedEarly={fullBookedEarly} time={dinnerTime} onClick={handleTimeClick} ></DinnerWrapper>
           {/* <ConfirmBookingWrapper></ConfirmBookingWrapper> */}
           {/* <NextFormButtonWrapper></NextFormButtonWrapper> */}
