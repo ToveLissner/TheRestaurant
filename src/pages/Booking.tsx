@@ -27,6 +27,7 @@ function App() {
 
   const [isVisibleGuest, setIsVisibleGuest] = useState(false);
   const [isVisibleCalendar, setIsVisibleCalendar] = useState(false);
+  const [isVisibleTime, setIsVisibleTime] = useState(false);
 
   const [bookedTables, setBookedTables] = useState<IBookedTables>({
     firstTimeSlot: {
@@ -111,38 +112,59 @@ setSelectedDate(correctDateFormat);
       }
     };
 
+    setFullBookedEarly(false);
+    setFullBookedLate(false);
 
     bookingsFromApi.map( (booking) => {
 
-      if(correctDateFormat === booking.date){
+      if(correctDateFormat === booking.date){  
+        
 
-        if((booking.time === "18:00") && listOfBookingsForSpecificDay.firstTimeSlot.tables <7){
+        if(booking.time === "18:00") {
           listOfBookingsForSpecificDay.firstTimeSlot.tables++;
-          setFullBookedEarly(true);
-        } 
 
-        if((booking.time === "18:00") && listOfBookingsForSpecificDay.firstTimeSlot.tables >6){
-          listOfBookingsForSpecificDay.firstTimeSlot.tables = listOfBookingsForSpecificDay.firstTimeSlot.tables;
-          setFullBookedEarly(false);
-        } 
+          if((booking.time === "18:00") && listOfBookingsForSpecificDay.firstTimeSlot.tables >6){
+            //listOfBookingsForSpecificDay.firstTimeSlot.tables = listOfBookingsForSpecificDay.firstTimeSlot.tables;
+            setFullBookedEarly(true);
+          } 
+        }
+
+        if(booking.time === "21:00") {
+        listOfBookingsForSpecificDay.secondTimeSlot.tables++;
+
+          if((booking.time === "21:00") && listOfBookingsForSpecificDay.secondTimeSlot.tables >6){
+            setFullBookedLate(true);
+          }
+        }
+
+
+
+
+        // if((booking.time === "18:00") && listOfBookingsForSpecificDay.firstTimeSlot.tables <7){
+        //   setFullBookedEarly(false);
+        // }
 
         // if((booking.time === "21:00") && listOfBookingsForSpecificDay.secondTimeSlot.tables <7){
         //     listOfBookingsForSpecificDay.secondTimeSlot.tables++;
         //     setFullBookedLate(true)
         // } 
-        // if((booking.time === "21:00") && listOfBookingsForSpecificDay.secondTimeSlot.tables >=7){
-        //   setFullBookedLate(false);
-        // }
+
 
       }
 
       console.log(listOfBookingsForSpecificDay.firstTimeSlot.tables);
+
+
+
+      console.log(booking.time);
 
       console.log(correctDateFormat+":" +`\n`+listOfBookingsForSpecificDay.firstTimeSlot.dinnerTime +" " +listOfBookingsForSpecificDay.firstTimeSlot.tables +`\n`
                   +listOfBookingsForSpecificDay.secondTimeSlot.dinnerTime +" " +listOfBookingsForSpecificDay.secondTimeSlot.tables);
 
       setBookedTables(listOfBookingsForSpecificDay);
   });
+
+  console.log(fullBookedEarly);
 
   setBooking( {...booking, date: correctDateFormat} );
 
@@ -164,6 +186,14 @@ const hideSectionCalendar = () => {
 
 const displaySectionCalendar = () => {
   setIsVisibleCalendar(false);
+}
+
+const hideSectionTime = () => {
+  setIsVisibleCalendar(true);
+}
+
+const displaySectionTime = () => {
+  setIsVisibleTime(false);
 }
 
 const displayAvailableTimeSlot = (listOfTablesBooked: IBookedTables) => {
@@ -208,7 +238,8 @@ const confirmBookingClick = () => {
           <Seperator></Seperator>
           {/* <div>{date}</div> */}
           {/* <div>{JSON.stringify(booking)}</div> */}
-          <DinnerWrapper onChange={setFullBookedEarly} fullBookedEarly={fullBookedEarly} time={dinnerTime} onClick={handleTimeClick} ></DinnerWrapper>
+          <DinnerWrapper fullBookedEarly={fullBookedEarly} fullBookedLate={fullBookedLate} visibleState={isVisibleTime} displaySection={displaySectionTime} time={booking.time} onClick={handleTimeClick} ></DinnerWrapper>
+          {/* <DinnerWrapper onChange={setFullBookedEarly} fullBookedEarly={fullBookedEarly} time={dinnerTime} onClick={handleTimeClick} ></DinnerWrapper> */}
           {/* <ConfirmBookingWrapper></ConfirmBookingWrapper> */}
           {/* <NextFormButtonWrapper></NextFormButtonWrapper> */}
 

@@ -3,10 +3,9 @@ import { H3 } from "./H3";
 
 
 export const DinnerSlots = styled.div`
-    margin: 40px auto;
+    margin: 0px auto;
     width: 600px;
-    height: 60px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     //display: none;
 `;
