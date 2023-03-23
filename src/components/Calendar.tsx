@@ -21,8 +21,6 @@ import { CalendarWrapper } from "./styled/CalendarWrapper";
 interface ICalendarProps {
     value: Date;
     onChange: (value: Date) => void;
-    //selected: boolean;
-    // setSelectedDate(): void;
     bookedTables: IBookedTables;
     isToggled: boolean;
     onClick: (index: number) => void; 
@@ -35,10 +33,6 @@ export const Calendar = (props: ICalendarProps) => {
     const startDate = startOfMonth(props.value);    //Start day of month
     const endDate = endOfMonth(props.value);    //EndDate of month
     const numberofDays = differenceInDays(endDate, startDate) +1;   //Total days of the month
-
-    // const dateIsh = setDate(props);
-
-    // console.log(props.onChange(props.value));
 
     //Cell fillers for start and end of month
     const prefixDays = startDate.getDay();  
@@ -104,14 +98,10 @@ export const Calendar = (props: ICalendarProps) => {
                     <RightButton onClick={changeToNextMonth}>right</RightButton>
                 </CalendarHeader>
                 <CalendarGrid>
-                    {/* {daysOfWeek.map( (day) => (
-                        <Cell key={day}>{day}</Cell>
-                    ) )} */}
                     {daysOfWeekHtml}
                     {prefixDaysOfMonth}
                     {daysOfMonthHTML}
                     {suffixDaysOfMonth}
-                    {/* {Array.from({length: numberofDays}).map( () => ())} */}
                 </CalendarGrid>
             </CalendarWrapper>
             <CalendarSelected>

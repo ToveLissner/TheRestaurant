@@ -5,13 +5,12 @@ import { Outlet } from 'react-router-dom';
 import { Calendar } from '../components/Calendar';
 import { Guests } from '../components/Guests';
 import { listOfGuests } from "../consts/guests";
-import { FirstFormSelections } from '../components/FirstFormSelections';
+//import { FirstFormSelections } from '../components/FirstFormSelections';
 import { DinnerWrapper } from '../components/DinnerWrapper';
 import { ConfirmBookingWrapper } from '../components/ConfirmBookingWrapper';
 import { IBooking } from '../models/IBooking';
 import { setDate, format } from 'date-fns';
 import { CustomerInputWrapper } from '../components/CustomerInputWrapper';
-import { NextFormButtonWrapper } from '../components/NextFormButtonWrapper';
 import { IBookedTables } from '../models/IBookedTables';
 import { Seperator } from '../components/styled/Seperator';
 import { H2 } from '../components/styled/H2';
@@ -24,7 +23,7 @@ function App() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [numberOfGuests, setNumberOfGuests] = useState(0);
   const [selectedDate, setSelectedDate] = useState("");
-
+  const [showModal, setShowModal] = useState(false);
   const [isVisibleGuest, setIsVisibleGuest] = useState(false);
   const [isVisibleCalendar, setIsVisibleCalendar] = useState(false);
   const [isVisibleTime, setIsVisibleTime] = useState(false);
@@ -41,7 +40,6 @@ function App() {
   });
   const[isToggled, setIsToggled] = useState(false); 
   const [dinnerTime, setDinnerTime] = useState(""); 
-  //const [clickedSubmit, setClickedSubmit] = useState("false");
   const [fullBookedEarly, setFullBookedEarly] = useState(false);
   const [fullBookedLate, setFullBookedLate] = useState(false);
   const [booking, setBooking] = useState<IBooking>({
@@ -90,14 +88,11 @@ const handleClickDate = async (index: number) => {
 
   hideSectionCalendar();
 
+  setShowModal(true);
+
  const correctDateFormat = format(date, 'yyyy-MM-dd');
 
 setSelectedDate(correctDateFormat);
-
-//const funka = setSelectedDate(correctDateFormat); 
-
-
-  // setIsSelected(!isSelected);
 
   let bookingsFromApi: IBooking[] = await getBookings();
                   
@@ -124,7 +119,6 @@ setSelectedDate(correctDateFormat);
           listOfBookingsForSpecificDay.firstTimeSlot.tables++;
 
           if((booking.time === "18:00") && listOfBookingsForSpecificDay.firstTimeSlot.tables >6){
-            //listOfBookingsForSpecificDay.firstTimeSlot.tables = listOfBookingsForSpecificDay.firstTimeSlot.tables;
             setFullBookedEarly(true);
           } 
         }
@@ -137,43 +131,12 @@ setSelectedDate(correctDateFormat);
           }
         }
 
-
-
-
-        // if((booking.time === "18:00") && listOfBookingsForSpecificDay.firstTimeSlot.tables <7){
-        //   setFullBookedEarly(false);
-        // }
-
-        // if((booking.time === "21:00") && listOfBookingsForSpecificDay.secondTimeSlot.tables <7){
-        //     listOfBookingsForSpecificDay.secondTimeSlot.tables++;
-        //     setFullBookedLate(true)
-        // } 
-
-
       }
-
-      console.log(listOfBookingsForSpecificDay.firstTimeSlot.tables);
-
-
-
-      console.log(booking.time);
-
-      console.log(correctDateFormat+":" +`\n`+listOfBookingsForSpecificDay.firstTimeSlot.dinnerTime +" " +listOfBookingsForSpecificDay.firstTimeSlot.tables +`\n`
-                  +listOfBookingsForSpecificDay.secondTimeSlot.dinnerTime +" " +listOfBookingsForSpecificDay.secondTimeSlot.tables);
 
       setBookedTables(listOfBookingsForSpecificDay);
   });
 
-  console.log(fullBookedEarly);
-
   setBooking( {...booking, date: correctDateFormat} );
-
-  //const tablesBookedForCurrentDate = listOfBookingsForSpecificDay.firstTimeSlot.dinnerTime+" "+listOfBookingsForSpecificDay.secondTimeSlot.tables +`\n`+listOfBookingsForSpecificDay[1].dinnerTime +" " +listOfBookingsForSpecificDay[1].tables;
-
-  //console.log(listOfBookingsForSpecificDay);
-  //const updatedBookedTables = setBookedTables(listOfBookingsForSpecificDay);
-
-  //displayAvailableTimeSlot(updatedBookedTables);
 
   const clickDate = date;
 
@@ -196,11 +159,6 @@ const displaySectionTime = () => {
   setIsVisibleTime(false);
 }
 
-const displayAvailableTimeSlot = (listOfTablesBooked: IBookedTables) => {
-  console.log(JSON.stringify(listOfTablesBooked.firstTimeSlot.dinnerTime));
-  console.log(JSON.stringify(listOfTablesBooked.secondTimeSlot.tables));
-}
-
 const handleTimeClick = (diningTime: string) => {
   
   setBooking({...booking, time: diningTime})
@@ -212,17 +170,12 @@ const handleCustomerInputChange = (e: ChangeEvent<HTMLInputElement>) => {
 
 const guestValidation = () => {
   const guestsNumbers = setNumberOfGuests(booking.numberOfGuests);
-
-  console.log(setNumberOfGuests(booking.numberOfGuests));
-
 }
 
 const confirmBookingClick = () => {
   guestValidation();
   createBooking(booking);
 }
-
-//console.log(fullBookedEarly);
 
   return (
     <div>
@@ -236,16 +189,15 @@ const confirmBookingClick = () => {
           <Seperator></Seperator>
           <Calendar isToggled={false} bookedTables={bookedTables} visibleState={isVisibleCalendar} value={currentDate} date={selectedDate} displaySection={displaySectionCalendar} onChange={setCurrentDate} onClick={handleClickDate}></Calendar>
           <Seperator></Seperator>
-          {/* <div>{date}</div> */}
           {/* <div>{JSON.stringify(booking)}</div> */}
-          <DinnerWrapper fullBookedEarly={fullBookedEarly} fullBookedLate={fullBookedLate} visibleState={isVisibleTime} displaySection={displaySectionTime} time={booking.time} onClick={handleTimeClick} ></DinnerWrapper>
+          {showModal ?  
+            <DinnerWrapper fullBookedEarly={fullBookedEarly} fullBookedLate={fullBookedLate} visibleState={isVisibleTime} displaySection={displaySectionTime} time={booking.time} onClick={handleTimeClick} ></DinnerWrapper>
+            : <></>}
           {/* <DinnerWrapper onChange={setFullBookedEarly} fullBookedEarly={fullBookedEarly} time={dinnerTime} onClick={handleTimeClick} ></DinnerWrapper> */}
           {/* <ConfirmBookingWrapper></ConfirmBookingWrapper> */}
           {/* <NextFormButtonWrapper></NextFormButtonWrapper> */}
 
           <CustomerInputWrapper name={booking.customer.name} lastname={booking.customer.lastname} email={booking.customer.email} phone={booking.customer.phone} onChange={handleCustomerInputChange} onClick={confirmBookingClick}></CustomerInputWrapper>
-
-          {/* <ConfirmBookingWrapper onClick={confirmBookingClick}></ConfirmBookingWrapper> */}
       </main>
     </div>  
   );

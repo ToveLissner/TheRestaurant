@@ -7,5 +7,4 @@ export const DinnerSlots = styled.div`
     width: 600px;
     display: flex;
     flex-direction: column;
-    //display: none;
 `;

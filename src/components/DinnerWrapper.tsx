@@ -32,7 +32,7 @@ export const DinnerWrapper = (props: IDinnerWrapperProps) => {
             </DinnerButtonWrapper>
             
             <CalendarSelected>
-                <H4>Valt datum: {props.time}</H4>
+                <H4>Vald tid: {props.time}</H4>
                 <ChangeH4 onClick={props.displaySection}>Ändra</ChangeH4>
             </CalendarSelected>
         </DinnerSlots> 
