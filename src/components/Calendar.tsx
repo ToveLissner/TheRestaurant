@@ -3,7 +3,7 @@ import { CalendarDiv } from "./styled/CalendarDiv";
 import { CalendarGrid } from "./styled/CalendarGrid";
 import { CalendarHeader } from "./styled/CalendarHeader";
 import { CalendarMonth } from "./styled/CalendarMonth";
-import { H3 } from "./styled/H3";
+import { H3, SectionTitle } from "./styled/H3";
 import { LeftButton } from "./styled/LeftButton";
 import { RightButton } from "./styled/RightButton";
 import { Cell, DateCell, PrefixCell, SuffixCell } from "./styled/Cell";
@@ -15,25 +15,24 @@ import { getBookings } from "../services/restaurantService";
 import { IBooking } from "../models/IBooking";
 import { useState } from "react";
 import { IBookedTables } from "../models/IBookedTables";
+import { ChangeH4, H4 } from "./styled/H4";
+import { CalendarWrapper } from "./styled/CalendarWrapper";
 
 interface ICalendarProps {
     value: Date;
     onChange: (value: Date) => void;
-    //selected: boolean;
-    // setSelectedDate(): void;
     bookedTables: IBookedTables;
     isToggled: boolean;
     onClick: (index: number) => void; 
+    date: string;
+    visibleState: boolean;
+    displaySection: () => void;
 }
 
 export const Calendar = (props: ICalendarProps) => {
     const startDate = startOfMonth(props.value);    //Start day of month
     const endDate = endOfMonth(props.value);    //EndDate of month
     const numberofDays = differenceInDays(endDate, startDate) +1;   //Total days of the month
-
-    // const dateIsh = setDate(props);
-
-    // console.log(props.onChange(props.value));
 
     //Cell fillers for start and end of month
     const prefixDays = startDate.getDay();  
@@ -88,28 +87,26 @@ export const Calendar = (props: ICalendarProps) => {
         return (
             <SuffixCell key={index}></SuffixCell>
         )});
-    
+
     return (
         <CalendarDiv>
-            <H3>Calendar</H3>
-            <CalendarHeader>
-                <LeftButton onClick={changeToPrevMonth}>left</LeftButton>
-                <CalendarMonth>{format(props.value, "LLLL yyyy")}</CalendarMonth>
-                <RightButton onClick={changeToNextMonth}>right</RightButton>
-            </CalendarHeader>
-            <CalendarGrid>
-                {/* {daysOfWeek.map( (day) => (
-                    <Cell key={day}>{day}</Cell>
-                ) )} */}
-                {daysOfWeekHtml}
-                {prefixDaysOfMonth}
-                {daysOfMonthHTML}
-                {suffixDaysOfMonth}
-                {/* {Array.from({length: numberofDays}).map( () => ())} */}
-            </CalendarGrid>
+            <SectionTitle selected={props.visibleState}>Calendar</SectionTitle>
+            <CalendarWrapper selected={props.visibleState}>
+                <CalendarHeader>
+                    <LeftButton onClick={changeToPrevMonth}>left</LeftButton>
+                    <CalendarMonth>{format(props.value, "LLLL yyyy")}</CalendarMonth>
+                    <RightButton onClick={changeToNextMonth}>right</RightButton>
+                </CalendarHeader>
+                <CalendarGrid>
+                    {daysOfWeekHtml}
+                    {prefixDaysOfMonth}
+                    {daysOfMonthHTML}
+                    {suffixDaysOfMonth}
+                </CalendarGrid>
+            </CalendarWrapper>
             <CalendarSelected>
-                {/* <H3>Valt datum: {format(props.value, "dd LLLL yyyy")}</H3> */}
-                {/* <H3 >{printOutChosenDay}</H3> */}
+                <H4>Valt datum: {props.date}</H4>
+                <ChangeH4 onClick={props.displaySection}>Ändra</ChangeH4>
             </CalendarSelected>
         </CalendarDiv>
     );

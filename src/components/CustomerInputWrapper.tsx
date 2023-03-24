@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
-import { errorInputMessages } from "../consts/error";
-import { ConfirmBookingWrapper } from "./ConfirmBookingWrapper";
-import { ErrorMessage } from "./ErrorMessage";
+//import { errorInputMessages } from "../consts/error";
+//import { ConfirmBookingWrapper } from "./ConfirmBookingWrapper";
+//import { ErrorMessage } from "./ErrorMessage";
 import { CheckForBookingButton } from "./styled/Buttons";
 import { CheckForGDPR } from "./styled/CheckForGDPR";
 import { ConfirmBookingButton } from "./styled/ConfirmBookingButton";
@@ -34,7 +34,7 @@ export const CustomerInputWrapper = (props: ICustomerInputWrapperProps) => {
 
         let setIfValid;
 
-        if(/[!@#$%^&*(),.?":{}|<>]/g.test(props.name) || !/^[A-Z]/.test(props.name) || /\d+/g.test(props.name)) {
+        if(/[!@#$%^&*(),.?":{}|<>]/g.test(props.name) || /\d+/g.test(props.name)) {
             setNameError("Förnamnet innehåller felaktiga tecken");
             setIfValid = false;
         } else {
@@ -49,7 +49,7 @@ export const CustomerInputWrapper = (props: ICustomerInputWrapperProps) => {
 
         let setIfValid;
 
-        if(/[!@#$%^&*(),.?":{}|<>]/g.test(props.lastname) || !/^[A-Z]/.test(props.lastname) || /\d+/g.test(props.lastname)) {
+        if(/[!@#$%^&*(),.?":{}|<>]/g.test(props.lastname)  || /\d+/g.test(props.lastname)) {
             setLastnameError("Efternamnet innehåller felaktiga tecken");
             setIfValid = false;
         } else {
@@ -66,10 +66,9 @@ export const CustomerInputWrapper = (props: ICustomerInputWrapperProps) => {
         let setIfValid; 
 
         if( regEx.test(props.email)) {
-            setEmailError("Email is Correct ");
             setIfValid = true;
         } else if( !regEx.test(props.email) && props.email !=""){
-            setEmailError("Email is NOT correct ");
+            setEmailError("Epostadressen du har angivit är inkorrekt.");
             setIfValid = false;
         } else {
             setEmailError("");
@@ -84,7 +83,7 @@ export const CustomerInputWrapper = (props: ICustomerInputWrapperProps) => {
         let setIfValid; 
 
         if(!regEx.test(props.phone)) {
-            setPhoneError("Phonenumber is wrooong!");
+            setPhoneError("Telefonnumret får endast innehålla siffor!");
             setIfValid = false;
         } else {
             setPhoneError("");
@@ -106,18 +105,14 @@ export const CustomerInputWrapper = (props: ICustomerInputWrapperProps) => {
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(props.email);
         nameValidation();
         lastnameValidation();
         emailValidation(); 
         phoneNumberValidation();
         checkValidations();
-        //console.log(checkValue());
     }
 
     return(
-
-        //<input placeholder="Förnamn" value={booking.customer.name} onChange={handleChange} name="customer.name"/>
 
         <Container>
             <form onSubmit={handleSubmit}>
@@ -158,8 +153,6 @@ export const CustomerInputWrapper = (props: ICustomerInputWrapperProps) => {
                 </InputLabel>
                 <Input placeholder="Telefonnummer" value={props.phone} onChange={props.onChange} name="phone" required/>                
             </InputContainer>
-            {/* <ConfirmBookingWrapper onClick={confirmBookingClick}></ConfirmBookingWrapper> */}
-
             <CheckForGDPR>
             <input type="checkbox" name="" id="" required/>
             <LabelGDPR>Hur vi hanterar era personuppgifter(GDPR)</LabelGDPR>

@@ -1,15 +1,17 @@
 import styled from "styled-components";
 import { device } from "./Breakpoints";
 
-export const CalendarGrid = styled.div`
-    display: grid;
-    grid-template-columns: repeat(7, minmax(0, 1fr));
-    justify-content: center;
+export const CalendarParagraphStyled = styled.div`
+    margin: 0 auto 20px;
+    width: 100%;
     text-align: center;
-    font-size: 0.6rem;
+    line-height: 1.2rem;
+    color: #545454;
+    font-size: 0.9rem; 
 
     @media ${device.tablet} {
         width: 600px;
         font-size: 1rem;
+        line-height: 1.4rem;
     }
 `;
