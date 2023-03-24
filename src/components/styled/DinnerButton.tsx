@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "./Breakpoints";
 
 interface IDinnerButtonProps {
     fullBookedEarly?: boolean;
@@ -9,12 +10,16 @@ interface IDinnerButtonProps {
 export const DinnerButton = styled.button`
     width: calc(50% - 5px);
     background-color: #171926;
-    padding: 25px 0px 25px 0px;
+    padding: 20px 0px 20px 0px;
     color: #fff;
-    font-size: 1em;
     font-weight: 600;
     border: none;
     cursor: pointer;
+
+    @media ${device.tablet} {
+        padding: 25px 0px 25px 0px;
+        font-size: 1em;
+    }
 `;
 
 export const DinnerButtonEarly = styled(DinnerButton)`

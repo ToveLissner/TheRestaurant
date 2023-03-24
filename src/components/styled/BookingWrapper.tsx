@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import { device } from "./Breakpoints";
-export const CalendarDiv = styled.div`
-    margin: 0 auto;
+
+export const BookingWrapper = styled.div`
+    margin: 50px auto;
+    width: 90%;
     height: auto;
 
     @media ${device.tablet} {
-        width: 100%;
-}
+        width: 600px;
+    }
 `;

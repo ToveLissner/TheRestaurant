@@ -4,7 +4,7 @@ import { H3 } from "./H3";
 
 export const DinnerSlots = styled.div`
     margin: 0px auto;
-    width: 600px;
+    width: 100%;
     display: flex;
     flex-direction: column;
 `;

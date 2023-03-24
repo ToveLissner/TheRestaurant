@@ -17,6 +17,8 @@ import { H2 } from '../components/styled/H2';
 import { TestContext, testOfContext } from '../context/BookingContext';
 import { CalendarParagraph } from '../components/CalendarParagraph';
 import { CalendarParagraphStyled } from '../components/styled/CalendarParagraphStyled';
+import { BookingWrapper } from '../components/styled/BookingWrapper';
+
 
 
 function App() {
@@ -178,8 +180,7 @@ const confirmBookingClick = () => {
 }
 
   return (
-    <div>
-      <main>
+    <BookingWrapper>
           <H2>Boka Bord</H2>
           <CalendarParagraphStyled>
             <CalendarParagraph/>
@@ -198,8 +199,7 @@ const confirmBookingClick = () => {
           {/* <NextFormButtonWrapper></NextFormButtonWrapper> */}
 
           <CustomerInputWrapper name={booking.customer.name} lastname={booking.customer.lastname} email={booking.customer.email} phone={booking.customer.phone} onChange={handleCustomerInputChange} onClick={confirmBookingClick}></CustomerInputWrapper>
-      </main>
-    </div>  
+    </BookingWrapper>  
   );
 
 }

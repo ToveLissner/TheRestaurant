@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
-import { errorInputMessages } from "../consts/error";
-import { ConfirmBookingWrapper } from "./ConfirmBookingWrapper";
-import { ErrorMessage } from "./ErrorMessage";
+//import { errorInputMessages } from "../consts/error";
+//import { ConfirmBookingWrapper } from "./ConfirmBookingWrapper";
+//import { ErrorMessage } from "./ErrorMessage";
 import { CheckForBookingButton } from "./styled/Buttons";
 import { CheckForGDPR } from "./styled/CheckForGDPR";
 import { ConfirmBookingButton } from "./styled/ConfirmBookingButton";
