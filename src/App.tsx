@@ -19,11 +19,11 @@ import Footer from "./components/styled/Footer/Footer";
 function App() {
 	return (
 		<div>
-			{/* <Header /> */}
+			<Header />
 			<main>
 				<Outlet />
 			</main>
-			{/* <Footer /> */}
+			<Footer />
 		</div>
 	);
 }

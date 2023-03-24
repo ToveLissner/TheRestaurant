@@ -18,6 +18,7 @@ export const StyledNavContainer = styled.article`
 	top: 0;
 	left: 0;
 	right: 0;
+	z-index: 10;
 	transition: ease all 0.5s;
 
 	@media ${device.tablet}, ${device.desktop} {

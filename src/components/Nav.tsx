@@ -5,6 +5,7 @@ import { useState } from "react";
 import { StyledNavContainer } from "./styled/Header/Menu/Menu.styled";
 export const Nav = () => {
 	const [open, setOpen] = useState(false);
+
 	return (
 		<StyledNavContainer>
 			<Burger open={open} setOpen={setOpen} />

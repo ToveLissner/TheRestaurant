@@ -11,13 +11,10 @@ export default function Home() {
 	return (
 		<ThemeProvider theme={theme}>
 			<GlobalStyles />
-
 			<StyledHeroImage>
-				<Header />
 				<Title />
 			</StyledHeroImage>
 			<Main />
-			<Footer />
 		</ThemeProvider>
 	);
 }
