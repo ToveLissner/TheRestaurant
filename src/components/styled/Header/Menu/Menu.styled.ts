@@ -7,22 +7,28 @@ interface Props {
 	open: boolean;
 }
 
+interface IStyledNavContainerProps {
+	scrollNav: boolean;
+}
+
 export const StyledNavContainer = styled.article`
 	display: flex;
 	flex-direction: row;
 	width: 100%;
 	justify-content: space-between;
-	padding: 30px 15px 30px 15px;
+	padding: ${ (props: IStyledNavContainerProps) => 
+		props.scrollNav ? "15px 15px 15px 15px" : "30px 15px 30px 15px"};
 	align-items: center;
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
+	background-color: ${ (props: IStyledNavContainerProps) => 
+		props.scrollNav ? `${theme.primaryNavy}` : "transparent"};
 	z-index: 10;
 	transition: ease all 0.5s;
 
 	@media ${device.tablet}, ${device.desktop} {
-		padding: 30px 30px 30px 30px;
 		transition: ease all 0.5s;
 	}
 `;

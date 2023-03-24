@@ -5,6 +5,7 @@ export const StyledBokaBtn = styled.article`
   width: min-content;
   text-align: center;
   padding: 10px 20px;
+  margin-right: 30px;
   font-weight: bold;
   color: ${theme.primaryWhite};
   background: transparent;
