@@ -6,5 +6,5 @@ interface ICalendarWrapperProps {
 
 export const CalendarWrapper = styled.div`
         display: ${ (props: ICalendarWrapperProps) => 
-        props.selected ? "none" : "visible"};
+            props.selected ? "none" : "visible"};
 `;

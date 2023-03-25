@@ -1,8 +1,8 @@
-import { ChangeEvent, FormEvent, FormEventHandler, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 //import { errorInputMessages } from "../consts/error";
 //import { ConfirmBookingWrapper } from "./ConfirmBookingWrapper";
 //import { ErrorMessage } from "./ErrorMessage";
-import { CheckForBookingButton } from "./styled/Buttons";
+//import { CheckForBookingButton } from "./styled/Buttons";
 import { CheckForGDPR } from "./styled/CheckForGDPR";
 import { ConfirmBookingButton } from "./styled/ConfirmBookingButton";
 import { Container } from "./styled/Container";
@@ -28,7 +28,7 @@ export const CustomerInputWrapper = (props: ICustomerInputWrapperProps) => {
     const [lastnameError, setLastnameError] = useState("");
     const [emailError, setEmailError] = useState("");
     const [phoneError, setPhoneError] = useState("");
-    const [showNoValid, setShowNoValid] = useState(false);
+    //const [showNoValid, setShowNoValid] = useState(false);
 
     const nameValidation = () => {
 
@@ -67,7 +67,7 @@ export const CustomerInputWrapper = (props: ICustomerInputWrapperProps) => {
 
         if( regEx.test(props.email)) {
             setIfValid = true;
-        } else if( !regEx.test(props.email) && props.email !=""){
+        } else if( !regEx.test(props.email) && props.email !==""){
             setEmailError("Epostadressen du har angivit är inkorrekt.");
             setIfValid = false;
         } else {

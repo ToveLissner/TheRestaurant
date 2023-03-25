@@ -1,17 +1,11 @@
 import React, { ChangeEvent, useState } from "react";
-import logo from "./logo.svg";
 import {
 	createBooking,
 	getBookings,
-	getRestaurant,
 } from "../services/restaurantService";
-import { Outlet } from "react-router-dom";
 import { Calendar } from "../components/Calendar";
 import { Guests } from "../components/Guests";
-import { listOfGuests } from "../consts/guests";
-//import { FirstFormSelections } from '../components/FirstFormSelections';
 import { DinnerWrapper } from '../components/DinnerWrapper';
-import { ConfirmBookingWrapper } from '../components/ConfirmBookingWrapper';
 import { IBooking } from '../models/IBooking';
 import { setDate, format } from 'date-fns';
 import { CustomerInputWrapper } from '../components/CustomerInputWrapper';
@@ -22,6 +16,7 @@ import { TestContext, testOfContext } from '../context/BookingContext';
 import { CalendarParagraph } from '../components/CalendarParagraph';
 import { CalendarParagraphStyled } from '../components/styled/CalendarParagraphStyled';
 import { BookingWrapper } from '../components/styled/BookingWrapper';
+import { ErrorStyling } from "../components/styled/ErrorStyling";
 
 
 
@@ -33,7 +28,9 @@ function App() {
   const [isVisibleGuest, setIsVisibleGuest] = useState(false);
   const [isVisibleCalendar, setIsVisibleCalendar] = useState(false);
   const [isVisibleTime, setIsVisibleTime] = useState(false);
-
+  const [guestIsSelected, setGuestIsSelected] = useState(false);
+  const [timeIsSelected, setTimeIsSelected] = useState(false);
+  const [calendarIsSelected, setCalendarIsSelected] = useState(false);
   const [bookedTables, setBookedTables] = useState<IBookedTables>({
     firstTimeSlot: {
       dinnerTime: "", 
@@ -44,8 +41,6 @@ function App() {
       tables: 0
     }
   });
-  const[isToggled, setIsToggled] = useState(false); 
-  const [dinnerTime, setDinnerTime] = useState(""); 
   const [fullBookedEarly, setFullBookedEarly] = useState(false);
   const [fullBookedLate, setFullBookedLate] = useState(false);
   const [booking, setBooking] = useState<IBooking>({
@@ -63,14 +58,8 @@ function App() {
 
   <TestContext.Provider value={testOfContext}></TestContext.Provider>
 
-  const handleClick = () => {
-    getBookings();
-  }
-
   const guestHandleClick = (index: number) =>{
-    let guests = [...listOfGuests];
-    let selection = guests[guests.findIndex( (g) => g === index)];
-
+    setGuestIsSelected(true);
     hideSectionGuest();
     setBooking( {...booking, numberOfGuests: index});
 }
@@ -83,7 +72,6 @@ const displaySectionGuest = () => {
   setIsVisibleGuest(false);
 }
 
-	const getSelectedCell = (index: number) => {};
 
 let listOfBookingsForSpecificDay: IBookedTables;
 
@@ -91,6 +79,8 @@ const handleClickDate = async (index: number) => {
   const date = setDate(currentDate, index);
 
   hideSectionCalendar();
+
+  setCalendarIsSelected(true);
 
   setShowModal(true);
 
@@ -153,10 +143,7 @@ const hideSectionCalendar = () => {
 
 const displaySectionCalendar = () => {
   setIsVisibleCalendar(false);
-}
-
-const hideSectionTime = () => {
-  setIsVisibleCalendar(true);
+  //setBooking({ ...booking, date: "", time: "" });
 }
 
 const displaySectionTime = () => {
@@ -165,6 +152,7 @@ const displaySectionTime = () => {
 
 	const handleTimeClick = (diningTime: string) => {
 		setBooking({ ...booking, time: diningTime });
+    setTimeIsSelected(true);
 	};
 
 	const handleCustomerInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -179,8 +167,13 @@ const guestValidation = () => {
 }
 
 	const confirmBookingClick = () => {
-		guestValidation();
-		createBooking(booking);
+    if(!(guestIsSelected)) {
+      
+    }
+
+    if( (guestIsSelected && calendarIsSelected && timeIsSelected) ) {
+      createBooking(booking);
+    } 
 	};
 
   return (
@@ -191,6 +184,7 @@ const guestValidation = () => {
           </CalendarParagraphStyled>
           <Seperator></Seperator>
           <Guests guestValue={booking.numberOfGuests} visibleState={isVisibleGuest} displaySection={displaySectionGuest} onChange={setNumberOfGuests} onClick={guestHandleClick} ></Guests>
+          {/* {guestIsSelected ? <></> : <ErrorStyling>Du har inte valt antal gäster. </ErrorStyling>} */}
           <Seperator></Seperator>
           <Calendar isToggled={false} bookedTables={bookedTables} visibleState={isVisibleCalendar} value={currentDate} date={selectedDate} displaySection={displaySectionCalendar} onChange={setCurrentDate} onClick={handleClickDate}></Calendar>
           <Seperator></Seperator>
@@ -198,9 +192,6 @@ const guestValidation = () => {
           {showModal ?  
             <DinnerWrapper fullBookedEarly={fullBookedEarly} fullBookedLate={fullBookedLate} visibleState={isVisibleTime} displaySection={displaySectionTime} time={booking.time} onClick={handleTimeClick} ></DinnerWrapper>
             : <></>}
-          {/* <DinnerWrapper onChange={setFullBookedEarly} fullBookedEarly={fullBookedEarly} time={dinnerTime} onClick={handleTimeClick} ></DinnerWrapper> */}
-          {/* <ConfirmBookingWrapper></ConfirmBookingWrapper> */}
-          {/* <NextFormButtonWrapper></NextFormButtonWrapper> */}
 
           <CustomerInputWrapper name={booking.customer.name} lastname={booking.customer.lastname} email={booking.customer.email} phone={booking.customer.phone} onChange={handleCustomerInputChange} onClick={confirmBookingClick}></CustomerInputWrapper>
     </BookingWrapper>  

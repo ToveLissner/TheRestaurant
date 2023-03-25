@@ -70,8 +70,10 @@ export const Calendar = (props: ICalendarProps) => {
         const dateCounts = index + 1;
         const isCurrentDate = dateCounts === props.value.getDate();
 
+        let selectedDate = new Date(props.date).getDate();
+
         return (
-            <DateCell selected={false} onClick={() => props.onClick(dateCounts)} key={dateCounts}>{dateCounts}</DateCell>
+            <DateCell selected={dateCounts === selectedDate} onClick={() => props.onClick(dateCounts)} key={dateCounts}>{dateCounts}</DateCell>
         )});
 
     let arrayOfPrefixDays = Array.from( {length: prefixDays -1});
