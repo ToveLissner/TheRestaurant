@@ -16,9 +16,6 @@ import { TestContext, testOfContext } from '../context/BookingContext';
 import { CalendarParagraph } from '../components/CalendarParagraph';
 import { CalendarParagraphStyled } from '../components/styled/CalendarParagraphStyled';
 import { BookingWrapper } from '../components/styled/BookingWrapper';
-import { ErrorStyling } from "../components/styled/ErrorStyling";
-
-
 
 function App() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -31,6 +28,7 @@ function App() {
   const [guestIsSelected, setGuestIsSelected] = useState(false);
   const [timeIsSelected, setTimeIsSelected] = useState(false);
   const [calendarIsSelected, setCalendarIsSelected] = useState(false);
+  const [confirmedBooking, setConfirmedBooking] = useState(false);
   const [bookedTables, setBookedTables] = useState<IBookedTables>({
     firstTimeSlot: {
       dinnerTime: "", 
@@ -127,7 +125,7 @@ setSelectedDate(correctDateFormat);
 
       }
 
-      setBookedTables(listOfBookingsForSpecificDay);
+      return setBookedTables(listOfBookingsForSpecificDay);
   });
 
   setBooking( {...booking, date: correctDateFormat} );
@@ -162,19 +160,26 @@ const displaySectionTime = () => {
 		});
 	};
 
-const guestValidation = () => {
-  const guestsNumbers = setNumberOfGuests(booking.numberOfGuests);
+const customInputIsValid = () => {
+  setConfirmedBooking(true);
 }
 
-	const confirmBookingClick = () => {
-    if(!(guestIsSelected)) {
-      
-    }
+const messageForCompleteBooked = () => {
+  if(confirmedBooking) {
+      alert("Din bokning är nu godkänd, Välkommen!");
+  } else {
+    alert("Dina kontaktuppgifter är inte korrekt ifyllda");
+  }
+}
 
-    if( (guestIsSelected && calendarIsSelected && timeIsSelected) ) {
-      createBooking(booking);
-    } 
-	};
+const confirmBookingClick = () => {
+  if( (guestIsSelected && calendarIsSelected && timeIsSelected) ) {
+    createBooking(booking);
+    messageForCompleteBooked();
+  }  else {
+    alert("Bokningsformuläret är inte korrekt ifyllt");
+  }
+};
 
   return (
     <BookingWrapper>
@@ -193,7 +198,7 @@ const guestValidation = () => {
             <DinnerWrapper fullBookedEarly={fullBookedEarly} fullBookedLate={fullBookedLate} visibleState={isVisibleTime} displaySection={displaySectionTime} time={booking.time} onClick={handleTimeClick} ></DinnerWrapper>
             : <></>}
 
-          <CustomerInputWrapper name={booking.customer.name} lastname={booking.customer.lastname} email={booking.customer.email} phone={booking.customer.phone} onChange={handleCustomerInputChange} onClick={confirmBookingClick}></CustomerInputWrapper>
+          <CustomerInputWrapper name={booking.customer.name} lastname={booking.customer.lastname} email={booking.customer.email} phone={booking.customer.phone} customInputIsValid={customInputIsValid} onChange={handleCustomerInputChange} onClick={confirmBookingClick}></CustomerInputWrapper>
     </BookingWrapper>  
   );
 
