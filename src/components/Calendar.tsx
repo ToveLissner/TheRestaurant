@@ -9,11 +9,6 @@ import { RightButton } from "./styled/RightButton";
 import { Cell, DateCell, PrefixCell, SuffixCell } from "./styled/Cell";
 import { add, differenceInDays, endOfMonth, format, startOfMonth, sub } from "date-fns";
 import { CalendarSelected } from "./styled/CalendarSelected";
-import { CalendarGridSuffix } from "./styled/CalendarGridSuffix";
-import { CalendarWeekdays } from "./styled/CalendarWeekdays";
-import { getBookings } from "../services/restaurantService";
-import { IBooking } from "../models/IBooking";
-import { useState } from "react";
 import { IBookedTables } from "../models/IBookedTables";
 import { ChangeH4, H4 } from "./styled/H4";
 import { CalendarWrapper } from "./styled/CalendarWrapper";
@@ -47,28 +42,17 @@ export const Calendar = (props: ICalendarProps) => {
         props.onChange(add(props.value, {months: 1}));
     }
 
-    const showTimeSlots = () => {
-
-    }
-
     //Map through const list of days and create weekday Cells
     let daysOfWeekHtml = daysOfWeek.map( (day) => {
 
         return(
             <Cell className="litetes" key={day}>{day}</Cell>
     )}); 
-
-    
             
     let arrayOfDays = Array.from( {length: numberofDays});
 
-    const checkForDate = () => {
-
-    }
-
     let daysOfMonthHTML = arrayOfDays.map( (day, index) => {
         const dateCounts = index + 1;
-        const isCurrentDate = dateCounts === props.value.getDate();
 
         let selectedDate = new Date(props.date).getDate();
 

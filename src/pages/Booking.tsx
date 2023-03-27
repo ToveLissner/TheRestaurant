@@ -141,7 +141,6 @@ const hideSectionCalendar = () => {
 
 const displaySectionCalendar = () => {
   setIsVisibleCalendar(false);
-  //setBooking({ ...booking, date: "", time: "" });
 }
 
 const displaySectionTime = () => {
@@ -189,7 +188,6 @@ const confirmBookingClick = () => {
           </CalendarParagraphStyled>
           <Seperator></Seperator>
           <Guests guestValue={booking.numberOfGuests} visibleState={isVisibleGuest} displaySection={displaySectionGuest} onChange={setNumberOfGuests} onClick={guestHandleClick} ></Guests>
-          {/* {guestIsSelected ? <></> : <ErrorStyling>Du har inte valt antal gäster. </ErrorStyling>} */}
           <Seperator></Seperator>
           <Calendar isToggled={false} bookedTables={bookedTables} visibleState={isVisibleCalendar} value={currentDate} date={selectedDate} displaySection={displaySectionCalendar} onChange={setCurrentDate} onClick={handleClickDate}></Calendar>
           <Seperator></Seperator>

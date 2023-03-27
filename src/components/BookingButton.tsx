@@ -9,7 +9,7 @@ export const BookingButton = ()=>{
         nine: number; 
         }
         
-        let dinners: IBookingButton = {six: 0, nine: 0};
+    let dinners: IBookingButton = {six: 0, nine: 0};
 
     const [bookingButton, setBookingButton] = useState<IBookingButton>({six: 0, nine: 0})
 

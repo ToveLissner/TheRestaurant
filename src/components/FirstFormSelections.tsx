@@ -11,7 +11,6 @@ export const FirstFormSelections = (props: IFirstFormSelectionsProps) => {
     return(
         <>
             <H3>{props.guests}</H3>
-            {/* <H3>{props.dateValue}</H3> */}
         </>
     );
 }

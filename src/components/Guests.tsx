@@ -1,16 +1,14 @@
 import { numberOfGuests } from "../consts/guests";
-import { testOfContext } from "../context/BookingContext";
-import { Cell, DateCell } from "./styled/Cell";
+import { DateCell } from "./styled/Cell";
 import { GuestDiv } from "./styled/GuestDiv";
 import { GuestNumberGrid } from "./styled/GuestNumberGrid";
 import { GuestSelected } from "./styled/GuestSelected";
-import { SectionTitle, H3 } from "./styled/H3";
+import { SectionTitle } from "./styled/H3";
 import { ChangeH4, H4 } from "./styled/H4";
 
 interface IGuestsProps {
     guestValue: number;
     onChange: (guestValue: number) => void;
-    //selected: boolean;
     onClick: (index: number) => void; 
     visibleState: boolean;
     displaySection: () => void;

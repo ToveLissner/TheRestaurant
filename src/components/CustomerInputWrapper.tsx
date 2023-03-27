@@ -1,8 +1,4 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-//import { errorInputMessages } from "../consts/error";
-//import { ConfirmBookingWrapper } from "./ConfirmBookingWrapper";
-//import { ErrorMessage } from "./ErrorMessage";
-//import { CheckForBookingButton } from "./styled/Buttons";
 import { CheckForGDPR } from "./styled/CheckForGDPR";
 import { ConfirmBookingButton } from "./styled/ConfirmBookingButton";
 import { Container } from "./styled/Container";
@@ -29,7 +25,6 @@ export const CustomerInputWrapper = (props: ICustomerInputWrapperProps) => {
     const [lastnameError, setLastnameError] = useState("");
     const [emailError, setEmailError] = useState("");
     const [phoneError, setPhoneError] = useState("");
-    //const [showNoValid, setShowNoValid] = useState(false);
 
     const nameValidation = () => {
 
@@ -152,7 +147,7 @@ export const CustomerInputWrapper = (props: ICustomerInputWrapperProps) => {
             </InputContainer>
             <CheckForGDPR>
             <input type="checkbox" name="" id="" required/>
-            <LabelGDPR>Hur vi hanterar era personuppgifter(GDPR)</LabelGDPR>
+            <LabelGDPR>Godkänner att vi hanterar och sparar era uppgifter(GDPR)</LabelGDPR>
             </CheckForGDPR>
             <ConfirmBookingButton onClick={ () => {props.onClick()}}><H3>Bekräfta bokning</H3></ConfirmBookingButton>
             </form>
