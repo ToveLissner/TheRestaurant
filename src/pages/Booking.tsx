@@ -16,6 +16,7 @@ import { TestContext, testOfContext } from '../context/BookingContext';
 import { CalendarParagraph } from '../components/CalendarParagraph';
 import { CalendarParagraphStyled } from '../components/styled/CalendarParagraphStyled';
 import { BookingWrapper } from '../components/styled/BookingWrapper';
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -163,9 +164,12 @@ const customInputIsValid = () => {
   setConfirmedBooking(true);
 }
 
+const navigate = useNavigate();
+
 const messageForCompleteBooked = () => {
   if(confirmedBooking) {
       alert("Din bokning är nu godkänd, Välkommen!");
+      navigate("/");
   } else {
     alert("Dina kontaktuppgifter är inte korrekt ifyllda");
   }
