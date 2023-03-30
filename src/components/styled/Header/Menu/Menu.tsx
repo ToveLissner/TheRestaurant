@@ -3,16 +3,17 @@ import { StyledMenuLinks, StyledMenu } from "./Menu.styled";
 
 interface Props {
 	open: boolean;
+	setOpen: (open: boolean) => void;
 }
 
-const Menu: React.FC<Props> = ({ open }) => {
+const Menu: React.FC<Props> = ({ setOpen, open }) => {
 	return (
 		<StyledMenu open={open}>
-			<StyledMenuLinks to="/">Start</StyledMenuLinks>
-			<StyledMenuLinks to="../../booking">Boka</StyledMenuLinks>
-			<StyledMenuLinks to="#">Meny</StyledMenuLinks>
-			<StyledMenuLinks to="../../contact">Kontakt</StyledMenuLinks>
-			<StyledMenuLinks to="../../admin">Admin</StyledMenuLinks>
+			<StyledMenuLinks onClick={() => setOpen(!open)} to="/">Start</StyledMenuLinks>
+			<StyledMenuLinks onClick={() => setOpen(!open)} to="../../booking">Boka</StyledMenuLinks>
+			<StyledMenuLinks onClick={() => setOpen(!open)} to="#">Meny</StyledMenuLinks>
+			<StyledMenuLinks onClick={() => setOpen(!open)} to="../../contact">Kontakt</StyledMenuLinks>
+			<StyledMenuLinks onClick={() => setOpen(!open)} to="../../admin">Admin</StyledMenuLinks>
 		</StyledMenu>
 	);
 };

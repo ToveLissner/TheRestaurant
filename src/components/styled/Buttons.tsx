@@ -1,31 +1,11 @@
 import styled from "styled-components";
-import { DateWrapper } from "./Wrappers";
-import { keyframes } from "styled-components";
 
-export const CheckForBookingButton = styled.button`
-  background-color: green;
-`;
-
-// vit knapp som det går att ändra färg på //
-// <Button bgcolor="green"> </Button> //
-
-interface IButtonProps {
+interface IAdminButtonProps {
   bgcolor: string;
 }
 
-// const pressDownAnimation = keyframes`
-// transform: translate(4px);
-// `;
-
-export const Button = styled.button`
-  color: black;
-  border: 1px solid black;
-  background-color: ${(props: IButtonProps) => props.bgcolor || "yellow"};
-`;
-
 export const AdminButton = styled.button`
   border-radius: 25px;
-  /* box-shadow: #5e5df0 0 10px 20px -10px; */
   box-shadow: #161926 0 10px 20px -10px;
   box-sizing: border-box;
   color: #ffffff;
@@ -42,17 +22,9 @@ export const AdminButton = styled.button`
   padding: 2px 40px;
   width: fit-content;
   border: 0;
-  /* margin-right: 2%; */
   &:active {
     transform: translateY(2px);
   }
-  background-color: ${(props: IButtonProps) => props.bgcolor || "yellow"};
+  background-color: ${(props: IAdminButtonProps) => props.bgcolor || "yellow"};
 `;
 
-
-// arv där vi bara ändrar färgerna // MÅSTE FIXA DENNA
-
-export const SaveButton = styled(Button)`
-  color: red;
-  background-color: ${(props: IButtonProps) => props.bgcolor || "black"};
-`;

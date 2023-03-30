@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-// Vanlig wrapper som skall styla, kom ihåg mobil-first //
-
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -32,7 +30,6 @@ export const SortWrapper = styled.div`
     "Noto Sans", sans-serif;
 `;
 
-//ändra till column för mobile
 export const AdminWrapper = styled.div`
   /* width: 100%; */
   display: flex;
@@ -53,15 +50,4 @@ export const AdminWrapper = styled.div`
     NotoColorEmoji, "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji",
     EmojiSymbols, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue",
     "Noto Sans", sans-serif;
-`;
-
-// Lagt till så den markeras med färg när den klickas på // Behöver kontrolleras //
-
-interface IDateWrapperProps {
-  selected: boolean;
-}
-
-export const DateWrapper = styled.div`
-  background-color: ${(props: IDateWrapperProps) =>
-    props.selected ? "green" : "transparent"};
 `;

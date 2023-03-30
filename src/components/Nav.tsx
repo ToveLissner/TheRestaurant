@@ -23,8 +23,7 @@ export const Nav = () => {
 	return (
 		<StyledNavContainer scrollNav={scrollNav}>
 			<Burger open={open} setOpen={setOpen} />
-			<Menu open={open} />
-
+			<Menu open={open} setOpen={setOpen} />
 			<Boka />
 		</StyledNavContainer>
 	);
