@@ -1,19 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { getRestaurant } from './services/restaurantService';
-import { Outlet } from 'react-router-dom';
+import "./App.css";
+import { Outlet } from "react-router-dom";
+import "./App.css";
+import { Header } from "./components/Header";
+import Footer from "./components/styled/Footer/Footer";
 
-// createRestaurant();
 
 function App() {
-  return (
-    <div>
-      <main>
-        <Outlet></Outlet>
-      </main>
-    </div>
-  );
+
+	return (
+		<div>
+			<Header/>
+			<main>
+				<Outlet />
+			</main>
+			<Footer />
+		</div>
+	);
 }
 
 export default App;
+ 

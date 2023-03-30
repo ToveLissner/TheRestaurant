@@ -1,8 +1,33 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
+import Home from "./pages/Home";
+import Contact from "./pages/Contact";
+import { Admin } from "./components/Admin";
+import Booking from "./pages/Booking";
+import { Outlet } from "react-router-dom";
 
 export const router = createBrowserRouter([
-    {path:"/", element: <App/>, children:[
-        // {path:"/home",element:</Home>, index:true},{path:"/contact",element:</Contact>},{path:"/booking",element:</Booking>}
-    ]}
+	{
+		path: "/",
+		element: <App />,
+		children: [
+			{
+				path: "/",
+				element: <Home />,
+				index: true,
+			},
+			{
+				path: "/contact",
+				element: <Contact />,
+			},
+			{
+				path: "/admin",
+				element: <Admin />,
+			},
+			{
+				path: "/booking",
+				element: <Booking />,
+			},
+		],
+	},
 ]);
